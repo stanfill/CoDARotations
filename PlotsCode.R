@@ -143,7 +143,7 @@ library(plyr)
 
 setwd("U://Thesis//Simulation Code//Results")
 Res<-read.csv("FullFinalResults.csv")[,-c(1)]
-setwd("C:/Users/stanfill/My Dropbox/Rotation matrices/Paper/PointEstimationPaper/submissionv2/Supporting Materials/images")
+setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations/images")
 
 ResFrame<-melt(Res,id=c("nu","n","Dist","Sample"),measure.var=c("HL1Error","ML2Error","ArithError","MedError"))
 colnames(ResFrame)[5:6]<-c("Estimator","Error")
@@ -207,31 +207,31 @@ xmax75<-max(Midn[Midn$nu==.75,c(5,7:8)])
 
 #setwd("U:/Thesis/PointEstimationPaper/images")
 
-ggplot(Midn[Midn$nu==.25,],aes(E.Median,R.Median))+facet_grid(.~Dist)+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
-  coord_equal(ratio=1)+geom_point()+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+ggplot(Midn[Midn$nu==.25,],aes(E.Median,R.Median))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
+  coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
   scale_x_continuous(expression(d[G](bold(S),widetilde(bold(S))[P])),limits=c(0,xmax25))+
   scale_y_continuous(expression(d[G](bold(S),widetilde(bold(S))[G])),limits=c(0,xmax25))
-#ggsave("SMvsSL1Nu25.pdf",width=8,height=3)
+ggsave("SMvsSL1Nu25.pdf",width=8,height=4)
 
-ggplot(Midn[Midn$nu==.75,],aes(E.Median,R.Median))+facet_grid(.~Dist)+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
-  coord_equal(ratio=1)+geom_point()+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+ggplot(Midn[Midn$nu==.75,],aes(E.Median,R.Median))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
+  coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
   scale_x_continuous(expression(d[G](bold(S),widetilde(bold(S))[P])),limits=c(0,xmax75))+
   scale_y_continuous(expression(d[G](bold(S),widetilde(bold(S))[G])),limits=c(0,xmax75))
-#ggsave("SMvsSL1Nu75.pdf",width=8,height=3)
+ggsave("SMvsSL1Nu75.pdf",width=8,height=4)
 
 
-ggplot(Midn[Midn$nu==.25,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
-  coord_equal(ratio=1)+geom_point()+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+ggplot(Midn[Midn$nu==.25,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
+  coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
   scale_x_continuous(expression(d[G](bold(S),widehat(bold(S))[P])),limits=c(0,xmax25))+
   scale_y_continuous(expression(d[G](bold(S),widehat(bold(S))[G])),limits=c(0,xmax25))
-#ggsave("SPvsSL2Nu25.pdf",width=8,height=3)
+ggsave("SPvsSL2Nu25.pdf",width=8,height=4)
 
 
-ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
-  coord_equal(ratio=1)+geom_point()+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
+  coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
   scale_x_continuous(expression(d[G](bold(S),widehat(bold(S))[P])),limits=c(0,xmax75))+
   scale_y_continuous(expression(d[G](bold(S),widehat(bold(S))[G])),limits=c(0,xmax75))
-#ggsave("SPvsSL2Nu75.pdf",width=8,height=3)
+ggsave("SPvsSL2Nu75.pdf",width=8,height=4)
 
 
 #Tables that compute % above/below line and distance between
