@@ -164,13 +164,13 @@ levels(Largen$Dist)<-c("Cayley","matrix~~Fisher","circular-von~~Mises")
 
 #THIS IS FOR github VERSION OF ggplot2
 #setwd("U://Thesis//PointEstimationPaper//images")
-#pdf("N100AllNuBoxes.pdf",width=9)
-qplot(Estimator,Error,geom="boxplot",data=Largen,xlab="",ylab=expression(d[G](bold(S),.)))+
+
+qplot(Estimator,Error,geom="boxplot",data=Largen,xlab="",ylab=expression(d[R](bold(S),.)))+
   geom_hline(xintercept=0,colour="gray50")+
   facet_grid(nu~Dist,scales="free",labeller=label_parsed)+
-  scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[P]),expression(widehat(bold(S))[G]),expression(widetilde(bold(S))[P]),expression(widetilde(bold(S))[G])))+
+  scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[E]),expression(widehat(bold(S))[R]),expression(widetilde(bold(S))[E]),expression(widetilde(bold(S))[R])))+
   theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
-#dev.off()
+#ggsave("N100AllNuBoxes.pdf",width=9)
 
 #Plot nu=.75 as a function of n.  Remove the bad observations that make the plot useless for n=50,100
 Largenu<-ResFrame[ResFrame$nu==.75,]
@@ -186,13 +186,13 @@ Largenu<-Largenu[-beggs,]
 
 Largenu$n<-as.factor(Largenu$n)
 levels(Largenu$n)<-c("n = 10","n = 50","n = 100","n = 300")
-#pdf("Nu75AllNBoxes.pdf",width=9)
-qplot(Estimator,Error,geom="boxplot",data=Largenu,xlab="",ylab=expression(d[G](bold(S),.)))+
+
+qplot(Estimator,Error,geom="boxplot",data=Largenu,xlab="",ylab=expression(d[R](bold(S),.)))+
   facet_grid(n~Dist,scales="free")+
   geom_hline(xintercept=0,colour="gray50")+
-  scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[P]),expression(widehat(bold(S))[G]),expression(widetilde(bold(S))[P]),expression(widetilde(bold(S))[G])))+
+  scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[E]),expression(widehat(bold(S))[R]),expression(widetilde(bold(S))[E]),expression(widetilde(bold(S))[R])))+
   theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
-#dev.off()
+#ggsave("Nu75AllNBoxes.pdf",width=9)
 
 ####
 ##Direct comparisons of Euclid and Riemann for n=100 and the two extreme nu values
@@ -209,29 +209,29 @@ xmax75<-max(Midn[Midn$nu==.75,c(5,7:8)])
 
 ggplot(Midn[Midn$nu==.25,],aes(E.Median,R.Median))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
   coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
-  scale_x_continuous(expression(d[G](bold(S),widetilde(bold(S))[P])),limits=c(0,xmax25))+
-  scale_y_continuous(expression(d[G](bold(S),widetilde(bold(S))[G])),limits=c(0,xmax25))
-ggsave("SMvsSL1Nu25.pdf",width=8,height=4)
+  scale_x_continuous(expression(d[R](bold(S),widetilde(bold(S))[E])),limits=c(0,xmax25))+
+  scale_y_continuous(expression(d[R](bold(S),widetilde(bold(S))[R])),limits=c(0,xmax25))
+#ggsave("SMvsSL1Nu25.pdf",width=8,height=4)
 
 ggplot(Midn[Midn$nu==.75,],aes(E.Median,R.Median))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
   coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
-  scale_x_continuous(expression(d[G](bold(S),widetilde(bold(S))[P])),limits=c(0,xmax75))+
-  scale_y_continuous(expression(d[G](bold(S),widetilde(bold(S))[G])),limits=c(0,xmax75))
-ggsave("SMvsSL1Nu75.pdf",width=8,height=4)
+  scale_x_continuous(expression(d[R](bold(S),widetilde(bold(S))[E])),limits=c(0,xmax75))+
+  scale_y_continuous(expression(d[R](bold(S),widetilde(bold(S))[R])),limits=c(0,xmax75))
+#ggsave("SMvsSL1Nu75.pdf",width=8,height=4)
 
 
 ggplot(Midn[Midn$nu==.25,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
   coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
-  scale_x_continuous(expression(d[G](bold(S),widehat(bold(S))[P])),limits=c(0,xmax25))+
-  scale_y_continuous(expression(d[G](bold(S),widehat(bold(S))[G])),limits=c(0,xmax25))
-ggsave("SPvsSL2Nu25.pdf",width=8,height=4)
+  scale_x_continuous(expression(d[R](bold(S),widehat(bold(S))[E])),limits=c(0,xmax25))+
+  scale_y_continuous(expression(d[R](bold(S),widehat(bold(S))[R])),limits=c(0,xmax25))
+#ggsave("SPvsSL2Nu25.pdf",width=8,height=4)
 
 
 ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point()+geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray50")+
   coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
-  scale_x_continuous(expression(d[G](bold(S),widehat(bold(S))[P])),limits=c(0,xmax75))+
-  scale_y_continuous(expression(d[G](bold(S),widehat(bold(S))[G])),limits=c(0,xmax75))
-ggsave("SPvsSL2Nu75.pdf",width=8,height=4)
+  scale_x_continuous(expression(d[R](bold(S),widehat(bold(S))[E])),limits=c(0,xmax75))+
+  scale_y_continuous(expression(d[R](bold(S),widehat(bold(S))[R])),limits=c(0,xmax75))
+#ggsave("SPvsSL2Nu75.pdf",width=8,height=4)
 
 
 #Tables that compute % above/below line and distance between
