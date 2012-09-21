@@ -8,7 +8,7 @@ A central interest in EBSD data is the identification of so-called {\it grain ma
 
 Figure \ref{fig:eyeballs} shows sphere plots of  data and the estimates for seven randomly chosen locations within a single grain.  Because rotation matrices are orthogonal, each of their columns (and rows) represents elements on the unit sphere. The sphere plots indicate some clustering in the data suggesting the presence of \emph{several} main directions. 
 
-The projected median $\widetilde{\bm S}_P$ is the only estimator that is not affected by this clustering in the sample. $\widetilde{\bm S}_P$ identifies the main direction of the largest group within the sample.
+The projected median $\ProjMedian$ is the only estimator that is not affected by this clustering in the sample. $\ProjMedian$ identifies the main direction of the largest group within the sample.
 
 
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
@@ -26,11 +26,11 @@ The projected median $\widetilde{\bm S}_P$ is the only estimator that is not aff
    \includegraphics[width=.325\textwidth]{images/eyeball-7-1.pdf} 
    \includegraphics[width=.325\textwidth]{images/eyeball-7-2.pdf} 
    \includegraphics[width=.325\textwidth]{images/eyeball-7-3.pdf} 
-   \caption{Sphere plots of EBSD measurements. The sample ($n=98$) is taken from seven locations from within what was thought to be a single grain, but the data suggest the existence of several -- very stable -- main directions, as can be seen by the distinct grouping. The projected median $\widetilde{\bm S}_P$ is located in the center of the largest cluster of points.}
+   \caption{Sphere plots of EBSD measurements. The sample ($n=98$) is taken from seven locations from within what was thought to be a single grain, but the data suggest the existence of several -- very stable -- main directions, as can be seen by the distinct grouping. The projected median $\ProjMedian$ is located in the center of the largest cluster of points.}
    \label{fig:eyeballs}
 \end{figure}
 
-Histograms of mis-orientation angles between each rotation in the sample and each of the four estimates of $\bm S$ are shown in Figure \ref{fig:histograms}. The distribution of the mis-orientation angles depends greatly on the choice of estimator. The only estimator with a large group of small mis-orientation angles is $\widetilde{\bm S}_P$, the projected median. However, the multiple spikes in the  histograms of mis-orientation angles for all of the estimators indicate a problem in estimating a single main direction. 
+Histograms of mis-orientation angles between each rotation in the sample and each of the four estimates of $\bm S$ are shown in Figure \ref{fig:histograms}. The distribution of the mis-orientation angles depends greatly on the choice of estimator. The only estimator with a large group of small mis-orientation angles is $\ProjMedian$, the projected median. However, the multiple spikes in the  histograms of mis-orientation angles for all of the estimators indicate a problem in estimating a single main direction. 
 
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page

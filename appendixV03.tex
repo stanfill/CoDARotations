@@ -63,12 +63,12 @@ Let $\bm R_1$ and $\bm R_2$ be two observations on the unit sphere.  The Riemann
 
 Extending this to $SO(3)$ gives the following proposition: for all $\bm{R}_1$ and $\bm{R}_2$ in $SO(3)$
 \begin{equation}\label{EvR}
-d_E(\bm{R}_1,\bm{R}_2)=2^{3/2}\sin\left(\frac{d_G(\bm{R}_1,\bm{R}_2)}{2}\right).
+\Edist (\bm{R}_1,\bm{R}_2)=2^{3/2}\sin\left(\frac{\Rdist(\bm{R}_1,\bm{R}_2)}{2}\right).
 \end{equation}
 \emph{Proof:}\\
-Let $\bm{o}_1,\bm{R}_2\in SO(3)$ be given and define $\tr(\bm R_1^\top\bm R_2)=1+2\cos(\theta)$ then $|\theta|=d_G(\bm R_1,\bm R_2)$.  Notice that \eqref{EvR} holds trivially for $d_E(\bm R_1,\bm R_2)=d_G(\bm R_1,\bm R_2)=0$ so consider the case $|\theta|>0$.  By definition of $d_E(\bm R_1,\bm R_2)$ we have the following:
+Let $\bm{o}_1,\bm{R}_2\in SO(3)$ be given and define $\tr(\bm R_1^\top\bm R_2)=1+2\cos(\theta)$ then $|\theta|=\Rdist(\bm R_1,\bm R_2)$.  Notice that \eqref{EvR} holds trivially for $\Edist (\bm R_1,\bm R_2)=\Rdist(\bm R_1,\bm R_2)=0$ so consider the case $|\theta|>0$.  By definition of $\Edist (\bm R_1,\bm R_2)$ we have the following:
 \begin{align*}
-d_E(\bm R_1,\bm R_2)^2
+\Edist (\bm R_1,\bm R_2)^2
 &=||\bm R_1-\bm R_2||_F^2\\
 &=\tr\left[(\bm R_1-\bm R_2)^\top(\bm R_1-\bm R_2)\right]=\tr\left[(\bm R_1^\top-\bm R_2^\top)(\bm R_1-\bm R_2)\right]\\
 &=\tr\left[\bm R_1^\top\bm R_1+\bm R_2^\top\bm R_2-\bm R_2^\top\bm R_1-\bm R_1^\top\bm R_2\right]\\
@@ -78,7 +78,7 @@ d_E(\bm R_1,\bm R_2)^2
 &=6-2-4\cos(\theta)=8\left(\frac{1-\cos(\theta)}{2}\right)\\
 &=8\sin^2\left(\frac{\theta}{2}\right)\\
 &=\left[2^{3/2}\sin\left(\frac{|\theta|}{2}\right)\right]^2\\
-&=\left[2^{3/2}\sin\left(\frac{d_G(\bm R_1,\bm R_2)}{2}\right)\right]^2
+&=\left[2^{3/2}\sin\left(\frac{\Rdist(\bm R_1,\bm R_2)}{2}\right)\right]^2
 \end{align*}
-Taking square roots on both sides and noticing that $d_E(\bm R_1,\bm R_2)\geq0$ and $d_G(\bm R_1,\bm R_2)\geq0$ gives \eqref{EvR}.\\
+Taking square roots on both sides and noticing that $\Edist (\bm R_1,\bm R_2)\geq0$ and $\Rdist (\bm R_1,\bm R_2)\geq0$ gives \eqref{EvR}.\\
 $\Box$
