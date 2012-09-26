@@ -265,6 +265,32 @@ xtable(n100Res,digits=3)
 
 
 ###############################################################
+####### Plot tail weight versus                 ###############
+####### Estimator error                         ###############
+###############################################################
+
+setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations")
+library(rotations)
+library(splines)
+
+alldf<-read.csv("Nu75TailBehavior.csv") 
+alldf$Dist<-factor(alldf$Dist,levels=levels(alldf$Dist)[c(1,3,2)])
+tail75<-mean(c(2.109,2.185,1.975))
+realProbs<-rep(0,3)
+realProbs[1]<-integrate(dcayley,lower=tail75,upper=pi,Haar=F,kappa=2)$value*2
+realProbs[2]<-integrate(dfisher,lower=tail75,upper=pi,Haar=F,kappa=1.15)$value*2
+realProbs[3]<-integrate(dvmises,lower=tail75,upper=pi,Haar=F,kappa=0.52)$value*2
+
+ggplot(alldf[alldf$n>10,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail")+ylab(expression(d[G](widehat(bold(S))[E],bold(S))-d[G](widetilde(bold(S))[E],bold(S))))+
+  geom_hline(yintercept=0,colour="gray50")+
+  geom_vline(xintercept=realProbs[1],colour=2,alpha=I(.5))+
+  geom_vline(xintercept=realProbs[2],colour=3,alpha=I(.5))+
+  geom_vline(xintercept=realProbs[3],colour=4,alpha=I(.5))+
+  stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
+  geom_point(aes(colour=Dist),alpha=I(.4))+
+  facet_grid(n~.,scales="free_y",labeller=label_bquote(n==.(x)))
+
+###############################################################
 ####### Find the cases where the                ###############
 ####### Riemannian estimate really sucks        ###############
 ###############################################################
