@@ -293,7 +293,7 @@ ggplot(alldf[alldf$n>99,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail
 setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations/images")
 
 ggplot(alldf[alldf$n>299,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail")+
-  ylab(expression(d[G](widehat(bold(S))[E],bold(S))-d[G](widetilde(bold(S))[E],bold(S))))+
+  ylab(expression(d[G](bold(S),widehat(bold(S))[E])-d[G](bold(S),widetilde(bold(S))[E])))+
   geom_hline(yintercept=0,colour="gray50")+
   stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
   geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+

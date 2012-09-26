@@ -64,12 +64,22 @@ estimator 	& &  mean error & RMSE& &  mean error & RMSE& &   mean error & RMSE \
 \end{center}
 \end{table}
 
-\noindent Figure \ref{fig:dendetail} may provide an explanation for why the circular-von Mises-based distribution clearly distinguishes between the mean- and median-type estimators.  Upon closer examination of the tail of its rotation density (expressed in terms of the misorientation angle $r$ as in Figure~\ref{fig:Haar}) it has the heaviest tail with respect to the Haar measure, see Figure \ref{fig:dendetail}(b). This makes extreme observations much more likely in the circular-von Mises-based samples compared to the Cayley and matrix Fisher models. \begin{figure}[h!]
+\noindent Figure \ref{fig:dendetail} may provide an explanation for why the circular-von Mises-based distribution clearly distinguishes between the mean- and median-type estimators.  Upon closer examination of the tail of its rotation density (expressed in terms of the misorientation angle $r$ as in Figure~\ref{fig:Haar}) it has the heaviest tail with respect to the Haar measure, see Figure \ref{fig:dendetail}(b). This makes extreme observations much more likely in the circular-von Mises-based samples compared to the Cayley and matrix Fisher models. 
+\begin{figure}[h!]
 \centering
 \subfloat[$\nu=0.75$]{\includegraphics[width=.45\textwidth]{Var75DensityBox}}
 \subfloat[Detail]{\includegraphics[width=.45\textwidth]{Var75DensityZoom}}
 \caption{Angular densities under consideration; $\nu=0.75$ (a) and tail behavior (b) }
 \label{fig:dendetail}
+\end{figure}
+
+To see if this theory holds any water in terms of the present simulation study, consider Figure \ref{fig:SimTail}.  There we plot the difference in errors for the mean- and median-type projected estimators against the tail weight for each sample.  There seems to be a positive relationship indicating as tail weight increases then the error in the mean estimator increases relative to the median estimator.  Thereby confirming, atleast empirically, our theory above.
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.8\textwidth]{Nu75N300TailBehavior}
+\caption{A plot of the tail weight for our simulated samples versus the difference in estimator errors for each distribution.}
+\label{fig:SimTail}
 \end{figure}
 
 We next explore the effect of the choice of geometry, Riemannian vs.~Euclidean, on the estimation error for both types of loss functions. To provide more insight into possible differences we plotted the estimation error resulting from $\Edist$ versus the estimation error resulting from $\Rdist$ for each loss function separately; see~Figures~\ref{fig:comML1} and \ref{fig:comPL2}.  
