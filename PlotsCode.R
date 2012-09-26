@@ -281,14 +281,25 @@ realProbs[1]<-integrate(dcayley,lower=tail75,upper=pi,Haar=F,kappa=2)$value*2
 realProbs[2]<-integrate(dfisher,lower=tail75,upper=pi,Haar=F,kappa=1.15)$value*2
 realProbs[3]<-integrate(dvmises,lower=tail75,upper=pi,Haar=F,kappa=0.52)$value*2
 
-ggplot(alldf[alldf$n>10,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail")+ylab(expression(d[G](widehat(bold(S))[E],bold(S))-d[G](widetilde(bold(S))[E],bold(S))))+
+ggplot(alldf[alldf$n>99,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail")+ylab(expression(d[G](widehat(bold(S))[E],bold(S))-d[G](widetilde(bold(S))[E],bold(S))))+
   geom_hline(yintercept=0,colour="gray50")+
   geom_vline(xintercept=realProbs[1],colour=2,alpha=I(.5))+
   geom_vline(xintercept=realProbs[2],colour=3,alpha=I(.5))+
   geom_vline(xintercept=realProbs[3],colour=4,alpha=I(.5))+
   stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
-  geom_point(aes(colour=Dist),alpha=I(.4))+
+  geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+scale_shape_manual(values=c(16,0,17))+
   facet_grid(n~.,scales="free_y",labeller=label_bquote(n==.(x)))
+
+setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations/images")
+
+ggplot(alldf[alldf$n>299,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail")+
+  ylab(expression(d[G](widehat(bold(S))[E],bold(S))-d[G](widetilde(bold(S))[E],bold(S))))+
+  geom_hline(yintercept=0,colour="gray50")+
+  stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
+  geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+
+  scale_shape_manual(values=c(16,0,17),name="Distribution")+
+  theme(legend.text=element_text(size=12),legend.title=element_text(size=14))
+ggsave("Nu75N300TailBehavior.pdf",width=8,height=4)
 
 ###############################################################
 ####### Find the cases where the                ###############
