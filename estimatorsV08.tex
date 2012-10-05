@@ -88,11 +88,11 @@ see also \cite{fletcher08, fletcher09}.  We refer to this estimator of $\bm{S}$ 
 \caption{A summary of the estimators presented and their properties.  \label{tab:ests.sum}}
 \begin{center}
 \begin{tabular}{ lclclcl}\hline
-\rule[2mm]{0mm}{1mm} \textbf{name} & & \textbf{symbol} & & \textbf{geometry} &&\textbf{loss function}\\ \hline \hline 
-\rule[2mm]{0mm}{6mm} Projected Arithmetic Mean & & $\ProjMean$ & & Euclidean &&Second-order  \\
-\rule[2mm]{0mm}{6mm} Projected Median & & $\ProjMedian$ & & Euclidean && First-order \\
-\rule[2mm]{0mm}{6mm} Geometric Mean & & $\GeomMean$&  & Riemannian && Second-order\\
-\rule[2mm]{0mm}{6mm} Geometric Median & & $\GeomMedian$&  & Riemannian &&First-order \\[-7mm] 
+\rule[2mm]{0mm}{1mm} \textbf{name} & & \textbf{symbol} & & \textbf{distance metric} &&\textbf{cost function}\\ \hline \hline 
+\rule[2mm]{0mm}{6mm} Projected Arithmetic Mean & & $\ProjMean$ & & Euclidean &&$\sum_{i=1}^n\Edist^2$  \\
+\rule[2mm]{0mm}{6mm} Projected Median & & $\ProjMedian$ & & Euclidean && $\sum_{i=1}^n\Edist$ \\
+\rule[2mm]{0mm}{6mm} Geometric Mean & & $\GeomMean$&  & Riemannian && $\sum_{i=1}^n\Rdist^2$\\
+\rule[2mm]{0mm}{6mm} Geometric Median & & $\GeomMedian$&  & Riemannian &&$\sum_{i=1}^n\Rdist$ \\[-7mm] 
 \rule[2mm]{0mm}{6mm} & & & & \\ \hline
 \end{tabular}
 \end{center}
