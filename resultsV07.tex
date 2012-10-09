@@ -82,15 +82,15 @@ To see if this theory holds any water in terms of the present simulation study, 
 \label{fig:SimTail}
 \end{figure}
 
-We next explore the effect of the choice of geometry, Riemannian vs.~Euclidean, on the estimation error for both types of loss functions. To provide more insight into possible differences we plotted the estimation error resulting from $\Edist$ versus the estimation error resulting from $\Rdist$ for each loss function separately; see~Figures~\ref{fig:comML1} and \ref{fig:comPL2}.  
-\begin{figure}[h]
-\centering
-\subfloat[$\nu=0.25$]{\includegraphics[width=1\textwidth]{SMvsSL1Nu25.pdf}}\\
-\subfloat[$\nu=0.75$]{\label{ML1nu75}\includegraphics[width=1\textwidth]{SMvsSL1Nu75.pdf}}
-\caption{Comparison of the estimation errors resulting from $\ProjMedian$ (x-axis) and $\GeomMedian$ (y-axis), $n=100$.}
-\label{fig:comML1}
-\end{figure}
-We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$,  $\nu=.75$, respectively, Figure \ref{fig:comML1} shows a scatter-plot of the projected median $\ProjMedian$ ($x$-axis) versus  the geometric median $\GeomMedian$ ($y$-axis) for each of the three distributions.  If the estimation error for a given sample agrees under both estimators the corresponding point for this sample will fall on the identity line (solid and diagonal); points below the identity line indicate less error associated with the geometric median and also show by how much the respective estimation error is smaller. For example, in Figure \ref{ML1nu75},  $\GeomMedian$ tends to yield less estimation error than $\ProjMedian$  for the Cayley distribution as most of the points fall below the identity line while the Riemannian distance-based $\GeomMedian$ results in greater errors for ${\bm S}$ for the circular-von Mises-based distribution.  This result supports results about $\ProjMedian$ and $\GeomMedian$ in Figure~\ref{fig:NuBoxes}.
+We next explore the effect of the choice of geometry, Riemannian vs.~Euclidean, on the estimation error for both types of loss functions. To provide more insight into possible differences we plotted the estimation error resulting from $\Edist$ versus the estimation error resulting from $\Rdist$ for each loss function separately; see~Figures~\ref{fig:comPL2}.  
+%\begin{figure}[h]
+%\centering
+%\subfloat[$\nu=0.25$]{\includegraphics[width=1\textwidth]{SMvsSL1Nu25.pdf}}\\
+%\subfloat[$\nu=0.75$]{\label{ML1nu75}\includegraphics[width=1\textwidth]{SMvsSL1Nu75.pdf}}
+%\caption{Comparison of the estimation errors resulting from $\ProjMedian$ (x-axis) and $\GeomMedian$ (y-axis), $n=100$.}
+%\label{fig:comML1}
+%\end{figure}
+We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$,  $\nu=.75$, respectively, Figure \ref{fig:comPL2} shows a scatter-plot of the projected median $\ProjMedian$ ($x$-axis) versus  the geometric median $\GeomMedian$ ($y$-axis) for each of the three distributions.  If the estimation error for a given sample agrees under both estimators the corresponding point for this sample will fall on the identity line (solid and diagonal); points below the identity line indicate less error associated with the geometric median and also show by how much the respective estimation error is smaller. For example, in Figure \ref{ML1nu75},  $\GeomMedian$ tends to yield less estimation error than $\ProjMedian$  for the Cayley distribution as most of the points fall below the identity line while the Riemannian distance-based $\GeomMedian$ results in greater errors for ${\bm S}$ for the circular-von Mises-based distribution.  This result supports results about $\ProjMedian$ and $\GeomMedian$ in Figure~\ref{fig:NuBoxes}.
 
 \begin{table}[h]
 \caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.  \label{tab:percL1}}
@@ -128,8 +128,8 @@ Our previous results suggested the use of median-type estimators for the circula
 
 \begin{figure}[h]
 \centering
-\subfloat[$\nu=0.25$]{\includegraphics[width=1\linewidth]{SPvsSL2Nu25.pdf}}\\
-\subfloat[$\nu=0.75$]{\includegraphics[width=1\textwidth]{SPvsSL2Nu75.pdf}}
+\subfloat[$\nu=0.25$]{\includegraphics[width=.75\linewidth]{EuclidRiemannNu25.pdf}}\\
+\subfloat[$\nu=0.75$]{\includegraphics[width=.75\linewidth]{EuclidRiemannNu75.pdf}}
 \caption{Comparison of the estimation errors resulting from $\ProjMean$ (x-axis) and $\GeomMean$ (y-axis), $n=100$.
 }
 \label{fig:comPL2}

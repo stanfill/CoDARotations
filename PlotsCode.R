@@ -233,6 +233,22 @@ ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point()+g
   scale_y_continuous(expression(d[R](bold(S),widehat(bold(S))[R])),limits=c(0,xmax75))
 #ggsave("SPvsSL2Nu75.pdf",width=8,height=4)
 
+####
+#Combine figures 5 and 6 ala reviewer 2
+
+ggplot(Midn[Midn$nu==.25,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alpha=I(.75))+geom_point(aes(E.Median,R.Median),color="grey50",alpha=I(.75))+
+  coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+  scale_x_continuous(expression(d[R](bold(S),widetilde(bold(S))[E])),limits=c(0,xmax25))+
+  scale_y_continuous(expression(d[R](bold(S),widetilde(bold(S))[R])),limits=c(0,xmax25))+
+  geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray70")
+#ggsave("EuclidRiemannNu25.pdf",width=8,height=4)
+
+ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alpha=I(.75))+geom_point(aes(E.Median,R.Median),color="grey50",alpha=I(.75))+
+  coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+  scale_x_continuous(expression(d[R](bold(S),widehat(bold(S))[E])),limits=c(0,xmax75))+
+  scale_y_continuous(expression(d[R](bold(S),widehat(bold(S))[R])),limits=c(0,xmax75))+
+  geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray70")
+#ggsave("EuclidRiemannNu75.pdf",width=8,height=4)
 
 #Tables that compute % above/below line and distance between
 CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(Med-HL1),perc=sum(HL1<Med)/1000)
