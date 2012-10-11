@@ -325,9 +325,9 @@ ggplot(alldf[alldf$n>299,],aes(Prop,ScalePdiff))+xlab("Proportion Observations i
   stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
   geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+
   scale_shape_manual(values=c(16,0,17),name="Distribution")+
-  theme(legend.position="none")
-  #theme(legend.text=element_text(size=12),legend.title=element_text(size=14))
-#ggsave("Nu75N300TailBehaviorStandard.pdf",width=8,height=4)
+  theme(legend.text=element_text(size=12),legend.title=element_text(size=14))+
+  theme(legend.justification=c(0,1),legend.position=c(0,1))
+#ggsave("Nu75N300TailBehaviorStandard.pdf",width=7,height=4)
 
 
 ###############################################################
