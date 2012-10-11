@@ -315,7 +315,20 @@ ggplot(alldf[alldf$n>299,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tai
   geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+
   scale_shape_manual(values=c(16,0,17),name="Distribution")+
   theme(legend.text=element_text(size=12),legend.title=element_text(size=14))
-ggsave("Nu75N300TailBehavior.pdf",width=8,height=4)
+#ggsave("Nu75N300TailBehavior.pdf",width=8,height=4)
+
+alldf$ScalePdiff<-alldf$Pdiff/(alldf$PMean+alldf$PMedian)
+
+ggplot(alldf[alldf$n>299,],aes(Prop,ScalePdiff))+xlab("Proportion Observations in Tail")+
+  ylab(expression(frac(d[G](bold(S),widehat(bold(S))[E])-d[G](bold(S),widetilde(bold(S))[E]),d[G](bold(S),widehat(bold(S))[E])+d[G](bold(S),widetilde(bold(S))[E]))))+
+  geom_hline(yintercept=0,colour="gray50")+
+  stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
+  geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+
+  scale_shape_manual(values=c(16,0,17),name="Distribution")+
+  theme(legend.position="none")
+  #theme(legend.text=element_text(size=12),legend.title=element_text(size=14))
+#ggsave("Nu75N300TailBehaviorStandard.pdf",width=8,height=4)
+
 
 ###############################################################
 ####### Find the cases where the                ###############
