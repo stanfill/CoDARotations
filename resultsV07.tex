@@ -90,10 +90,11 @@ We next explore the effect of the choice of geometry, Riemannian vs.~Euclidean, 
 %\caption{Comparison of the estimation errors resulting from $\ProjMedian$ (x-axis) and $\GeomMedian$ (y-axis), $n=100$.}
 %\label{fig:comML1}
 %\end{figure}
-We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$,  $\nu=.75$, respectively, Figure \ref{fig:comPL2} shows a scatter-plot of the projected median $\ProjMedian$ ($x$-axis) versus  the geometric median $\GeomMedian$ ($y$-axis) for each of the three distributions.  If the estimation error for a given sample agrees under both estimators the corresponding point for this sample will fall on the identity line (solid and diagonal); points below the identity line indicate less error associated with the geometric median and also show by how much the respective estimation error is smaller. For example, in Figure \ref{ML1nu75},  $\GeomMedian$ tends to yield less estimation error than $\ProjMedian$  for the Cayley distribution as most of the points fall below the identity line while the Riemannian distance-based $\GeomMedian$ results in greater errors for ${\bm S}$ for the circular-von Mises-based distribution.  This result supports results about $\ProjMedian$ and $\GeomMedian$ in Figure~\ref{fig:NuBoxes}.
+We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$,  $\nu=.75$, respectively, Figure \ref{fig:comPL2} shows a scatter-plot of the projected median $\ProjMedian$ ($x$-axis) versus  the geometric median $\GeomMedian$ ($y$-axis) for each of the three distributions.  If the estimation error for a given sample agrees under both estimators the corresponding point for this sample will fall on the identity line (solid and diagonal); points below the identity line indicate less error associated with the geometric median and also show by how much the respective estimation error is smaller. For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less estimation error than $\ProjMedian$  for the Cayley distribution as most of the points fall below the identity line while the Riemannian distance-based $\GeomMedian$ results in greater errors for ${\bm S}$ for the circular-von Mises-based distribution.  This result supports results about $\ProjMedian$ and $\GeomMedian$ in Figure~\ref{fig:NuBoxes}.
 
 \begin{table}[h]
-\caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.  \label{tab:percL1}}
+\caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
+\label{tab:percL1}
 \begin{center}
 \begin{tabular}{rrcrrcrrcrr}
   \hline
@@ -128,10 +129,9 @@ Our previous results suggested the use of median-type estimators for the circula
 
 \begin{figure}[h]
 \centering
-\subfloat[$\nu=0.25$]{\includegraphics[width=.75\linewidth]{EuclidRiemannNu25.pdf}}\\
-\subfloat[$\nu=0.75$]{\includegraphics[width=.75\linewidth]{EuclidRiemannNu75.pdf}}
-\caption{Comparison of the estimation errors resulting from $\ProjMean$ (x-axis) and $\GeomMean$ (y-axis), $n=100$.
-}
+\subfloat[$\nu=0.25$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu25.pdf}}\\
+\subfloat[$\nu=0.75$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu75.pdf}}
+\caption{Comparison of the estimation errors resulting from the embedding (x-axis) and intrinsic (y-axis) approaches, $n=100$.  The mean-type estimators are in black dots and the median-type estimator is in light gray.}
 \label{fig:comPL2}
 \end{figure}
 
