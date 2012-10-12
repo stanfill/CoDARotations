@@ -41,22 +41,59 @@ where  $0\leq \theta\leq \pi$ and $0\leq \phi\leq 2\pi$.
 
 The results section of this paper only compared the distances of each estimator from the central direction in terms of Riemannian distance.  This section is intended to show that a comparison based on the Euclidean distance will not lead to different results.  Recall that the Riemannian distance between two rotations is the shortest geodesic curve that connects those two rotations and the Euclidean distance is the shortest cord that connects those two rotations.  Refer to the picture below for a two-dimensional simplification of the idea.
 
+%\begin{center}
+%\begin{tikzpicture}
+%\draw (0,0) circle (4cm);
+%\draw (0,0)--(4,0) node[anchor =  west]{$\bm R_1$};
+%\draw (0,0)--(-2,3.46) node[anchor = south east]{$\bm R_2$};
+%\draw[line width=.75mm] (4,0) arc (0:120:4cm);
+%\draw[line width=.75mm, color=gray] (-2,3.46)--(4,0);
+%\draw (0,0)--(2,3.46) node[anchor= south west]{$\alpha$};
+%\draw (3/8,.7)[->] arc (60:120:.75cm);
+%\draw (0,1.2) node {$\frac{\alpha}{2}$};
+%\draw (0,2.8) node {$\frac{\beta}{2}$};
+%\draw (2,0) node[anchor=north]{1};
+%\end{tikzpicture}
+%\end{center}
+
+%\begin{figure}[h!]
 \begin{center}
-\begin{tikzpicture}
-\draw (0,0) circle (4cm);
-\draw (0,0)--(4,0) node[anchor =  west]{$\bm R_1$};
-\draw (0,0)--(-2,3.46) node[anchor = south east]{$\bm R_2$};
-\draw[line width=.75mm] (4,0) arc (0:120:4cm);
-\draw[line width=.75mm, color=gray] (-2,3.46)--(4,0);
-\draw (0,0)--(2,3.46) node[anchor= south west]{$\alpha$};
-\draw (3/8,.7)[->] arc (60:120:.75cm);
-\draw (0,1.2) node {$\frac{\alpha}{2}$};
-\draw (0,2.8) node {$\frac{\beta}{2}$};
-\draw (2,0) node[anchor=north]{1};
+\begin{tikzpicture}[scale=.9]
+%\draw (0,0) circle (4cm);
+\draw (0,0) node {$\bullet$};
+\draw (3.464102,2) node[anchor =  west]{$\bm R_1\bm v$};
+\draw [->] (0,0)--(4,0);
+%\draw [->] (4,0) arc (0:30:4cm);
+\draw (2,0) node[anchor = north]{$\bm v=(0,1)$};
+\draw (-2,3.46) node[anchor = south east]{$\bm R_2\bm v$};
+\draw [line width=.75mm] (3.464102,2) arc (30:120:4cm);
+\draw[line width=.75mm, color=gray] (-2,3.46)--(3.464102,2);
+\draw [->](0,0) -- (-2,3.464102);
+\draw [->](0,0)--(3.464102,2);
+\draw (1,4) node[anchor= south west]{$\alpha$};
+\draw (.5,2) node[anchor= south west]{$\beta$};
+%\draw (0,0) circle (4cm);
+%\draw (0,0) node {$\bullet$};
+%\draw (0,0)--(4,0) node[anchor =  west]{$o_1$};
+%\draw (4,0) node[anchor =  west]{$\bm R_1$};
+%\draw (0,0)--(-2,3.46) node[anchor = south east]{$o_2$};
+%\draw (-2,3.46) node[anchor = south east]{$\bm R_2$};
+%\draw[line width=.75mm] (4,0) arc (0:120:4cm);
+%\draw[line width=.75mm, color=gray] (-2,3.46)--(4,0);
+%\draw (0,0)--(2,3.46) node[anchor= south west]{$\alpha$};
+%\draw (2,3.46) node[anchor= south west]{$\Rdist (\bm R_1,\bm R_2)$};
+%\draw (-1.25,0.73) node[anchor= south west]{$\Edist (\bm R_1,\bm R_2)$};
+%\draw (3/8,.7)[->] arc (60:120:.75cm);
+%\draw (0,1.2) node {$\frac{\alpha}{2}$};
+%\draw (0,2.8) node {$\frac{\beta}{2}$};
+%\draw (2,0) node[anchor=north]{1};
 \end{tikzpicture}
 \end{center}
+%\caption{An illustration of the difference between the Euclidean and Riemannian distance metrics on $SO(2)$.}
+%\label{fig:dEvsdG} 
+%\end{figure}
 
-Let $\bm R_1$ and $\bm R_2$ be two observations on the unit sphere.  The Riemannian distance between these two observations is given by $\alpha$ and is indicated with the thick black arc.  The Euclidean distance is given by $\beta$ and is indicated by the gray line running through the circle.  Because this is the unit circle, the Riemannian distance is also the angle in the center of the circle thus, using basic geometry its clear that half of the Euclidean distance is the sine of half of the Riemannian distance, i.e.
+Let $\bm R_1\bm v$ and $\bm R_2\bm v$ be two observations in $SO(2)$.  The Riemannian distance between these two observations is given by $\alpha$ and is indicated with the thick black arc.  The Euclidean distance is given by $\beta$ and is indicated by the gray line running through the circle.  Because this is the unit circle, the Riemannian distance is also the angle in the center of the circle thus, using basic geometry its clear that half of the Euclidean distance is the sine of half of the Riemannian distance, i.e.
 \[
 \beta=2\sin\left(\frac{\alpha}{2}\right).
 \]
