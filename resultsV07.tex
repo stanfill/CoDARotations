@@ -7,34 +7,33 @@ In this section we summarize and present the main findings of the simulation stu
 \Log(\bm{S}^\top\widehat{\bm{S}})||_F, \quad \mbox{where} \quad \widehat{\bm{S}} =  \ProjMean, \; \GeomMean,\;  \ProjMedian \; \mbox{or} \; \GeomMedian.
 \end{equation}
 
-\noindent Note that for any two rotations $\bm R_1$ and $\bm R_2$ in $SO(3)$ $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$. We refer to Section~\ref{sec:appendix2} of the appendix for a short proof of this result.  Hence, our results using $\Edist$ would prove equivalent, albeit on a smaller scale.   
+\noindent Note that for any two rotations $\bm R_1$ and $\bm R_2$ in $SO(3)$ it holds that $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$. We refer to Section~\ref{sec:appendix2} of the appendix for a short proof of this result.  Hence, results using $\Edist$ would prove equivalent, albeit on a smaller scale.   
 
-Figure~\ref{fig:NuBoxes} displays boxplots of the estimation errors for each of the considered rotation distributions and choice of circular spread $\nu$ for a sample of size  $n=100$.  Additionally,  Table~\ref{tab:alldN100Nu25} provides the root mean square error (RMSE) as a measure of precision as well as the \textit{mean estimation error} for $\nu=0.25$ in Figure~\ref{fig:NuBoxes}, i.e.~the top three plots. Despite skewness in some of  the error distributions the \textit{median estimation error} was quantitatively similar to the mean estimation error and is therefore not reported in Table~\ref{tab:alldN100Nu25} or the following.
+Figure~\ref{fig:NuBoxes} displays boxplots of the estimation errors for each of the considered rotation distributions and choice of circular spread $\nu$ for a sample of size  $n=100$.  Additionally,  Table~\ref{tab:alldN100Nu25} provides the root mean square error (RMSE) as a measure of precision as well as the \textit{mean estimation error} for $\nu=0.25$ in Figure~\ref{fig:NuBoxes}, i.e.~the top three plots. Despite skewness in some of the plotted error distributions the \textit{median estimation error} was quantitatively similar to the mean estimation error and is therefore not reported in Table~\ref{tab:alldN100Nu25} or the following.
 \begin{figure}[h!]
 \centering
 \includegraphics[width=1\textwidth]{N100AllNuBoxes.pdf}
-\caption{Box-plots of the estimation error for each rotation distribution and level of $\nu$,  $n=100$.}
+\caption{Box-plots of the estimation errors for each rotation distribution and level of $\nu$,  $n=100$.}
 \label{fig:NuBoxes}
 \end{figure}
 
-First and foremost depending on the type of distribution for the rotation errors in \eqref{eqn:1}, different location estimators emerge as preferable.  For the circular-von Mises-based distribution both median-type estimators ($\ProjMedian$ and $\GeomMedian$) are superior with respect to the estimation error while for the Cayley and matrix Fisher models the mean-type estimators ($\ProjMean$ and $\GeomMean$) perform better though on a much less pronounced scale. While preferences within the median- and mean-type estimators are visible, these generally disappear as the variability in the data decreases.    
+First and foremost the results suggest that different location estimators emerge as preferable depending on the type of distribution for the rotation errors in \eqref{eqn:1}.  For the circular-von Mises-based distribution both median-type estimators ($\ProjMedian$ and $\GeomMedian$) are superior with respect to the estimation error while for the Cayley and matrix Fisher models the mean-type estimators ($\ProjMean$ and $\GeomMean$) perform better though on a much less pronounced scale. While preferences within the median- and mean-type estimators are visible, these generally disappear as the variability in the data, i.e.~$\nu$ decreases.    
 For the Cayley and the matrix Fisher distribution the overall pattern of estimation is very similar. $\ProjMean$ and $\GeomMean$ typically exhibit a little less spread and a slightly lower average estimation error than $\ProjMedian$ and $\GeomMedian$ but differences between all four estimators lessen as $\nu$ becomes smaller. Figure~\ref{fig:NuBoxes} further shows that the estimation error is a function of the circular spread $\nu$; as $\nu$ decreases the range of the observed estimation errors decreases within each rotation model and for each of the four estimators. The same is true for the mean estimation error, and RMSE in Table~\ref{tab:alldN100Nu25}.  
 
- \begin{table}[h!]
- \caption{Numerical summaries of estimation error for all rotational distributions, $n=100$,  $\nu=0.25$.  \label{tab:alldN100Nu25}}
 \begin{center}
+\begin{table}[h!]
+\caption{Numerical summaries of estimation error for all rotational distributions, $n=100$,  $\nu=0.25$.  \label{tab:alldN100Nu25}}
 \begin{tabular}{ccccccccccc}
   \hline
 		& &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
-estimator 	& &  mean error & RMSE& &  mean error & RMSE& &   mean error & RMSE \\  \hline \hline %\rule[2mm]{0mm}{3mm} 
+Estimator 	& &  Mean error & RMSE& &  Mean error & RMSE& &   Mean error & RMSE \\  \hline \hline %\rule[2mm]{0mm}{3mm} 
  		  $\GeomMean$ & &  0.069 & 0.075 & &  0.070 & 0.076&  & 0.074 & 0.081 \\ 
  		 $\ProjMean$ &  & 0.070 & 0.076 & &  0.070 & 0.076&  &  0.062 & 0.067\\ 
 		 $\GeomMedian$ &  & 0.077 & 0.083 & &  0.075 & 0.081&  & 0.027 & 0.031\\ 
  		  $\ProjMedian$ &  & 0.079 & 0.086 & &  0.077 & 0.083 & & 0.026 & 0.030\\ \hline
 \end{tabular}
-\end{center}
 \end{table}
-
+\end{center}
 
 \begin{figure}[h!]
 \centering
@@ -45,12 +44,12 @@ estimator 	& &  mean error & RMSE& &  mean error & RMSE& &   mean error & RMSE \
 
 \noindent Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function of the sample size. Results are displayed for each level of $n$ and  $\nu=0.75$. As to be expected, the estimation error decreases as the sample size increases for all three distributions. For small samples, $n=10$, the estimator exhibiting the largest amount of variability is the geodesic mean $\GeomMean$. This behavior is consistent for all three distributions.  While the estimator's variability lessens considerably for the Cayley and matrix Fisher distribution as $n$ increases, the estimator remains the most variable estimator for the circular-von Mises-based distribution.   For a tabular display of the results in Figure~\ref{fig:NBoxes} for the circular-von Mises based distribution we refer to Table \ref{tab:vmnu75}.  
 
+\begin{center}
 \begin{table}[h!]
 \caption{Numerical summaries of the estimation error for all levels of $n$ for the circular-von Mises-based distribution,  $\nu=0.75$.  \label{tab:vmnu75}}
-\begin{center}
 \begin{tabular}{rccccrccc}
   \hline
- $\mathbf{n}$ & \textbf{estimator}  & \textbf{mean error} & \textbf{RMSE} & &$\mathbf{n}$ & \textbf{estimator} & \textbf{mean error} & \textbf{RMSE} \\ \hline \hline
+ $\mathbf{n}$ & \textbf{Estimator}  & \textbf{Mean error} & \textbf{RMSE} & &$\mathbf{n}$ & \textbf{Estimator} & \textbf{Mean error} & \textbf{RMSE} \\ \hline \hline
    \multirow{4}{*}{10} & $\GeomMean$  & 0.652 & 0.789 &  & \multirow{4}{*}{100} & $\GeomMean$  & 0.204 & 0.222 \\ 
     & $\ProjMean$  & 0.442 & 0.518 &   & & $\ProjMean$ & 0.128 & 0.139 \\ 
     & $\GeomMedian$  & 0.366 & 0.459 &  &  & $\GeomMedian$  & 0.069 & 0.079 \\ 
@@ -62,10 +61,10 @@ estimator 	& &  mean error & RMSE& &  mean error & RMSE& &   mean error & RMSE \
     & $\ProjMedian$ & 0.088 & 0.105 &  &  & $\ProjMedian$ & 0.027 & 0.031 \\ 
    \hline
 \end{tabular}
-\end{center}
 \end{table}
+\end{center}
 
-\noindent Figure \ref{fig:dendetail} may provide an explanation for why the circular-von Mises-based distribution clearly distinguishes between the mean- and median-type estimators.  Upon closer examination of the tail of its rotation density (expressed in terms of the misorientation angle $r$ as in Figure~\ref{fig:Haar}) it has the heaviest tail with respect to the Haar measure, see Figure \ref{fig:dendetail}(b). This makes extreme observations much more likely in the circular-von Mises-based samples compared to the Cayley and matrix Fisher models. 
+\noindent Figure \ref{fig:dendetail} may provide an explanation for why the circular-von Mises-based distribution clearly distinguishes between the mean- and median-type estimators.  Upon closer examination of the tail of all three rotation densities (expressed in terms of the misorientation angle $r$ as in Figure~\ref{fig:Haar}) the circular-von Mises-based distribution exhibits the heaviest tail with respect to the Haar measure, see Figure \ref{fig:dendetail}(b). As a consequence, \textit{more extreme} observations become more likely in circular-von Mises-based samples compared to the Cayley and matrix Fisher models suggesting that a median-type estimator is more favorable. 
 \begin{figure}[h!]
 \centering
 \subfloat[$\nu=0.75$]{\includegraphics[width=.45\textwidth]{Var75DensityBox}}
@@ -74,7 +73,7 @@ estimator 	& &  mean error & RMSE& &  mean error & RMSE& &   mean error & RMSE \
 \label{fig:dendetail}
 \end{figure}
 
-To see if this theory holds any water in terms of the present simulation study, consider Figure \ref{fig:SimTail}.  There we plot the difference in errors for the mean- and median-type projected estimators against the tail weight for each sample.  There seems to be a positive relationship indicating as tail weight increases then the error in the mean estimator increases relative to the median estimator.  Thereby confirming, atleast empirically, our theory above.
+\blue{We use Figure \ref{fig:SimTail} to examine the  extent to which the tail-behavior accounts for the observed differences in the mean- and median-type estimators. Figure \ref{fig:SimTail} displays the tail weight for each sample (i.e.~the proportion of observations in the sample considered to come from the tail of the distribution) plotted against the difference in errors for the mean- and median-type estimators.  The results shown in Figure \ref{fig:SimTail} are with respect to the Euclidean geometry-based estimators $\widehat{S}_E$ and $\widetilde{S}_E$. Similar results are obtained for the Riemannian geometry-based estimators $\widehat{S}_R$ and $\widetilde{S}_R$ and therefore are omitted. From  Figure \ref{fig:SimTail} we can see a positive relationship indicating that with increasing tail weight the error of the mean estimator indeed increases at a higher rate than does the error of the median estimator.}\\
 
 \begin{figure}[h!]
 \centering
@@ -83,15 +82,16 @@ To see if this theory holds any water in terms of the present simulation study, 
 \label{fig:SimTail}
 \end{figure}
 
-We next explore the effect of the choice of geometry, Riemannian vs.~Euclidean, on the estimation error for both types of loss functions. To provide more insight into possible differences we plotted the estimation error resulting from $\Edist$ versus the estimation error resulting from $\Rdist$ for each loss function separately; see~Figures~\ref{fig:comPL2}.  
-%\begin{figure}[h]
-%\centering
-%\subfloat[$\nu=0.25$]{\includegraphics[width=1\textwidth]{SMvsSL1Nu25.pdf}}\\
-%\subfloat[$\nu=0.75$]{\label{ML1nu75}\includegraphics[width=1\textwidth]{SMvsSL1Nu75.pdf}}
-%\caption{Comparison of the estimation errors resulting from $\ProjMedian$ (x-axis) and $\GeomMedian$ (y-axis), $n=100$.}
-%\label{fig:comML1}
-%\end{figure}
+We next explore the effect of the choice of geometry, Riemannian vs.~Euclidean, on the estimation error for both types of loss functions. To provide more insight into possible differences we plotted the estimation error resulting from $\Edist$ versus the estimation error resulting from $\Rdist$ for $\nu=0.25$ and $\nu=0.75$; see~Figures~\ref{fig:comPL2} (a) and (b).   
 We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$,  $\nu=.75$, respectively, Figure \ref{fig:comPL2} shows a scatter-plot of the projected median $\ProjMedian$ ($x$-axis) versus  the geometric median $\GeomMedian$ ($y$-axis) for each of the three distributions.  If the estimation error for a given sample agrees under both estimators the corresponding point for this sample will fall on the identity line (solid and diagonal); points below the identity line indicate less error associated with the geometric median and also show by how much the respective estimation error is smaller. For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less estimation error than $\ProjMedian$  for the Cayley distribution as most of the points fall below the identity line while the Riemannian distance-based $\GeomMedian$ results in greater errors for ${\bm S}$ for the circular-von Mises-based distribution.  This result supports results about $\ProjMedian$ and $\GeomMedian$ in Figure~\ref{fig:NuBoxes}.
+
+\begin{figure}[h!]
+\centering
+\subfloat[$\nu=0.25$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu25.pdf}}\newline
+\subfloat[$\nu=0.75$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu75.pdf}}
+\caption{Comparison of the estimation errors resulting from the embedding (x-axis) and intrinsic (y-axis) approaches, $n=100$.  The mean-type estimators are in black dots and the median-type estimator is in light gray.}
+\label{fig:comPL2}
+\end{figure}
 
 \begin{table}[h]
 \caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
@@ -128,17 +128,10 @@ We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$, 
 Our previous results suggested the use of median-type estimators for the circular-von Mises-based distribution which favors $\ProjMean$ over $\GeomMedian$ as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley and the matrix Fisher model the preference is reversed, typically  $\ProjMedian$ exhibits a larger spread (cf.~Figure~\ref{fig:NBoxes}). Note however, that both models show a marginal preference for the mean-type estimators which we will compare next in Figure~\ref{fig:comPL2} and Table~\ref{tab:percL2}.
 
 
-\begin{figure}[h]
-\centering
-\subfloat[$\nu=0.25$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu25.pdf}}\\
-\subfloat[$\nu=0.75$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu75.pdf}}
-\caption{Comparison of the estimation errors resulting from the embedding (x-axis) and intrinsic (y-axis) approaches, $n=100$.  The mean-type estimators are in black dots and the median-type estimator is in light gray.}
-\label{fig:comPL2}
-\end{figure}
 
 In Figure~\ref{fig:comPL2} we plotted the estimation error when using $\ProjMean$ versus the estimation error under $\GeomMean$. Table \ref{tab:percL2} displays again the exact percentage of samples that resulted in a smaller estimation error for $\GeomMean$ in comparison to $\ProjMean$ as well as the average difference in the estimators' estimation errors.
 
-\begin{table}[h]
+\begin{table}[h!]
 \caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.  \label{tab:percL2}}
 \begin{center}
 \begin{tabular}{rrcrrcrrcrr}

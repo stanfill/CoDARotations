@@ -1,7 +1,7 @@
-
+ % !TEX root = Stanfill_CoDA.tex
 \section{Simulation Study}\label{ch:simulation}
 
-Section~\ref{subsec:simdesign} outlines the simulation design.  Section~\ref{subsec:genRR} briefly describes the parametric distributional models used in the study for describing symmetric rotation errors (cf.~(\ref{eqn:1})) with differing variability. 
+Section~\ref{subsec:simdesign} gives an outline the simulation design.  Section~\ref{subsec:genRR} briefly describes the parametric distributional models used in the study for describing symmetric rotation errors (cf.~(\ref{eqn:1})) with differing variability. 
 
  %and Section~\ref{subsec:algorithms} provides the algorithms used for numerically evaluating the location estimators of Section~\ref{sec:estimators}.
 
@@ -37,8 +37,7 @@ As mentioned in the introduction, we wish to compare estimators of the (fixed) l
 under three common distributional models for describing symmetric rotation errors $\bm{E}\in SO(3)$
  in a data model  $\bm{R}=\bm{S}\bm{E}$ (cf.~(\ref{eqn:1})):
 the symmetric matrix Fisher \citep{langevin05, downs72, khatri77, jupp79}, the 
-symmetric Cayley  \citep{Schaeben97, leon06} and the circular-von Mises-
-based distribution \citep{bingham09}. A general 
+symmetric Cayley  \citep{Schaeben97, leon06} and the circular-von Mises-based distribution \citep{bingham09}. A general 
 construction approach exists for random rotations that are symmetrically distributed around the identity matrix $\bm{I}_{3 \times 3}$; see \cite{watson83, bingham09} and \cite{hielscher10}.
 To this end, let $\bm{U}\in\mathbb{R}^3$ represent a point chosen
 uniformly on the unit sphere and, independently, generate a random angle $r
@@ -48,13 +47,13 @@ parameter governing the spread of the circular distribution.  Then, define a ran
 the constructive definition (\ref{eqn:angleaxis}) (i.e., $\bm{E}$ represents the position of $\bm{I}_{3\times 3}$
 upon rotating the standard coordinate frame in $\mathbb{R}^3$ about the random axis $\bm{U}$ by the random angle $r$).
 The resulting rotation $\bm{E}$ will be symmetrically distributed and its distributional type (i.e., matrix Fisher, Cayley or circular-von Mises-based) is determined by the form of the circular density $C(r|\kappa)$
-for the (misorientation) angle $r$.   
+for the (misorientation) angle $r$.  
+\begin{center} 
 \begin{table}[h]
 \caption{Circular densities with respect to the Lebesgue measure and circular variance $\nu$.  \label{tab:ang.dens}}
-\begin{center}
 \small{
 \begin{tabular}{ lclcl}\hline
-\textbf{name} & & \textbf{density} & & \textbf{circular variance}\\ \hline \hline 
+\textbf{Name} & & \textbf{Density} & & \textbf{Circular variance}\\ \hline \hline 
 \rule[2mm]{0mm}{6mm} Cayley & & $C_\mathrm{C}(r |\kappa)=\frac{1}
 {\sqrt{\pi}} \frac{\Gamma(\kappa+2)}{\Gamma(\kappa+1/2)} 
 2^{-(\kappa+1)} (1+\cos r)^\kappa(1-\cos r)$ & & $\nu=\frac{3}
@@ -69,24 +68,27 @@ $\nu=\frac{3\mathrm{I}_0(2\kappa)-4\mathrm{I}_1(2\kappa)+\mathrm{I}_2(2\kappa)}
 $\nu=\frac{\mathrm{I_0}(\kappa)-\mathrm{I_1}(\kappa)}{\mathrm{I_0}(\kappa)}$ \\[-7mm] 
 \rule[2mm]{0mm}{6mm} & & & & \\ \hline
 \end{tabular}}
-\end{center}
 \end{table}
-These circular densities are given in Table~\ref{tab:ang.dens}, where $\mathrm{I_p}(\cdot)$ denotes the Bessel function of order $p$ defined as  $\mathrm{I_p}(\kappa)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos(pr)e^{\kappa\cos r}dr$. To ease the interpretation of the simulation results in Section~\ref{sec:results},  we choose not to present results in terms of $\kappa$ but instead use the circular variance defined as $\nu=1-\rho$ as a measure of spread, where $\rho=\mathrm{E}[\cos(r)]$. This allows us to compare the performance of the estimators for densities exhibiting the same spread. Note that $\rho=\mathrm{E}[\cos(r)]$ is also known as the mean resultant length.  The values of $\kappa$ corresponding to the chosen circular variances are given in Table~\ref{tab:kappas}.  
+\end{center}
+
+These circular densities are given in Table~\ref{tab:ang.dens}, where $\mathrm{I_p}(\cdot)$ denotes the Bessel function of order $p$ defined as  $\mathrm{I_p}(\kappa)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos(pr)e^{\kappa\cos r}dr$. To ease the interpretation of the simulation results in Section~\ref{sec:results},  we choose not to present results in terms of $\kappa$ but instead use the circular variance defined as $\nu=1-\rho$ as a measure of spread, where $\rho=\mathrm{E}[\cos(r)]$. This allows us to compare the performance of the estimators for densities exhibiting the same spread. Note that $\rho=\mathrm{E}[\cos(r)]$ is also known as the mean resultant length.  The values of $\kappa$ corresponding to the chosen circular variances are given in Table~\ref{tab:kappas}.  \\
+
 
 \begin{table}[h!]
-\caption{Values of $\kappa$ for each rotational distribution corresponding to the circular variances.  \label{tab:kappas}}
 \begin{center}
+\caption{Values of $\kappa$ for each rotational distribution corresponding to the circular variances.  \label{tab:kappas}}\vspace{-0.4cm}
 \begin{tabular}{l l ccc}\hline
-\bf distribution & & \multicolumn{3}{c}{\bf circular variance} \\
+{\bf Distribution} & & \multicolumn{3}{c}{\bf Circular variance} \\
 & & $\nu=0.25$ &$\nu=0.50$ & $\nu=0.75$\\ \hline \hline
 Cayley & & 10.00 & 4.00 & 2.00 \\
 matrix Fisher & & 3.17 & 1.71 & 1.15\\
-circular-von Mises & & 2.40 & 1.16 & 0.52\\\hline
+circular-von Mises & & 2.40 & 1.16 & 0.52\\ \hline
 \end{tabular}
 \end{center}
 \end{table}
 
-In the simulations to follow, for generating random rotation errors based on the construction above, we used different samplers to randomly generate angles $r\in(-\pi,\pi]$ from a given circular density, recalling that the form of $C(r|\kappa)$ depends on the intended symmetric distribution for the rotation errors $\bm{E}$.  We defer these details to the Appendix.
+
+In the simulations to follow, for generating random rotation errors based on the construction above, we used different samplers to randomly generate angles $r\in(-\pi,\pi]$ from a given circular density, recalling that the form of $C(r|\kappa)$ depends on the intended symmetric distribution for the rotation errors $\bm{E}$.  We defer these details to Section~\ref{sec:appendix1} of the Appendix.
 
 %\subsection{Estimator Algorithms}
 %\label{subsec:algorithms}

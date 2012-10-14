@@ -1,8 +1,9 @@
+ % !TEX root = Stanfill_CoDA.tex
 \appendix
 
 \section{Sampling Process}
-
-\subsection{circular-von Mises-based distribution}
+\label{sec:appendix1}
+\subsection{Circular-von Mises-based distribution}
 
 To simulate a set of random rotations from the circular-von Mises-based distribution we follow the  algorithm proposed by \citet{best79}.  The algorithm is available in the IMSL Library (1991) and is implemented as follows.  Let $\mu=0$ denote the mean of the target angular distribution and $\kappa$ its concentration parameter.  We define constants $a, b$ and $d$ as
 $a\equiv 1+\sqrt{1+4\kappa^2},\quad b\equiv(a-\sqrt{2a}),\quad d\equiv(1+b^2)/2b.$
