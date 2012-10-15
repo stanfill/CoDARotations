@@ -73,23 +73,28 @@ Estimator 	& &  Mean error & RMSE& &  Mean error & RMSE& &   Mean error & RMSE \
 \label{fig:dendetail}
 \end{figure}
 
-\blue{We use Figure \ref{fig:SimTail} to examine the  extent to which the tail-behavior accounts for the observed differences in the mean- and median-type estimators. Figure \ref{fig:SimTail} displays the tail weight for each sample (i.e.~the proportion of observations in the sample considered to come from the tail of the distribution) plotted against the difference in errors for the mean- and median-type estimators.  The results shown in Figure \ref{fig:SimTail} are with respect to the Euclidean geometry-based estimators $\widehat{S}_E$ and $\widetilde{S}_E$. Similar results are obtained for the Riemannian geometry-based estimators $\widehat{S}_R$ and $\widetilde{S}_R$ and therefore are omitted. From  Figure \ref{fig:SimTail} we can see a positive relationship indicating that with increasing tail weight the error of the mean estimator indeed increases at a higher rate than does the error of the median estimator.}\\
+\blue{We use Figure \ref{fig:SimTail} to examine the  extent to which the tail-behavior accounts for the observed differences in the mean- and median-type estimators. Figure \ref{fig:SimTail} displays the tail weight for each sample (i.e.~the proportion of observations in the sample considered to come from the tail of the distribution) plotted against the difference in errors for the mean- and median-type estimators.  The results shown in Figure \ref{fig:SimTail} are with respect to the Euclidean geometry-based estimators $\widehat{S}_E$ and $\widetilde{S}_E$. Similar results are obtained for the Riemannian geometry-based estimators $\widehat{S}_R$ and $\widetilde{S}_R$ and therefore are omitted. Note that we define the tail to be the average crossing point at which the distributions cross for the second time, see Figure~\ref{fig:dendetail} (b). From  Figure \ref{fig:tailError} we can see that in general there appears to be a positive relationship between the proportion of observations in the tail and the relative difference in estimator error indicating that with increasing tail weight the error of the mean estimator indeed increases at a higher rate than does the error of the median estimator. That is, as the tail becomes heavier the projected median is preferable to the projected mean more often.  
+Values on the $y$-axis not only indicate which estimator is preferable, but also by how much.  For example, a $y$-value of 0 suggests that the two estimators result in equivalent estimates in terms of their distance from the true $\bm S$.  The more extreme a $y$-value is in the negative direction, e.g.~close to $-0.5$ and beyond, the closer the projected-mean is to the truth in comparison to the projected median. At $-0.5$ the error associated with the projected median is roughly \red{three times} that of the projected mean.  Likewise,  large positive $y$-values around $1$ signify that the error by the projected median is roughly zero compared to the error of the projected median.}\\
+
+
+
 
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Nu75N300TailBehaviorStandard}
-\caption{A plot of the tail weight for our simulated samples versus the difference in estimator errors for each distribution.}
+\caption{The proportion of observations in the tail against the difference in projected mean and median errors for simulated data with $n=300$.  Each symbol indicates a different error distribution.}
 \label{fig:SimTail}
 \end{figure}
 
-We next explore the effect of the choice of geometry, Riemannian vs.~Euclidean, on the estimation error for both types of loss functions. To provide more insight into possible differences we plotted the estimation error resulting from $\Edist$ versus the estimation error resulting from $\Rdist$ for $\nu=0.25$ and $\nu=0.75$; see~Figures~\ref{fig:comPL2} (a) and (b).   
-We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$,  $\nu=.75$, respectively, Figure \ref{fig:comPL2} shows a scatter-plot of the projected median $\ProjMedian$ ($x$-axis) versus  the geometric median $\GeomMedian$ ($y$-axis) for each of the three distributions.  If the estimation error for a given sample agrees under both estimators the corresponding point for this sample will fall on the identity line (solid and diagonal); points below the identity line indicate less error associated with the geometric median and also show by how much the respective estimation error is smaller. For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less estimation error than $\ProjMedian$  for the Cayley distribution as most of the points fall below the identity line while the Riemannian distance-based $\GeomMedian$ results in greater errors for ${\bm S}$ for the circular-von Mises-based distribution.  This result supports results about $\ProjMedian$ and $\GeomMedian$ in Figure~\ref{fig:NuBoxes}.
+We next explore the impact the choice of geometry, i.e.~Riemannian vs.~Euclidean, has on the estimation error for both types of loss functions. To provide more insight into possible differences we plot the estimation error resulting from $\Edist$ ($x$-axis) versus the estimation error resulting from $\Rdist$ ($y$-axis) for $n=100$ and $\nu=.25$,  $\nu=.75$, respectively; see~Figures~\ref{fig:comPL2} (a) and (b).   
+Mean-type estimators are represented by black dots whereas median-type estimators correspond to light gray dots. A point falls below the $45^\circ{}$ line if the error on the $y$-axis corresponding to the Riemannian geometry-based estimator is smaller in comparison to the error plotted on the $x$-axis for the Euclidean geometry-based estimator.  The same holds true vice versa if a point falls above the $45^\circ{}$ line. 
+For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less estimation error than $\ProjMedian$  for the Cayley distribution as most of the points fall below the identity line while the Riemannian distance-based $\GeomMedian$ results in greater errors for ${\bm S}$ for the circular-von Mises-based distribution.  This result supports results about $\ProjMedian$ and $\GeomMedian$ in Figure~\ref{fig:NuBoxes}.
 
 \begin{figure}[h!]
 \centering
 \subfloat[$\nu=0.25$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu25.pdf}}\newline
 \subfloat[$\nu=0.75$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu75.pdf}}
-\caption{Comparison of the estimation errors resulting from the embedding (x-axis) and intrinsic (y-axis) approaches, $n=100$.  The mean-type estimators are in black dots and the median-type estimator is in light gray.}
+\caption{Comparison of the estimation errors resulting from the embedding ($x$-axis) and intrinsic ($y$-axis) approaches, $n=100$.  The mean-type estimators are in black dots and the median-type estimator is in light gray.}
 \label{fig:comPL2}
 \end{figure}
 
@@ -124,12 +129,9 @@ We begin with exploring both median-type estimators. For $n=100$ and $\nu=.25$, 
 \end{center}
 \end{table}
 
-\noindent In Table \ref{tab:percL1} we support Figure~\ref{fig:comML1} with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we show the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another.  We denote the latter quantity by $\bar\delta$ in Table \ref{tab:percL1} where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.    
-Our previous results suggested the use of median-type estimators for the circular-von Mises-based distribution which favors $\ProjMean$ over $\GeomMedian$ as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley and the matrix Fisher model the preference is reversed, typically  $\ProjMedian$ exhibits a larger spread (cf.~Figure~\ref{fig:NBoxes}). Note however, that both models show a marginal preference for the mean-type estimators which we will compare next in Figure~\ref{fig:comPL2} and Table~\ref{tab:percL2}.
+\noindent In Tables \ref{tab:percL1} and \ref{tab:percL2} we support Figure~\ref{fig:comPL2} with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we show the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another.  We denote the latter quantity by $\bar\delta$ in Table \ref{tab:percL1} where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.    
+Our previous results suggested the use of median-type estimators for the circular-von Mises-based distribution which favors \red{$\ProjMedian$} over $\GeomMedian$ as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley and the matrix Fisher model the preference is reversed, typically  $\ProjMedian$ exhibits a larger spread (cf.~Figure~\ref{fig:NBoxes}). 
 
-
-
-In Figure~\ref{fig:comPL2} we plotted the estimation error when using $\ProjMean$ versus the estimation error under $\GeomMean$. Table \ref{tab:percL2} displays again the exact percentage of samples that resulted in a smaller estimation error for $\GeomMean$ in comparison to $\ProjMean$ as well as the average difference in the estimators' estimation errors.
 
 \begin{table}[h!]
 \caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.  \label{tab:percL2}}
