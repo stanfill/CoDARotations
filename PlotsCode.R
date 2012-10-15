@@ -152,6 +152,11 @@ levels(ResFrame$Dist)<-c("Cayley","matrix Fisher","circular-von Mises")
 
 x<-ddply(ResFrame,.(Dist,nu,n,Estimator),summarize,Median=round(median(Error),4),Mean=round(mean(Error),4),RMSE=round(sqrt(mean(Error^2)),4))
 
+#Make previous Table 4 into a plot for Associate editor
+mx<-melt(x,id=c("Dist","Estimator","n","nu"),measure=c("Mean","RMSE"))
+mx$n<-as.factor(mx$n)
+mx75<-mx[(mx$nu==0.75&mx$Dist=="circular-von Mises"),]
+qplot(n,value,data=mx75,facets=.~variable,geom="path",group=Estimator,colour=Estimator,lwd=I(1.5))
 
 #Plot boxplots as a function of nu for n=300
 Largen<-ResFrame[ResFrame$n==100,]
