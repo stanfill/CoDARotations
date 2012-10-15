@@ -138,6 +138,7 @@ qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",
 library(ggplot2)
 library(reshape2)
 library(plyr)
+library(grid)
 
 #theme_set(theme_black(16))
 
@@ -153,16 +154,19 @@ levels(ResFrame$Dist)<-c("Cayley","matrix Fisher","circular-von Mises")
 x<-ddply(ResFrame,.(Dist,nu,n,Estimator),summarize,Median=round(median(Error),4),Mean=round(mean(Error),4),RMSE=round(sqrt(mean(Error^2)),4))
 
 #Make previous Table 4 into a plot for Associate editor
-my.labels <- list(bquote(widetilde(S)[R]),bquote(widehat(S)[R]),bquote(widehat(S)[E]),bquote(widetilde(S)[E]))
+my.labels <- list(bquote(widehat(S)[E]),bquote(widehat(S)[R]),bquote(widetilde(S)[E]),bquote(widetilde(S)[R]))
 
 mx<-melt(x,id=c("Dist","Estimator","n","nu"),measure=c("Mean","RMSE"))
 mx$n<-as.factor(mx$n)
 mx75<-mx[(mx$nu==0.75&mx$Dist=="circular-von Mises"),]
+mx75$Estimator<-factor(mx75$Estimator,levels=c("E.Mean","R.Mean","E.Median","R.Median"))
+
 qplot(n,value,data=mx75,facets=.~variable,geom="path",group=Estimator,linetype=Estimator,lwd=I(1.5))+
-  scale_linetype_manual(values=1:4,labels=my.labels)+coord_equal(ratio=4)+
-  theme(legend.text=element_text(size=12))+
+  scale_linetype_manual(values=c(3,4,2,1),labels=my.labels)+coord_equal(ratio=4)+
+  theme(legend.text=element_text(size=12),legend.key.width=unit(3,"line"),legend.title=element_text(size=12))+
   geom_hline(yintercept=0,colour="gray50")+
   theme(axis.text.x=element_text(size=12,color=1),axis.text.y=element_text(size=12,color=1))
+ggsave("vonMisesnu75MeanRMSE.pdf",width=8,height=4)
 
 #Plot boxplots as a function of nu for n=300
 Largen<-ResFrame[ResFrame$n==100,]
