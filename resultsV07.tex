@@ -42,27 +42,33 @@ Estimator 	& &  Mean error & RMSE& &  Mean error & RMSE& &   Mean error & RMSE \
 \label{fig:NBoxes}
 \end{figure}
 
-\noindent Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function of the sample size. Results are displayed for each level of $n$ and  $\nu=0.75$. As to be expected, the estimation error decreases as the sample size increases for all three distributions. For small samples, $n=10$, the estimator exhibiting the largest amount of variability is the geodesic mean $\GeomMean$. This behavior is consistent for all three distributions.  While the estimator's variability lessens considerably for the Cayley and matrix Fisher distribution as $n$ increases, the estimator remains the most variable estimator for the circular-von Mises-based distribution.   For a tabular display of the results in Figure~\ref{fig:NBoxes} for the circular-von Mises based distribution we refer to Table \ref{tab:vmnu75}.  
+\noindent Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function of the sample size. Results are displayed for each level of $n$ and  $\nu=0.75$. As to be expected, the estimation error decreases as the sample size increases for all three distributions. For small samples, $n=10$, the estimator exhibiting the largest amount of variability is the geodesic mean $\GeomMean$. This behavior is consistent for all three distributions.  While the estimator's variability lessens considerably for the Cayley and matrix Fisher distribution as $n$ increases, the estimator remains the most variable estimator for the circular-von Mises-based distribution.   For a tabular display of the results in Figure~\ref{fig:NBoxes} for the circular-von Mises based distribution we refer to Table \ref{fig:vmnu75}.  
 
-\begin{center}
-\begin{table}[h!]
-\caption{Numerical summaries of the estimation error for all levels of $n$ for the circular-von Mises-based distribution,  $\nu=0.75$.  \label{tab:vmnu75}}
-\begin{tabular}{rccccrccc}
-  \hline
- $\mathbf{n}$ & \textbf{Estimator}  & \textbf{Mean error} & \textbf{RMSE} & &$\mathbf{n}$ & \textbf{Estimator} & \textbf{Mean error} & \textbf{RMSE} \\ \hline \hline
-   \multirow{4}{*}{10} & $\GeomMean$  & 0.652 & 0.789 &  & \multirow{4}{*}{100} & $\GeomMean$  & 0.204 & 0.222 \\ 
-    & $\ProjMean$  & 0.442 & 0.518 &   & & $\ProjMean$ & 0.128 & 0.139 \\ 
-    & $\GeomMedian$  & 0.366 & 0.459 &  &  & $\GeomMedian$  & 0.069 & 0.079 \\ 
-    & $\ProjMedian$  & 0.326 & 0.450 &   & & $\ProjMedian$  & 0.055 & 0.063 \\  
-    & & & & & & & \\ 
-    \multirow{4}{*}{50} & $\GeomMean$  & 0.280 & 0.309 &  &  \multirow{4}{*}{300} & $\GeomMean$  & 0.119 & 0.130 \\ 
-    & $\ProjMean$  & 0.185 & 0.202 &  &  & $\ProjMean$  & 0.075 & 0.081 \\ 
-    & $\GeomMedian$  & 0.109 & 0.130 &  & & $\GeomMedian$  & 0.034 & 0.039 \\
-    & $\ProjMedian$ & 0.088 & 0.105 &  &  & $\ProjMedian$ & 0.027 & 0.031 \\ 
-   \hline
-\end{tabular}
-\end{table}
-\end{center}
+%\begin{center}
+%\begin{table}[h!]
+%\caption{Numerical summaries of the estimation error for all levels of $n$ for the circular-von Mises-based distribution,  $\nu=0.75$.  \label{tab:vmnu75}}
+%\begin{tabular}{rccccrccc}
+%  \hline
+% $\mathbf{n}$ & \textbf{Estimator}  & \textbf{Mean error} & \textbf{RMSE} & &$\mathbf{n}$ & \textbf{Estimator} & \textbf{Mean error} & \textbf{RMSE} \\ \hline \hline
+%   \multirow{4}{*}{10} & $\GeomMean$  & 0.652 & 0.789 &  & \multirow{4}{*}{100} & $\GeomMean$  & 0.204 & 0.222 \\ 
+%    & $\ProjMean$  & 0.442 & 0.518 &   & & $\ProjMean$ & 0.128 & 0.139 \\ 
+%    & $\GeomMedian$  & 0.366 & 0.459 &  &  & $\GeomMedian$  & 0.069 & 0.079 \\ 
+%    & $\ProjMedian$  & 0.326 & 0.450 &   & & $\ProjMedian$  & 0.055 & 0.063 \\  
+%    & & & & & & & \\ 
+%    \multirow{4}{*}{50} & $\GeomMean$  & 0.280 & 0.309 &  &  \multirow{4}{*}{300} & $\GeomMean$  & 0.119 & 0.130 \\ 
+%    & $\ProjMean$  & 0.185 & 0.202 &  &  & $\ProjMean$  & 0.075 & 0.081 \\ 
+%    & $\GeomMedian$  & 0.109 & 0.130 &  & & $\GeomMedian$  & 0.034 & 0.039 \\
+%    & $\ProjMedian$ & 0.088 & 0.105 &  &  & $\ProjMedian$ & 0.027 & 0.031 \\ 
+%   \hline
+%\end{tabular}
+%\end{table}
+%\end{center}
+
+\begin{figure}
+\centering
+\includegraphics[width=1\linewidth]{vonMisesnu75MeanRMSE.pdf}
+\caption{Numerical summaries of the estimation error for all levels of $n$ for the circular-von Mises-based distribution,  $\nu=0.75$.  \label{fig:vmnu75}}
+\end{figure}
 
 \noindent Figure \ref{fig:dendetail} may provide an explanation for why the circular-von Mises-based distribution clearly distinguishes between the mean- and median-type estimators.  Upon closer examination of the tail of all three rotation densities (expressed in terms of the misorientation angle $r$ as in Figure~\ref{fig:Haar}) the circular-von Mises-based distribution exhibits the heaviest tail with respect to the Haar measure, see Figure \ref{fig:dendetail}(b). As a consequence, \textit{more extreme} observations become more likely in circular-von Mises-based samples compared to the Cayley and matrix Fisher models suggesting that a median-type estimator is more favorable. 
 \begin{figure}[h!]
@@ -92,8 +98,8 @@ For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less esti
 
 \begin{figure}[h!]
 \centering
-\subfloat[$\nu=0.25$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu25.pdf}}\newline
-\subfloat[$\nu=0.75$]{\includegraphics[width=.9\linewidth]{EuclidRiemannNu75.pdf}}
+\subfloat{\includegraphics[width=.9\linewidth]{EuclidRiemannNu25.pdf}}\newline
+\subfloat{\includegraphics[width=.9\linewidth]{EuclidRiemannNu75.pdf}}
 \caption{Comparison of the estimation errors resulting from the embedding ($x$-axis) and intrinsic ($y$-axis) approaches, $n=100$.  The mean-type estimators are in black dots and the median-type estimator is in light gray.}
 \label{fig:comPL2}
 \end{figure}
