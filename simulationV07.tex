@@ -13,20 +13,6 @@ For each distribution and variability parameter, the density $f(\bm E_i|\nu)$ of
 
 %Densities with respect to the Haar measure of the rotational distributions under consideration are displayed in Figure~\ref{fig:Haar} for each of the choices of $\nu$. 
 
-\begin{figure}[h!]
-\centering
-\subfloat[$\nu=0.25$]
-{\label{fig:cayden}\includegraphics[width=0.33\textwidth]
-{Var25DensityHaar.pdf}}
-\subfloat[$\nu=0.50$]
-{\label{fig:fishden}\includegraphics[width=0.33\textwidth]
-{Var5DensityHaar.pdf}}
-\subfloat[$\nu=0.75$]
-{\label{fig:vonmden}\includegraphics[width=0.33\textwidth]
-{Var75DensityHaar.pdf}}
-\caption{Density functions for the three rotational distributions with respect to the Haar measure.  The solid line corresponds to the density of matrix Fisher distribution, the dashed line the density of the circular-von Mises-based distribution and the dotted line to the density of the Cayley distribution.}
-\label{fig:Haar}
-\end{figure}
 
 For each combination of sample size, spread $\nu$ and choice of distribution, we generated 1,000 samples and for each sample estimated the central direction  $\bm S=\bm I_{3\times 3}$ using the four estimators on each sample.  The next section continues with an introduction to the distributions under consideration.
 
@@ -72,6 +58,24 @@ $\nu=\frac{\mathrm{I_0}(\kappa)-\mathrm{I_1}(\kappa)}{\mathrm{I_0}(\kappa)}$ \\[
 \end{center}
 
 These circular densities are given in Table~\ref{tab:ang.dens}, where $\mathrm{I_p}(\cdot)$ denotes the Bessel function of order $p$ defined as  $\mathrm{I_p}(\kappa)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos(pr)e^{\kappa\cos r}dr$. To ease the interpretation of the simulation results in Section~\ref{sec:results},  we choose not to present results in terms of $\kappa$ but instead use the circular variance defined as $\nu=1-\rho$ as a measure of spread, where $\rho=\mathrm{E}[\cos(r)]$. This allows us to compare the performance of the estimators for densities exhibiting the same spread. Note that $\rho=\mathrm{E}[\cos(r)]$ is also known as the mean resultant length.  The values of $\kappa$ corresponding to the chosen circular variances are given in Table~\ref{tab:kappas}.  \\
+
+% \begin{figure}[h!]
+% \centering
+% \subfloat[$\nu=0.25$]{\label{fig:cayden}\includegraphics[width=0.33\textwidth]{Var25DensityHaar.pdf}}
+% \subfloat[$\nu=0.50$]{\label{fig:fishden}\includegraphics[width=0.33\textwidth]{Var5DensityHaar.pdf}}
+% \subfloat[$\nu=0.75$]{\label{fig:vonmden}\includegraphics[width=0.33\textwidth]{Var75DensityHaar.pdf}}
+% \caption{Density functions for the three rotational distributions with respect to the Haar measure. The solid line corresponds to the density of matrix Fisher distribution, the dashed line the density of the circular-von Mises-based distribution and the dotted line to the density of the Cayley distribution.}
+% \label{fig:Haar}
+% \end{figure}
+
+\begin{figure}[h!]
+\centering
+\subfloat[Overview]{\label{fig:zoomout}\includegraphics[width=0.33\textwidth]{Var75DensityHaarFull.pdf}}
+\subfloat[Mode Behavior]{\label{fig:body}\includegraphics[width=0.33\textwidth]{Var75DensityBox.pdf}}
+\subfloat[Tail Behavior]{\label{fig:denzoom}\includegraphics[width=0.33\textwidth]{Var75DensityZoomNoGuide.pdf}}
+\caption{Comparison of the distributions of interest for $\nu=0.75$.  Clearly the circular-von Mises based-distribution has the highest peak, and suprisingly it has the heavies tail as well.}
+\label{fig:Haar}
+\end{figure}
 
 
 \begin{table}[h!]

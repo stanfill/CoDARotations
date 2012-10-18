@@ -86,6 +86,17 @@ qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
 #dev.off()
 
+
+#Associate editor wants to see who distribution, do this for nu=0.75:
+setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations/images")
+#pdf("Var75DensityHaarFull.pdf",height=5,width=5)
+qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,25),ylab="f(r)")+
+  scale_linetype_manual(values=c(1,12,3))+theme(legend.position=c(0,1),legend.justification=c(0.1,1-.11),legend.background=element_rect(fill="white",linetype=0))+
+  theme(legend.title=element_text(size=15,face="bold"),legend.text=element_text(size=14,face="bold"))+geom_abline(intercept=0,slope=0,colour="gray50")+
+  theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))+geom_vline(xintercept=0)
+#dev.off()
+
+
 #With respect to lebesgue
 
 #pdf("Var25Density.pdf",height=5,width=5)
@@ -130,6 +141,14 @@ qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
 #dev.off()
 
+#pdf("Var75DensityZoomNoGuide.pdf",height=5,width=5)
+qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.8),xlim=c(1,pi),ylab="f(r)")+
+  scale_linetype_manual(values=c(1,12,3))+theme(legend.position="NONE")+
+  theme(legend.title=element_text(size=16,face="bold"),legend.text=element_text(size=16,face="bold"))+geom_abline(intercept=0,slope=c(0,100000),colour="gray50")+
+  theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
+#dev.off()
+
+
 ###############################################################################
 ######                                                              ###########
 ######      Analyze simulation results                              ###########
@@ -166,7 +185,7 @@ qplot(n,value,data=mx75,facets=.~variable,geom="path",group=Estimator,linetype=E
   theme(legend.text=element_text(size=12),legend.key.width=unit(3,"line"),legend.title=element_text(size=12))+
   geom_hline(yintercept=0,colour="gray50")+
   theme(axis.text.x=element_text(size=12,color=1),axis.text.y=element_text(size=12,color=1))
-ggsave("vonMisesnu75MeanRMSE.pdf",width=8,height=4)
+#ggsave("vonMisesnu75MeanRMSE.pdf",width=8,height=4)
 
 #Plot boxplots as a function of nu for n=300
 Largen<-ResFrame[ResFrame$n==100,]
