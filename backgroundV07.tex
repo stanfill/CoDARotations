@@ -32,7 +32,7 @@ we map  $\bm{\Phi}(\bm{W})$ to a rotation matrix as
 \]
 where $r=\|\bm{W}\|$ and $\bm{U} =\bm{W}/\|\bm{W}\| $.  The space $\mathfrak{so}(3)$ of all skew-symmetric matrices forms the tangent space (Lie-algebra) of $SO(3)$, which is closed under familiar summation and scalar multiplication operations in the usual (i.e., element-wise) manner. The fact that $SO(3)$ is a differentiable manifold allows a distance measure (i.e., the geodesic distance in Section~\ref{subsec:metrics}) to be defined between points in $SO(3)$ according to Riemannian geometry. \blue{The resulting geodesic distance underlies the ``geometric" location estimator} for $\bm{S}$ commonly found in computer science \citep{fletcher08, fletcher09, hartley11} and engineering applications \citep{manton04}; see Sections~\ref{section:ltwo} and \ref{subsec:lone}.
 
-Before leaving this section, it is helpful to note that each rotation matrix $\bm{R}$ can be uniquely associated with a
+Before leaving this section, it is helpful to note that each rotation matrix $\bm{R}$ can be associated with a
 pair $(r,\bm{U})$, where $r\in(-\pi,\pi]$ and $\bm{U}\in\mathbb{R}^3$, $\|\bm{U}\|=1$, through
 \begin{equation}
 \label{eqn:angleaxis}

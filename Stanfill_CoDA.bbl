@@ -19,7 +19,7 @@ C.~Bajaj.
 
 \bibitem[Best and Fisher(1979)]{best79}
 D.~Best and N.~Fisher.
-\newblock Efficient simulation of the von mises distribution.
+\newblock Efficient simulation of the von {M}ises distribution.
 \newblock \emph{Applied Statistics}, 28\penalty0 (2):\penalty0 152--157, 1979.
 \newblock ISSN 0035-9254.
 
@@ -32,8 +32,8 @@ M.~Bingham, D.~Nordman, and S.~Vardeman.
 
 \bibitem[Bingham et~al.(2010)Bingham, Nordman, and Vardeman]{bingham10}
 M.~Bingham, D.~Nordman, and S.~Vardeman.
-\newblock Finite-sample investigation of likelihood and bayes inference for the
-  symmetric von mises-fisher distribution.
+\newblock Finite-sample investigation of likelihood and {B}ayes inference for
+  the symmetric von {M}ises-{F}isher distribution.
 \newblock \emph{Computational Statistics \& Data Analysis}, 54\penalty0
   (5):\penalty0 1317--1327, 2010.
 
@@ -44,7 +44,7 @@ H.~Bunge.
 
 \bibitem[Chan and He(1993)]{chan93}
 Y.~Chan and X.~He.
-\newblock On median-type estimators of direction for the von mises-fisher
+\newblock On median-type estimators of direction for the von {M}ises-{F}isher
   distribution.
 \newblock \emph{Biometrika}, 80\penalty0 (4):\penalty0 869--875, 1993.
 
@@ -115,7 +115,7 @@ R.~Hadani and A.~Singer.
 
 \bibitem[Hartley et~al.(2011)Hartley, Aftab, and Trumpf]{hartley11}
 R.~Hartley, K.~Aftab, and J.~Trumpf.
-\newblock L1 rotation averaging using the weiszfeld algorithm.
+\newblock L1 rotation averaging using the {W}eiszfeld algorithm.
 \newblock In \emph{2011 IEEE Conference on Computer Vision and Pattern
   Recognition (CVPR)}, pages 3041--3048. IEEE, 2011.
 
@@ -133,8 +133,8 @@ B.~Horn, H.~Hilden, and S.~Negahdaripour.
 
 \bibitem[Jupp and Mardia(1979)]{jupp79}
 P.~Jupp and K.~Mardia.
-\newblock {Maximum likelihood estimators for the matrix von Mises-Fisher and
-  Bingham distributions}.
+\newblock {Maximum likelihood estimators for the matrix von {M}ises-{F}isher
+  and {B}ingham distributions}.
 \newblock \emph{The Annals of Statistics}, 7\penalty0 (3):\penalty0 599--606,
   1979.
 \newblock ISSN 0090-5364.
@@ -153,7 +153,8 @@ H.~Karcher.
 
 \bibitem[Khatri and Mardia(1977)]{khatri77}
 C.~Khatri and K.~Mardia.
-\newblock The von mises-fisher matrix distribution in orientation statistics.
+\newblock The von {M}ises-{F}isher matrix distribution in orientation
+  statistics.
 \newblock \emph{Journal of the Royal Statistical Society. Series B
   (Methodological)}, 39\penalty0 (1):\penalty0 95--106, 1977.
 \newblock ISSN 0035-9246.
