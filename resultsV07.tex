@@ -7,13 +7,13 @@ In this section we summarize and present the main findings of the simulation stu
 \Log(\bm{S}^\top\widehat{\bm{S}})||_F, \quad \mbox{where} \quad \widehat{\bm{S}} =  \ProjMean, \; \GeomMean,\;  \ProjMedian \; \mbox{or} \; \GeomMedian.
 \end{equation}
 
-\noindent Note that for any two rotations $\bm R_1$ and $\bm R_2$ in $SO(3)$ it holds that $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$. We refer to Section~\ref{sec:appendix2} of the appendix for a short proof of this result.  Hence, results using $\Edist$ would prove equivalent, albeit on a smaller scale.   
+\noindent Note that for any two rotations $\bm R_1$ and $\bm R_2$ in $SO(3)$ it holds that \blue{their Euclidean distance  $\Edist$ is less than or equal to their Riemannian distance $\Rdist$. More specifically, it holds that }$\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$. We refer to Section~\ref{sec:appendix2} of the appendix for a short proof of this result.  Hence, results using $\Edist$ would prove equivalent, albeit on a smaller scale.   
 
 Figure~\ref{fig:NuBoxes} displays boxplots of the estimation errors for each of the considered rotation distributions and choice of circular spread $\nu$ for a sample of size  $n=100$.  Additionally,  Table~\ref{tab:alldN100Nu25} provides the root mean square error (RMSE) as a measure of precision as well as the \textit{mean estimation error} for $\nu=0.25$ in Figure~\ref{fig:NuBoxes}, i.e.~the top three plots. Despite skewness in some of the plotted error distributions the \textit{median estimation error} was quantitatively similar to the mean estimation error and is therefore not reported in Table~\ref{tab:alldN100Nu25} or the following.
 \begin{center}
 \begin{figure}[h!]
 \includegraphics[width=1\textwidth]{N100AllNuBoxes.pdf}
-\caption{\vspace{-1em}Box-plots of the estimation errors for each rotation distribution and level of $\nu$,  $n=100$.}
+\caption{Boxplots of the estimation errors for each rotation distribution and level of $\nu$,  $n=100$.}
 \label{fig:NuBoxes}
 \end{figure}
 \end{center}

@@ -28,7 +28,7 @@ SO(3)}\sum_{i=1}^n\Edist(\bm{R}_i,\bm{S}).
 \end{equation}
 We will refer to this estimator of $\bm{S}$ as the \textit{projected median}. \\
 
-Although median-type estimators have been proposed for high dimensional directional data, these estimator were defined for circular and spherical data only and had not been extended to $SO(3)$ data as done in (\ref{est:med}). For spherical data following a von Mises-Fisher distribution \citet{chan93}, for example,  considered  the so-called normalized spatial median of \cite{ducharme87}, an $L_1$ estimator and the Fisher median \red{\cite{Fisher85}} for estimating the central direction of data points on the sphere.   The authors conclude that the normalized spatial median estimator is preferable for spherical data under the von Mises-Fisher model. For additional information on (\ref{est:med}) and related estimators for directional data on the circle or sphere (e.g. the mediancentre \citep{gower74} or the Weber point \citep{bajaj88}),  see \citet{durocher09}. 
+Although median-type estimators have been proposed for high dimensional directional data, these estimator were defined for circular and spherical data only and had not been extended to $SO(3)$ data as done in (\ref{est:med}). For spherical data following a von Mises-Fisher distribution \citet{chan93}, for example,  considered  the so-called normalized spatial median of \cite{ducharme87}, an $L_1$ estimator and the Fisher median \citep{fisher85} for estimating the central direction of data points on the sphere.   The authors conclude that the normalized spatial median estimator is preferable for spherical data under the von Mises-Fisher model. For additional information on (\ref{est:med}) and related estimators for directional data on the circle or sphere (e.g. the mediancentre \citep{gower74} or the Weber point \citep{bajaj88}),  see \citet{durocher09}. 
 
 We further propose an algorithm to compute the projected median.  We base our method on the Weiszfeld algorithm originally given by \cite{weiszfeld37}.  The algorithm requires an initial value that does not equal any sample point. For the purpose of speeding up computing time we use $\ProjMean$ as the starting point. Note that the solution is generally not sensitive to the choice of starting points unless the data exhibit extreme spread.
 \begin{enumerate}
@@ -38,8 +38,9 @@ We further propose an algorithm to compute the projected median.  We base our me
 \[
 \bar{\bm R}_W=\frac{\sum_{i=1}^n\bm R_i/||\bm s_i||_F}{\sum_{i=1}^n1/||\bm s_i||_F}
 \]
-which we call the weighted mean with respect to $\widehat{\bm S}$.
-\item Define $\widehat{\bm S}_{\text{new}}$ to be the $\mathcal{M}(3)$ projection of $\bar{\bm R}_W$.
+which we call the weighted mean with respect to $\widehat{\bm S}$. \blue{Note that  there is a theoretical probability of zero for $||\bm s_i||_F = 0$, in practice we do impose a lower limit on $||\bm s_i||_F = \delta > 0$ (for some $\delta \in \bm R$) to avoid division by zero. }
+\item Define \blue{$\widehat{\bm S}_{\text{new}} = \argmax_{\bm{S}\in
+SO(3)}\tr(\bm{S}^{\top}\bar{\bm{R}}_W)$} to be the $\mathcal{M}(3)$ projection of $\bar{\bm R}_W$.
 \item If $\varepsilon>||\widehat{\bm S}-\widehat{\bm S}_{\text{new}}||_F$ return $\ProjMedian=\widehat{\bm S}_{\text{new}}$; otherwise set $\widehat{\bm S}=\widehat{\bm S}_{\text{new}}$ and return to step 2.
 \end{enumerate}
 
