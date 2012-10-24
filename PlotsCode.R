@@ -349,7 +349,7 @@ ggplot(alldf[alldf$n>99,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail
 setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations/images")
 
 ggplot(alldf[alldf$n>299,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tail")+
-  ylab(expression(d[G](bold(S),widehat(bold(S))[E])-d[G](bold(S),widetilde(bold(S))[E])))+
+  ylab(expression(d[R](bold(S),widehat(bold(S))[E])-d[R](bold(S),widetilde(bold(S))[E])))+
   geom_hline(yintercept=0,colour="gray50")+
   stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
   geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+
@@ -360,7 +360,7 @@ ggplot(alldf[alldf$n>299,],aes(Prop,Pdiff))+xlab("Proportion Observations in Tai
 alldf$ScalePdiff<-alldf$Pdiff/(alldf$PMean+alldf$PMedian)
 
 ggplot(alldf[alldf$n>299,],aes(Prop,ScalePdiff))+xlab("Proportion Observations in Tail")+
-  ylab(expression(frac(d[G](bold(S),widehat(bold(S))[E])-d[G](bold(S),widetilde(bold(S))[E]),d[G](bold(S),widehat(bold(S))[E])+d[G](bold(S),widetilde(bold(S))[E]))))+
+  ylab(expression(frac(d[R](bold(S),widehat(bold(S))[E])-d[R](bold(S),widetilde(bold(S))[E]),d[R](bold(S),widehat(bold(S))[E])+d[R](bold(S),widetilde(bold(S))[E]))))+
   geom_hline(yintercept=0,colour="gray50")+
   stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
   geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+
