@@ -42,10 +42,9 @@ Estimator 	& &  Mean error & RMSE& &  Mean error & RMSE& &   Mean error & RMSE \
 \caption{Box-plots of the estimation error for each rotation distribution and level of $n$,  $\nu=0.75$.}
 \label{fig:NBoxes}
 \end{figure}
+Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function of the sample size. Results are displayed for each level of $n$ for  $\nu=0.75$. As to be expected, the estimation error decreases as the sample size increases for all three distributions. For small samples, $n=10$, the estimator exhibiting the largest amount of variability is the geodesic mean $\GeomMean$. This behavior is consistent for all three distributions.  While the estimator's variability lessens considerably for the Cayley and matrix Fisher distribution as $n$ increases, the estimator remains the most variable estimator for the circular-von Mises-based distribution.  
 
-\noindent \green{Why no indention? BS}Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function of the sample size. Results are displayed for each level of $n$ for  $\nu=0.75$. As to be expected, the estimation error decreases as the sample size increases for all three distributions. For small samples, $n=10$, the estimator exhibiting the largest amount of variability is the geodesic mean $\GeomMean$. This behavior is consistent for all three distributions.  While the estimator's variability lessens considerably for the Cayley and matrix Fisher distribution as $n$ increases, the estimator remains the most variable estimator for the circular-von Mises-based distribution.  
-
-\noindent\green{One possible explanation for this behavior is that the algorithm used to estimate $\GeomMean$ begins at a random sample point.  For small samples or samples with several extreme observations it is likely to start the algorithm far from the true center, which may cause the algorithm to get stuck and fail to converge.  In practice we suggest the algorithm be started at some other estimate of the mean, e.g. $\ProjMean$.  For the purposes of this simulation study, however, we started the algorithm at a random sample point so that the behavior of $\ProjMean$ wouldn't affect $\GeomMean$.  Simulations where $\ProjMean$ was used to begin the simulation yielded similar results with less variability in the estimation of $\GeomMean$.}  To focus in on the circular-von Mises based distribution case we refer to Figure \ref{fig:vmnu75}.  
+One possible explanation for this behavior is that the algorithm used to estimate $\GeomMean$ begins at a random sample point.  For small samples or samples with several extreme observations it is likely to start the algorithm far from the true center, which may cause the algorithm to get stuck in a local minimum and fail to converge globally.  In practice we suggest the algorithm be started at some other estimate of the mean, e.g. $\ProjMean$. Simulations where $\ProjMean$ was used as a starting point for the algorithm yielded similar results with less variability in the estimates of $\GeomMean$. For the purposes of this simulation study, however, we started the algorithm at a random sample point to avoid bias.   To focus in on the circular-von Mises based distribution case we refer to Figure \ref{fig:vmnu75}.  
 
 %\begin{center}
 %\begin{table}[h!]
@@ -92,7 +91,7 @@ Values on the $y$-axis not only indicate which estimator is preferable, but also
 \begin{figure}[h!]
 \centering
 \includegraphics[width=.8\textwidth]{Nu75N300TailBehaviorStandard}
-\caption{The proportion of observations in the tail against the difference in projected mean and median errors for simulated data with $n=300$.  Each symbol indicates a different error distribution.}
+\caption{The proportion of observations in the tail against the difference in projected mean and median errors for simulated data with $n=300$.  Different symbols indicate different error distributions.}
 \label{fig:SimTail}
 \end{figure}
 
@@ -140,7 +139,7 @@ For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less esti
 \end{table}
 
 \noindent In Tables \ref{tab:percL1} and \ref{tab:percL2} we support Figure~\ref{fig:comPL2} with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we show the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another.  We denote the latter quantity by $\bar\delta$ in Table \ref{tab:percL1} where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.    
-Our previous results suggested the use of median-type estimators for the circular-von Mises-based distribution which favors \red{$\ProjMedian$} over $\GeomMedian$ as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley and the matrix Fisher model the preference is reversed, typically  $\ProjMedian$ exhibits a larger spread (cf.~Figure~\ref{fig:NBoxes}). 
+Our previous results suggested the use of median-type estimators for the circular-von Mises-based distribution which favors $\ProjMedian$ over $\GeomMedian$ as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley and the matrix Fisher model the preference is reversed, typically  $\ProjMedian$ exhibits a larger spread (cf.~Figure~\ref{fig:NBoxes}). 
 
 
 \begin{table}[h!]
