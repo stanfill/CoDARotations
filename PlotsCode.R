@@ -238,10 +238,11 @@ qplot(Estimator,Error,geom="boxplot",data=Largenu,xlab="",ylab=expression(d[R](b
 ##Direct comparisons of Euclid and Riemann for n=100 and the two extreme nu values
 ####
 library(reshape2)
-cResFrame<-cast(ResFrame,n+nu+Sample+Dist~Estimator)
+library(plyr)
+cResFrame<-dcast(ResFrame,n+nu+Sample+Dist~Estimator)
 Midn<-cResFrame[cResFrame$n==100,]
 
-levels(Midn$Dist)[2:3]<-c("matrix Fisher","circular-von Mises")
+#levels(Midn$Dist)[2:3]<-c("matrix Fisher","circular-von Mises")
 xmax25<-max(Midn[Midn$nu==.25,5:8])
 xmax75<-max(Midn[Midn$nu==.75,c(5,7:8)])
 
@@ -290,18 +291,82 @@ ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alp
   geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray70")+ggtitle(expression(nu==0.75))
 #ggsave("EuclidRiemannNu75.pdf",width=9,height=4)
 
+########
 #Tables that compute % above/below line and distance between
-CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(Med-HL1),perc=sum(HL1<Med)/1000)
-FisSumL1<-ddply(cResFrame[cResFrame$Dist=="Fisher",],.(nu,n),summarize,rbar=mean(Med-HL1),perc=sum(HL1<Med)/1000)
-MisSumL1<-ddply(cResFrame[cResFrame$Dist=="Mises",],.(nu,n),summarize,rbar=mean(Med-HL1),perc=sum(HL1<Med)/1000)
-SumL1<-cbind(CaySumL1,FisSumL1[,3:4],MisSumL1[,3:4])
-xtable(SumL1,digits=3,label="tab:percL1")
+#ORIGINAL VERSION WITH NO SEs
+##
 
-CaySumL2<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(PM-ML2),perc=sum(ML2<PM)/1000)
-FisSumL2<-ddply(cResFrame[cResFrame$Dist=="Fisher",],.(nu,n),summarize,rbar=mean(PM-ML2),perc=sum(ML2<PM)/1000)
-MisSumL2<-ddply(cResFrame[cResFrame$Dist=="Mises",],.(nu,n),summarize,rbar=mean(PM-ML2),perc=sum(ML2<PM)/1000)
+CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
+FisSumL1<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
+MisSumL1<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
+SumL1<-cbind(CaySumL1,FisSumL1[,3:4],MisSumL1[,3:4])
+xtable(SumL1,digits=4,label="tab:percL1")
+
+CaySumL2<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
+FisSumL2<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
+MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
 SumL2<-cbind(CaySumL2,FisSumL2[,3:4],MisSumL2[,3:4])
 xtable(SumL2,digits=3,label="tab:percL2")
+
+##########################################################################
+##########################################################################
+####   This section is dedicated to proving statistical significance  ####
+####     between estimators                                           ####
+##########################################################################
+##########################################################################
+####
+#Non-parametric ANOVA Table to show differences in estimators
+####
+#i indicates nu, j indicates n and k indicates dist
+nui<-unique(ResFrame$nu)
+nj<-unique(ResFrame$n)
+distk<-unique(ResFrame$Dist)
+kres<-vector("list",length(nui)*length(nj)*length(distk))
+ind<-1
+
+for(i in nui){
+  for(j in nj){
+    for(k in distk){
+      subResFrame<-subset(ResFrame,n==j & nu==i & Dist==k)
+      kres[[ind]]<-kruskal.test(Error~Estimator,data=subResFrame)
+      ind<-ind+1
+    }
+  }
+}
+
+kres
+
+#Remove effect of n and nu then do one rank sum test for estimator and distribution
+
+sumResFrame<-ddply(ResFrame,.(nu,n),summarize,yddd=mean(Error))
+mergeResFrame<-merge(ResFrame,sumResFrame)
+mergeResFrame$Error2<-mergeResFrame$Error-mergeResFrame$yddd
+
+qplot(Estimator,Error2,facets=.~Dist,data=mergeResFrame,geom='boxplot')
+kruskal.test(Error2~Dist+Estimator,data=mergeResFrame)
+
+#Perhaps just get SEs for table in paper 
+n100nu25ResFrame<-subset(ResFrame,n==100 & nu==0.25)
+n100nu25ses<-ddply(n100nu25ResFrame,.(Dist,Estimator),summarize,mean=mean(Error),sd=sd(Error)/sqrt(length(Error)))
+n100nu25ses
+
+
+#Add ses to delta table
+CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
+FisSumL1<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
+MisSumL1<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
+SumL1<-cbind(CaySumL1[,2:5],FisSumL1[,3:5],MisSumL1[,3:5])
+xtable(SumL1,digits=4,label="tab:percL1")
+
+CaySumL2<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
+FisSumL2<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
+MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
+SumL2<-cbind(CaySumL2[,2:5],FisSumL2[,3:5],MisSumL2[,3:5])
+xtable(SumL2,digits=4,label="tab:percL2")
+##########################################################################
+##########################################################################
+##########################################################################
+##########################################################################
 
 ####
 #Make tables to compare estimators for von Mises-Circular and nu=.75

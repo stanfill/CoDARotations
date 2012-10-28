@@ -1,4 +1,4 @@
-\begin{thebibliography}{41}
+\begin{thebibliography}{43}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -119,6 +119,13 @@ R.~Hartley, K.~Aftab, and J.~Trumpf.
 \newblock In \emph{2011 IEEE Conference on Computer Vision and Pattern
   Recognition (CVPR)}, pages 3041--3048. IEEE, 2011.
 
+\bibitem[He and Simpson(199)]{he92}
+X.~He and D.~Simpson.
+\newblock {Robust Direction Estimation}.
+\newblock \emph{The Annals of Statistics}, 20\penalty0 (1):\penalty0 351--369,
+  199.
+\newblock ISSN 0090-5364.
+
 \bibitem[Hielscher et~al.(2010)Hielscher, Schaeben, and H.]{hielscher10}
 R.~Hielscher, H.~Schaeben, and S.~H.
 \newblock Orientation distribution within a single hematite crystal.
@@ -183,6 +190,11 @@ J.~Manton.
   mass on compact lie groups.
 \newblock In \emph{8th Conference on Control, Automation, Robotics and Vision,
   (ICARCV)}, volume~3, pages 2211--2216. IEEE, 2004.
+
+\bibitem[Mardia(1972)]{mardia72}
+K.~Mardia.
+\newblock \emph{{Statistics of Directional Data}}.
+\newblock London: Academic Press, 1972.
 
 \bibitem[Mardia and Jupp(2000)]{mardia00}
 K.~Mardia and P.~Jupp.
