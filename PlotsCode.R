@@ -239,7 +239,7 @@ qplot(Estimator,Error,geom="boxplot",data=Largenu,xlab="",ylab=expression(d[R](b
 ####
 library(reshape2)
 library(plyr)
-cResFrame<-dcast(ResFrame,n+nu+Sample+Dist~Estimator)
+cResFrame<-dcast(ResFrame,n+nu+Sample+Dist~Estimator,value.var="Error")
 Midn<-cResFrame[cResFrame$n==100,]
 
 #levels(Midn$Dist)[2:3]<-c("matrix Fisher","circular-von Mises")
@@ -350,19 +350,33 @@ n100nu25ResFrame<-subset(ResFrame,n==100 & nu==0.25)
 n100nu25ses<-ddply(n100nu25ResFrame,.(Dist,Estimator),summarize,mean=mean(Error),sd=sd(Error)/sqrt(length(Error)))
 n100nu25ses
 
-
 #Add ses to delta table
-CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
-FisSumL1<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
-MisSumL1<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median),perc=sum(R.Median<E.Median)/1000)
+CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
+FisSumL1<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
+MisSumL1<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
 SumL1<-cbind(CaySumL1[,2:5],FisSumL1[,3:5],MisSumL1[,3:5])
 xtable(SumL1,digits=4,label="tab:percL1")
 
-CaySumL2<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
-FisSumL2<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
-MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean),perc=sum(R.Mean<E.Mean)/1000)
+CaySumL2<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean)/sqrt(1000),perc=sum(R.Mean<E.Mean)/1000)
+FisSumL2<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean)/sqrt(1000),perc=sum(R.Mean<E.Mean)/1000)
+MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean)/sqrt(1000),perc=sum(R.Mean<E.Mean)/1000)
 SumL2<-cbind(CaySumL2[,2:5],FisSumL2[,3:5],MisSumL2[,3:5])
 xtable(SumL2,digits=4,label="tab:percL2")
+
+#Perform ANOVA on sqrt data
+Error2<-log(ResFrame$Error)
+qqnorm(Error2);qqline(Error2)
+
+shapiro.test(Error2[5001:10000])
+aovResFrame<-ResFrame
+aovResFrame$logError<-log(aovResFrame$Error)
+aovResFrame$Blocks<-as.factor(paste(aovResFrame$nu,aovResFrame$n,aovResFrame$Dist))
+
+a1<-aov(logError~n*nu*Dist+Estimator,data=aovResFrame)
+summary(a1)
+
+a2<-aov(logError~Blocks+Estimator,data=aovResFrame)
+summary(a2)
 ##########################################################################
 ##########################################################################
 ##########################################################################
