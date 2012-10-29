@@ -363,7 +363,8 @@ MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summari
 SumL2<-cbind(CaySumL2[,2:5],FisSumL2[,3:5],MisSumL2[,3:5])
 xtable(SumL2,digits=4,label="tab:percL2")
 
-#Perform ANOVA on sqrt data
+#Perform ANOVA on log transformed data
+#Make one table treating nu/n/Dist combination as blocks
 Error2<-log(ResFrame$Error)
 qqnorm(Error2);qqline(Error2)
 
@@ -377,6 +378,13 @@ summary(a1)
 
 a2<-aov(logError~Blocks+Estimator,data=aovResFrame)
 summary(a2)
+xtable(summary(a2))
+
+#Do one ANOVA just for n=100, nu=0.25 to match table in Appendix
+aovResFramen100nu25<-subset(aovResFrame,n==100&nu==0.25)
+a3<-aov(logError~Estimator,data=aovResFramen100nu25)
+summary(a3)
+xtable(summary(a3))
 ##########################################################################
 ##########################################################################
 ##########################################################################

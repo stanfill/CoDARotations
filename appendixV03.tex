@@ -122,7 +122,7 @@ Let $\bm{o}_1,\bm{R}_2\in SO(3)$ be given and define $\tr(\bm R_1^\top\bm R_2)=1
 Taking square roots on both sides and noticing that $\Edist (\bm R_1,\bm R_2)\geq0$ and $\Rdist (\bm R_1,\bm R_2)\geq0$ gives \eqref{EvR}.\\
 $\Box$
 
-\subsection{Standard Error Tables}
+\subsection{Standard Error and ANOVA Tables}
 
 \begin{center}
 \begin{table}[h!]
@@ -200,6 +200,38 @@ Estimator &   Mean error  & RMSE& &  Mean error & RMSE& &   Mean error& RMSE \\ 
   &    50 && 0.0257 & 0.0012 & 0.7410 && -0.0356 & 0.0045 & 0.3380 && -0.0955 & 0.0032 & 0.1500 \\ 
   &   100 && 0.0169 & 0.0009 & 0.7350 && -0.0240 & 0.0043 & 0.3460 && -0.0763 & 0.0021 & 0.1110 \\ 
   &   300 && 0.0091 & 0.0005 & 0.7280 && -0.0124 & 0.0009 & 0.3440 && -0.0446 & 0.0012 & 0.1270 \\
+   \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{table}[h!]
+\caption{Results from an analysis of variance on the log transformed error data.  Each unique sample size ($n$), circular variance ($\nu$) and distribution combination is treated as a fixed block.  From this we can conclude that there is a statistically significant difference between the estimators.}
+\begin{center}
+\begin{tabular}{lrrrrr}
+  \hline
+ & Df & Sum Sq & Mean Sq & F value & Pr($>$F) \\ 
+  \hline
+Blocks      & 35 & 84515.71 & 2414.73 & 6805.73 & $<1\times 10^{-5}$ \\ 
+Estimator   & 3 & 2714.88 & 904.96 & 2550.56 & $<1\times 10^{-5}$ \\ 
+Residuals   & 143961 & 51078.63 & 0.35 &  &  \\ \hline
+Total & 143999 & 138309.2&&&\\
+   \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+\begin{table}[h!]
+\caption{Results from an analysis of variance on the log transformed error data for $n=100$ and $\nu=0.25$.  From this we can conclude that there is a statistically significant difference between the estimators.}
+\begin{center}
+\begin{tabular}{lrrrrr}
+  \hline
+ & Df & Sum Sq & Mean Sq & F value & Pr($>$F) \\ 
+  \hline
+Estimator   & 3 & 228.43 & 76.14 & 183.29 & $<1\times 10^{-5}$ \\ 
+Residuals   & 11996 & 4983.45 & 0.42 &  &  \\ \hline
+Total & 11999 & 5211.88 &&&\\
    \hline
 \end{tabular}
 \end{center}
