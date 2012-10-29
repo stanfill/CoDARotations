@@ -382,7 +382,7 @@ xtable(summary(a2))
 
 #Do one ANOVA just for n=100, nu=0.25 to match table in Appendix
 aovResFramen100nu25<-subset(aovResFrame,n==100&nu==0.25)
-a3<-aov(logError~Estimator,data=aovResFramen100nu25)
+a3<-aov(logError~Dist+Estimator,data=aovResFramen100nu25)
 summary(a3)
 xtable(summary(a3))
 ##########################################################################

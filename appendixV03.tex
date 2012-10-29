@@ -223,14 +223,15 @@ Total & 143999 & 138309.2&&&\\
 \end{table}
 
 \begin{table}[h!]
-\caption{Results from an analysis of variance on the log transformed error data for $n=100$ and $\nu=0.25$.  From this we can conclude that there is a statistically significant difference between the estimators.}
+\caption{Results from an analysis of variance on the log transformed error data for $n=100$ and $\nu=0.25$ and treating distributions as blocks.  From this we can conclude that there is a statistically significant difference between the estimators.}
 \begin{center}
 \begin{tabular}{lrrrrr}
   \hline
  & Df & Sum Sq & Mean Sq & F value & Pr($>$F) \\ 
   \hline
-Estimator   & 3 & 228.43 & 76.14 & 183.29 & $<1\times 10^{-5}$ \\ 
-Residuals   & 11996 & 4983.45 & 0.42 &  &  \\ \hline
+Distribution       & 2 & 927.61 & 463.80 & 1371.56 & $<1\times 10^{-5}$ \\ 
+Estimator   & 3 & 228.43 & 76.14 & 225.17 & $<1\times 10^{-5}$ \\ 
+Residuals   & 11994 & 4055.85 & 0.34 &  &  \\
 Total & 11999 & 5211.88 &&&\\
    \hline
 \end{tabular}
