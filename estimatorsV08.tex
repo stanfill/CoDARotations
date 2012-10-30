@@ -37,7 +37,7 @@ We next propose an algorithm to compute the projected median.  We base our metho
 \[
 \bar{\bm R}_W=\frac{\sum_{i=1}^n\bm R_i/||\bm s_i||_F}{\sum_{i=1}^n1/||\bm s_i||_F}
 \]
-which we call the weighted mean with respect to $\widehat{\bm S}$. Note that  there is a theoretical probability of zero for $||\bm s_i||_F = 0$, in practice we do impose a lower limit on $||\bm s_i||_F = \delta > 0$ (for some $\delta \in \bm R$) to avoid division by zero. 
+which we call the weighted mean with respect to $\widehat{\bm S}$. Note that  there is a theoretical probability of zero for $||\bm s_i||_F = 0$, in practice we do impose a lower limit on $||\bm s_i||_F = \delta > 0$ (for some $\delta \in \mathbb R$) to avoid division by zero. 
 \item Define $\widehat{\bm S}_{\text{new}} = \argmax_{\bm{S}\in
 SO(3)}\tr(\bm{S}^{\top}\bar{\bm{R}}_W)$ to be the $\mathcal{M}(3)$ projection of $\bar{\bm R}_W$.
 \item If $\varepsilon>||\widehat{\bm S}-\widehat{\bm S}_{\text{new}}||_F$ return $\ProjMedian=\widehat{\bm S}_{\text{new}}$; otherwise set $\widehat{\bm S}=\widehat{\bm S}_{\text{new}}$ and return to step 2.
