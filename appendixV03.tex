@@ -93,7 +93,7 @@ The results section of this paper only compared the distances of each estimator 
 %\caption{An illustration of the difference between the Euclidean and Riemannian distance metrics on $SO(2)$.}
 %\label{fig:dEvsdG} 
 %\end{figure}
-\section{No Name yet}
+\section{Riemannian and Euclidean Distance}
 \label{sec:appendix2}
 Let $\bm R_1\bm v$ and $\bm R_2\bm v$ be two observations in $SO(2)$.  The Riemannian distance between these two observations is given by $\alpha$ and is indicated with the thick black arc.  The Euclidean distance is given by $\beta$ and is indicated by the gray line running through the circle.  Because this is the unit circle, the Riemannian distance is also the angle in the center of the circle thus, using basic geometry its clear that half of the Euclidean distance is the sine of half of the Riemannian distance, i.e.
 \[
@@ -122,7 +122,7 @@ Let $\bm{o}_1,\bm{R}_2\in SO(3)$ be given and define $\tr(\bm R_1^\top\bm R_2)=1
 Taking square roots on both sides and noticing that $\Edist (\bm R_1,\bm R_2)\geq0$ and $\Rdist (\bm R_1,\bm R_2)\geq0$ gives \eqref{EvR}.\\
 $\Box$
 
-\subsection{Additional Results}
+\section{Additional Results}
 
 \begin{figure}[h!]
 \centering
@@ -246,7 +246,24 @@ Total & 11999 & 5211.88 &&&\\
 \end{table}
 
 
-\section{eyeball plots}
-
+\section{Sphere plots}
 \label{sec:appendix.eyeballs}
-
+Figures \ref{fig:eye-vmises} to \ref{fig:eye-cayley} show sphere plots for 100 samples from each of the von Mises, the Fisher Matrix and the Cayley distribution. The concentration parameter $\kappa$ in each distribution is chosen such that the samples have a circular variance of $\nu = 0.25$. The concentration of rotation matrices under von-Mises sampling is much higher to the origin (center of the circles) than for the two other distributions.
+\begin{figure}
+\includegraphics[width=.3\linewidth]{eye-vmises}
+\includegraphics[width=.3\linewidth]{eye-vmises-2}
+\includegraphics[width=.3\linewidth]{eye-vmises-3}
+\caption{\label{fig:eye-vmises}Sphere plots for a sample of 100 rotations from a von-Mises distribution with circular variance $\nu=0.25$}
+\end{figure}
+\begin{figure}
+\includegraphics[width=.3\linewidth]{eye-fisher}
+\includegraphics[width=.3\linewidth]{eye-fisher-2}
+\includegraphics[width=.3\linewidth]{eye-fisher-3}
+\caption{\label{fig:eye-fisher}Sphere plots for a sample of 100 rotations from a Fisher-Matrix distribution with circular variance $\nu=0.25$}
+\end{figure}
+\begin{figure}
+\includegraphics[width=.3\linewidth]{eye-cayley}
+\includegraphics[width=.3\linewidth]{eye-cayley-2}
+\includegraphics[width=.3\linewidth]{eye-cayley-3}
+\caption{\label{fig:eye-cayley}Sphere plots for a sample of 100 rotations from a Cayley distribution with circular variance $\nu=0.25$}
+\end{figure}
