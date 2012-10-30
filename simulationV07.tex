@@ -2,9 +2,6 @@
 \section{Simulation Study}\label{ch:simulation}
 
 Section~\ref{subsec:simdesign} gives an outline of the simulation design.  Section~\ref{subsec:genRR} briefly describes the parametric distributional models for describing symmetric rotation errors (cf.~(\ref{eqn:1})) with differing variability that are used in the study. 
-
-
-
 \subsection{Design of Simulation Study}
 \label{subsec:simdesign}
 To compare the performance of the proposed location estimators for determining the central direction $\bm{S}$ given a sample of size $n$, we generated random rotation error samples  $\bm E_1, \ldots, \bm E_n$  in model \eqref{eqn:1} with sizes $n=10, 50, 100$ and 300. In \eqref{eqn:1}, without loss of generality, we set the location parameter $\bm S=\bm I_{3\times 3}$ (the identity matrix) and consider circular variances (denoted  by $\nu$) of $\nu=0.25$, $0.50$ and $0.75$. 
@@ -17,7 +14,6 @@ For each combination of sample size, circular spread $\nu$ and choice of distrib
 \label{subsec:genRR}
 %As mentioned in the introduction, 
 We wish to compare estimators of the (fixed) location parameter $\bm{S}\in SO(3)$ under three common distributional models for describing symmetric rotation errors $\bm{E}\in SO(3)$ in a data model  $\bm{R}=\bm{S}\bm{E}$ (cf.~(\ref{eqn:1})): the symmetric matrix Fisher \citep{langevin05, downs72, khatri77, jupp79}, the symmetric Cayley  \citep{Schaeben97, leon06} and the circular-von Mises-based distribution \citep{bingham09}. A general construction approach exists for random rotations that are symmetrically distributed around the identity matrix $\bm{I}_{3 \times 3}$; see \cite{watson83, bingham09} and \cite{hielscher10}.  To this end, let $\bm{U}\in\mathbb{R}^3$ represent a point chosen uniformly on the unit sphere and, independently, generate a random angle $r$ according to some circular density $C(r|\kappa)$ on $(-\pi,\pi]$, which is symmetric around 0 and where $\kappa$ denotes a concentration parameter governing the spread of the circular distribution.  Then, define a random rotation as $\bm{E}=\bm{E}(\bm{U},r)$ using the constructive definition (\ref{eqn:angleaxis}) (i.e., $\bm{E}$ represents the position of $\bm{I}_{3\times 3}$ upon rotating the standard coordinate frame in $\mathbb{R}^3$ about the random axis $\bm{U}$ by the random angle $r$). The resulting rotation $\bm{E}$ will be symmetrically distributed and its distributional type (i.e., matrix Fisher, Cayley or circular-von Mises-based) is determined by the form of the circular density $C(r|\kappa)$ for the (misorientation) angle $r$.  
-
 \begin{center} 
 \begin{table}[h]
 \caption{Circular densities with respect to the Lebesgue measure and circular variance $\nu$.  \label{tab:ang.dens}}
@@ -38,7 +34,6 @@ $\frac{\mathrm{I_0}(\kappa)-\mathrm{I_1}(\kappa)}{\mathrm{I_0}(\kappa)}$ \\[-7mm
 \end{tabular}}
 \end{table}
 \end{center}
-
 The circular desnities are given in Table~\ref{tab:ang.dens}, where $\mathrm{I_p}(\cdot)$ denotes the Bessel function of order $p$ defined as  $\mathrm{I_p}(\kappa)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos(pr)e^{\kappa\cos r}dr$. To ease the interpretation of the simulation results in Section~\ref{sec:results},  we choose not to present results in terms of $\kappa$ but instead use the circular variance defined as $\nu=1-\rho$ as a measure of spread, where $\rho=\mathrm{E}[\cos(r)]$, which is commonly referred to as the mean resultant length. This allows us to compare the performance of the estimators for densities exhibiting the same spread.  The values of $\kappa$ corresponding to the chosen circular variances are given in Table~\ref{tab:kappas}.  \\
 
 
@@ -76,10 +71,16 @@ The density, with respect to the Haar measure, for each distribution of a random
 \label{fig:Haar}
 \end{figure}
 
+<<<<<<< HEAD
 In Figure \ref{fig:zoomout} we see that the circular-von Mises-based distribution has a much higher mass around zero than the other two distributions.  Figure \ref{fig:body} illustrates that the Cayley distribution has the least mass around its mode, and that all three distributions cross one another twice.  We will see later that this property provides a potential explanation for some of the behavior we observe in the estimators. Finally, Figure \ref{fig:denzoom} shows the tail behavior of the distributions and indicates that the circular-von Mises-based distribution has the heaviest tail of the three distributions. 
 
 A visualization of a random sample of 100 rotations, one sample for each of the three angular distributions, is given in the sphere plots in Figure~\ref{eyeballs}. The concentration parameter $\kappa$ for each distribution is chosen such that the distributions have an angular variance of $\nu = 0.25$. Note that Figure~\ref{eyeballs} shows only the first of the three columns of each rotation matrix. %, because, however rotation matrices are orthogonal with each column and row representing one element on the unit sphere,  Under the assumption of independence of the angle $r$ and the main direction, any of the other directions is expected to show a similar pattern. 
 Figure~\ref{eyeballs}  confirms the previous findings from Figure~\ref{fig:Haar}; the circular-von Mises-based distribution has the highest mass in close proximity to the main direction but at the same time shows the largest numbers of `outlying' rotations, i.e.~rotations with a large radial distance to the center, while the Cayley and the matrix-Fisher distribution appear to be more similar with a lower concentration of mass in the center for the Cayley distribution than for the matrix-Fisher distribution. 
+=======
+In Figure \ref{fig:zoomout} we see that the circular-von Mises-based distribution has the most mass around the mode of zero whereas the Cayley distribution has the least mass around its mode.  Figure \ref{fig:body} suggests that all three distributions cross one another exactly twice which might provide an explanation for some of the results seen in the simulation study. Finally, Figure \ref{fig:denzoom} offers a better view of the tail behavior of the distributions showing that the circular-von Mises-based distribution has the heaviest tail of the three distributions. 
+A visualization of a random sample of 100 rotations, one sample for each of the three angular distributions, is given in the sphere plots in Figure~\ref{eyeballs}. The samples are adjusted to have an angular variance of $\nu = 0.25$.  Note that Figure~\ref{eyeballs} shows only the first of the three columns of each rotation matrix. We refer to the Appendix Section~\ref{sec:appendix.eyeballs} for a complete visualization of the three samples.
+%\red{each rotation matrix, because, however rotation matrices are orthogonal with each column and row representing one element on the unit sphere,  Under the assumption of independence of the angle $r$ and the main direction, any of the other directions is expected to show a similar pattern. Figure~\ref{eyeballs} also confirms the previous findings from Figure~\ref{fig:Haar}; the circular-von Mises-based distribution has the highest mass in close proximity around the main direction but at the same time shows the largest numbers of `outlying' rotations, i.e.~rotations with a large radial distance to the center, while the Cayley and the matrix-Fisher distribution appear to be more similar with a lower concentration of mass in the center for the Cayley distribution than for the matrix-Fisher distribution. }
+>>>>>>> shorteninh eyeballe explanation
 
 \begin{figure}[htbp]
 \includegraphics[width=.3\linewidth]{eye-cayley}
