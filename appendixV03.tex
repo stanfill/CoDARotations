@@ -122,7 +122,17 @@ Let $\bm{o}_1,\bm{R}_2\in SO(3)$ be given and define $\tr(\bm R_1^\top\bm R_2)=1
 Taking square roots on both sides and noticing that $\Edist (\bm R_1,\bm R_2)\geq0$ and $\Rdist (\bm R_1,\bm R_2)\geq0$ gives \eqref{EvR}.\\
 $\Box$
 
-\subsection{Standard Error and ANOVA Tables}
+\subsection{Additional Results}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=1\textwidth]{Nu75AllNBoxes.pdf}
+\caption{Box-plots of the estimation error for each rotation distribution and level of $n$,  $\nu=0.75$.}
+\label{fig:NBoxes}
+\end{figure}
+
+Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function of the sample size. Results are displayed for each level of $n$ for  $\nu=0.75$. As to be expected, the estimation error decreases as the sample size increases for all three distributions. For small samples, $n=10$, the estimator exhibiting the largest amount of variability is the geodesic mean $\GeomMean$. This behavior is consistent for all three distributions.  While the estimator's variability lessens considerably for the Cayley and matrix Fisher distribution as $n$ increases, the estimator remains the most variable estimator for the circular-von Mises-based distribution.  A possible explanation for this behavior is that the algorithm to estimate $\GeomMean$ uses a random sample point in its initiating step.  For small samples or samples with several extreme observations it is likely to start the algorithm far from the true center, which in turn may cause the algorithm to get stuck in a local minimum and to fail to converge globally.  In practice we suggest the algorithm be started at some other location estimate of $\bm S$, e.g.~ at $\ProjMean$. In simulations where $\ProjMean$ was used as a starting point for the algorithm we observed  similar results with less variability in the estimates of $\GeomMean$ but for the purpose of a fair comparison we started the algorithm at a random sample point.  We refer to Figure \ref{fig:vmnu75} for a comparison of all estimators for the circular-von Mises-based distribution case when $\nu=0.75$. 
+
 
 \begin{center}
 \begin{table}[h!]
