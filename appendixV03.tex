@@ -123,6 +123,7 @@ Taking square roots on both sides and noticing that $\Edist (\bm R_1,\bm R_2)\ge
 $\Box$
 
 \section{Additional Results}
+In this section we give the numerical results that produced the figures in the main manuscript along with a few additional graphics.
 
 \begin{figure}[h!]
 \centering
@@ -149,10 +150,13 @@ Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function
 %\end{table}
 %\end{center}
 
-\begin{table}[ht]
-\caption{Numerical summaries of the estimation error  by distribution and circular variance $\nu$ for $n=100$.  The mean error (standard deviation) and RMSE are reported here.}  \label{tab:alldN100Nu25}
+In Table \ref{tab:alldN100} we present the tabular results corresponding to Figure \ref{fig:vmnu75} with additional results corresponding to the Cayley and matrix Fisher distributions.  The mean error across simulations along with the standard error estimate are given as well as an estimate of the root mean square error, RMSE.
+
+\begin{table}[h!]
+\caption{Numerical summaries of the estimation error  by distribution and circular variance $\nu$ for $n=100$.  The mean error (its standard error) and RMSE are reported here.}  
+\label{tab:alldN100}
 \centering
-\scalebox{.8}{
+\scalebox{.85}{
 \begin{tabular}{ccccccccccc}
 \hline
 		&&\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
@@ -177,58 +181,66 @@ Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function
 \end{tabular}}
 \end{table}
 
+Finally, the tabular results corresponding to Figure \ref{fig:comPL2} are given along with additional results for $\nu=0.25$ and $0.75$.
+
 \begin{table}[h]
 \caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ with standard error and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
 \label{tab:percL1}
 \centering
-\scalebox{0.9}{
-\begin{tabular}{rrcrrrcrrrcrrr}
+\scalebox{0.92}{
+\begin{tabular}{crccccccccc}
   \hline
   %&&&\multicolumn{3}{c}{} & &\multicolumn{3}{c}{\textbf{matrix} } &&\multicolumn{3}{c}{\textbf{circular-}}\\
-    &&&\multicolumn{3}{c}{\textbf{Cayley}} & &\multicolumn{3}{c}{\textbf{matrix Fisher}} & &\multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
+    &&&\multicolumn{2}{c}{\textbf{Cayley}} & &\multicolumn{2}{c}{\textbf{matrix Fisher}} & &\multicolumn{2}{c}{\textbf{circular-von Mises}}\\ 
 \rule[2mm]{0mm}{3mm} 
-  $\nu$&  $n$ && $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% \\ 
+  $\nu$&  $n$ && $\bar{\delta}$ (SE) & \% & & $\bar{\delta}$ (SE) & \% & & $\bar{\delta}$ (SE) & \% \\ 
   \hline \hline
-\multirow{4}{*}{0.25}  &    10 && 0.0078 & 0.0004 & 0.7430 && 0.0060 & 0.0004 & 0.7250 && -0.0053 & 0.0006 & 0.3280 \\ 
- &    50 && 0.0031 & 0.0001 & 0.7830 && 0.0024 & 0.0001 & 0.6970 && -0.0018 & 0.0001 & 0.3270 \\ 
- &   100 && 0.0022 & 0.0001 & 0.7890 && 0.0018 & 0.0001 & 0.7120 && -0.0013 & 0.0001 & 0.3080 \\ 
- &   300 && 0.0012 & 0.0001 & 0.7810 && 0.0010 & 0.0001 & 0.7110 && -0.0008 & 0.0000 & 0.2840 \\
+\multirow{4}{*}{0.25}  
+ &    10 && 0.0078 (0.0004) & 0.7430 && 0.0060 (0.0004) & 0.7250 && -0.0053 (0.0006) & 0.3280 \\ 
+ &    50 && 0.0031 (0.0001) & 0.7830 && 0.0024 (0.0001) & 0.6970 && -0.0018 (0.0001) & 0.3270 \\ 
+ &   100 && 0.0022 (0.0001) & 0.7890 && 0.0018 (0.0001) & 0.7120 && -0.0013 (0.0001) & 0.3080 \\ 
+ &   300 && 0.0012 (0.0001) & 0.7810 && 0.0010 (0.0001) & 0.7110 && -0.0008 (0.0001) & 0.2840 \\
 \hline
-\multirow{4}{*}{0.50}    &    10 && 0.0315 & 0.0016 & 0.7720 && 0.0171 & 0.0017 & 0.6620 && -0.0192 & 0.0020 & 0.3350 \\ 
-  &    50 && 0.0126 & 0.0005 & 0.8110 && 0.0055 & 0.0006 & 0.6200 && -0.0081 & 0.0005 & 0.2820 \\ 
-  &   100 && 0.0085 & 0.0003 & 0.8090 && 0.0047 & 0.0004 & 0.6600 && -0.0047 & 0.0003 & 0.3020 \\ 
-  &   300 && 0.0049 & 0.0002 & 0.8040 && 0.0024 & 0.0002 & 0.6580 && -0.0027 & 0.0001 & 0.2550 \\ \hline
-
-\multirow{4}{*}{0.75}   &    10 && 0.0895 & 0.0042 & 0.8210 && 0.0340 & 0.0040 & 0.6330 && -0.0396 & 0.0062 & 0.3220 \\ 
-  &    50 && 0.0366 & 0.0011 & 0.8660 && 0.0093 & 0.0013 & 0.5970 && -0.0213 & 0.0011 & 0.2380 \\ 
-  &   100 && 0.0250 & 0.0008 & 0.8580 && 0.0069 & 0.0009 & 0.6030 && -0.0140 & 0.0007 & 0.2400 \\ 
-  &   300 && 0.0140 & 0.0004 & 0.8500 && 0.0033 & 0.0005 & 0.5890 && -0.0072 & 0.0003 & 0.2180 \\   \hline
+\multirow{4}{*}{0.50}   
+  &    10 && 0.0315 (0.0016) & 0.7720 && 0.0171 (0.0017) & 0.6620 && -0.0192 (0.0020) & 0.3350 \\ 
+  &    50 && 0.0126 (0.0005) & 0.8110 && 0.0055 (0.0006) & 0.6200 && -0.0081 (0.0005) & 0.2820 \\ 
+  &   100 && 0.0085 (0.0003) & 0.8090 && 0.0047 (0.0004) & 0.6600 && -0.0047 (0.0003) & 0.3020 \\ 
+  &   300 && 0.0049 (0.0002) & 0.8040 && 0.0024 (0.0002) & 0.6580 && -0.0027 (0.0001) & 0.2550 \\ 
+\hline
+\multirow{4}{*}{0.75}   
+  &    10 && 0.0895 (0.0042) & 0.8210 && 0.0340 (0.0040) & 0.6330 && -0.0396 (0.0062) & 0.3220 \\ 
+  &    50 && 0.0366 (0.0011) & 0.8660 && 0.0093 (0.0013) & 0.5970 && -0.0213 (0.0011) & 0.2380 \\ 
+  &   100 && 0.0250 (0.0008) & 0.8580 && 0.0069 (0.0009) & 0.6030 && -0.0140 (0.0007) & 0.2400 \\ 
+  &   300 && 0.0140 (0.0004) & 0.8500 && 0.0033 (0.0005) & 0.5890 && -0.0072 (0.0003) & 0.2180 \\   \hline
 \end{tabular}}
 \end{table}
 
 \begin{table}[h!]
 \caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ with standard error and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.}  \label{tab:percL2}
 \centering
-\scalebox{0.9}{
-\begin{tabular}{rrcrrrcrrrcrrr}
+\scalebox{0.92}{
+\begin{tabular}{crcccccccccccc}
   \hline
   %& &&\multicolumn{3}{c}{} & &\multicolumn{3}{c}{\textbf{matrix} } &&\multicolumn{3}{c}{\textbf{circular-}}\\
-    && &\multicolumn{3}{c}{\textbf{Cayley}} & &\multicolumn{3}{c}{\textbf{matrix Fisher}} & &\multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
+    &&&\multicolumn{2}{c}{\textbf{Cayley}} & &\multicolumn{2}{c}{\textbf{matrix Fisher}} & &\multicolumn{2}{c}{\textbf{circular-von Mises}}\\ 
 \rule[2mm]{0mm}{3mm} 
-$\nu$  &  $n$ && $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% \\  
+  $\nu$&  $n$ && $\bar{\delta}$ (SE) & \% & & $\bar{\delta}$ (SE) & \% & & $\bar{\delta}$ (SE) & \% \\  
   \hline \hline
-\multirow{4}{*}{0.25} &    10 && 0.0011 & 0.0004 & 0.5210 && -0.0016 & 0.0005 & 0.4500 && -0.0344 & 0.0030 & 0.1280 \\ 
- &    50 && 0.0007 & 0.0002 & 0.5310 && -0.0011 & 0.0003 & 0.4350 && -0.0156 & 0.0007 & 0.2090 \\ 
- &   100 && 0.0007 & 0.0001 & 0.5650 && -0.0004 & 0.0002 & 0.4690 && -0.0126 & 0.0005 & 0.2010 \\ 
- &   300 && 0.0005 & 0.0001 & 0.5880 && -0.0003 & 0.0001 & 0.4860 && -0.0070 & 0.0003 & 0.2390 \\\hline
-\multirow{4}{*}{0.50}  &    10 && 0.0099 & 0.0013 & 0.5920 && -0.0178 & 0.0027 & 0.4340 && -0.1011 & 0.0051 & 0.1570 \\ 
-  &    50 && 0.0069 & 0.0006 & 0.6450 && -0.0107 & 0.0011 & 0.3920 && -0.0545 & 0.0018 & 0.1450 \\ 
-  &   100 && 0.0043 & 0.0004 & 0.6420 && -0.0067 & 0.0008 & 0.3930 && -0.0385 & 0.0013 & 0.1620 \\ 
-  &   300 && 0.0025 & 0.0002 & 0.6420 && -0.0040 & 0.0004 & 0.3930 && -0.0234 & 0.0007 & 0.1570 \\ \hline
-\multirow{4}{*}{0.75}  &    10 && 0.0163 & 0.0062 & 0.6680 && -0.0958 & 0.0105 & 0.3570 && -0.2101 & 0.0113 & 0.1710 \\ 
-  &    50 && 0.0257 & 0.0012 & 0.7410 && -0.0356 & 0.0045 & 0.3380 && -0.0955 & 0.0032 & 0.1500 \\ 
-  &   100 && 0.0169 & 0.0009 & 0.7350 && -0.0240 & 0.0043 & 0.3460 && -0.0763 & 0.0021 & 0.1110 \\ 
-  &   300 && 0.0091 & 0.0005 & 0.7280 && -0.0124 & 0.0009 & 0.3440 && -0.0446 & 0.0012 & 0.1270 \\
+\multirow{4}{*}{0.25} 
+ &    10 && 0.0011 (0.0004) & 0.5210 && -0.0016 (0.0005) & 0.4500 && -0.0344 (0.0030) & 0.1280 \\ 
+ &    50 && 0.0007 (0.0002) & 0.5310 && -0.0011 (0.0003) & 0.4350 && -0.0156 (0.0007) & 0.2090 \\ 
+ &   100 && 0.0007 (0.0001) & 0.5650 && -0.0004 (0.0002) & 0.4690 && -0.0126 (0.0005) & 0.2010 \\ 
+ &   300 && 0.0005 (0.0001) & 0.5880 && -0.0003 (0.0001) & 0.4860 && -0.0070 (0.0003) & 0.2390 \\\hline
+\multirow{4}{*}{0.50}  
+ &    10 && 0.0099 (0.0013) & 0.5920 && -0.0178 (0.0027) & 0.4340 && -0.1011 (0.0051) & 0.1570 \\ 
+  &    50 && 0.0069 (0.0006) & 0.6450 && -0.0107 (0.0011) & 0.3920 && -0.0545 (0.0018) & 0.1450 \\ 
+  &   100 && 0.0043 (0.0004) & 0.6420 && -0.0067 (0.0008) & 0.3930 && -0.0385 (0.0013) & 0.1620 \\ 
+  &   300 && 0.0025 (0.0002) & 0.6420 && -0.0040 (0.0004) & 0.3930 && -0.0234 (0.0007) & 0.1570 \\ \hline
+\multirow{4}{*}{0.75}  
+  &    10 && 0.0163 (0.0062) & 0.6680 && -0.0958 (0.0105) & 0.3570 && -0.2101 (0.0113) & 0.1710 \\ 
+  &    50 && 0.0257 (0.0012) & 0.7410 && -0.0356 (0.0045) & 0.3380 && -0.0955 (0.0032) & 0.1500 \\ 
+  &   100 && 0.0169 (0.0009) & 0.7350 && -0.0240 (0.0043) & 0.3460 && -0.0763 (0.0021) & 0.1110 \\ 
+  &   300 && 0.0091 (0.0005) & 0.7280 && -0.0124 (0.0009) & 0.3440 && -0.0446 (0.0012) & 0.1270 \\
    \hline
 \end{tabular}}
 \end{table}
