@@ -134,30 +134,58 @@ $\Box$
 Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function of the sample size. Results are displayed for each level of $n$ for  $\nu=0.75$. As to be expected, the estimation error decreases as the sample size increases for all three distributions. For small samples, $n=10$, the estimator exhibiting the largest amount of variability is the geodesic mean $\GeomMean$. This behavior is consistent for all three distributions.  While the estimator's variability lessens considerably for the Cayley and matrix Fisher distribution as $n$ increases, the estimator remains the most variable estimator for the circular-von Mises-based distribution.  A possible explanation for this behavior is that the algorithm to estimate $\GeomMean$ uses a random sample point in its initiating step.  For small samples or samples with several extreme observations it is likely to start the algorithm far from the true center, which in turn may cause the algorithm to get stuck in a local minimum and to fail to converge globally.  In practice we suggest the algorithm be started at some other location estimate of $\bm S$, e.g.~ at $\ProjMean$. In simulations where $\ProjMean$ was used as a starting point for the algorithm we observed  similar results with less variability in the estimates of $\GeomMean$ but for the purpose of a fair comparison we started the algorithm at a random sample point.  We refer to Figure \ref{fig:vmnu75} for a comparison of all estimators for the circular-von Mises-based distribution case when $\nu=0.75$. 
 
 
-\begin{center}
-\begin{table}[h!]
-\caption{Numerical summaries of the estimation error  by distribution, $n=100$,  $\nu=0.25$.  The mean error (standard deviation) and RMSE are reported here.  \label{tab:alldN100Nu25}}
-\begin{tabular}{cccccccccc}
+%\begin{center}
+%\begin{table}[h!]
+%\caption{Numerical summaries of the estimation error  by distribution, $n=100$,  $\nu=0.25$.  The mean error (standard deviation) and RMSE are reported here.  \label{tab:alldN100Nu25}}
+%\begin{tabular}{cccccccccc}
+%  \hline
+%		 &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
+%Estimator &   Mean error  & RMSE& &  Mean error & RMSE& &   Mean error& RMSE \\  \hline \hline %\rule[2mm]{0mm}{3mm} 
+% 		  $\GeomMean$  &  0.069 (0.0009)& 0.075 & &  0.070 (0.0009)& 0.076&  & 0.074 (0.0010)& 0.081 \\ 
+% 		 $\ProjMean$ &   0.070 (0.0009)& 0.076 & &  0.070 (0.0009)& 0.076&  &  0.062 (0.0008)& 0.067\\ 
+%		 $\GeomMedian$   & 0.077 (0.0010)& 0.083 & &  0.075 (0.0010)& 0.081&  & 0.027 (0.0005)& 0.031\\ 
+% 		  $\ProjMedian$ & 0.079 (0.0010)& 0.086 & &  0.077 (0.0010)& 0.083 & & 0.026 (0.0005)& 0.030\\ \hline
+%\end{tabular}
+%\end{table}
+%\end{center}
+
+\begin{table}[ht]
+\caption{Numerical summaries of the estimation error  by distribution and circular variance $\nu$ for $n=100$.  The mean error (standard deviation) and RMSE are reported here.}  \label{tab:alldN100Nu25}
+\centering
+\scalebox{.8}{
+\begin{tabular}{ccccccccccc}
+\hline
+		&&\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
+  $\nu$ & Estimator && Mean error  (SE) & RMSE && Mean error (SE) & RMSE && Mean error (SE) & RMSE \\ \hline
   \hline
-		 &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
-Estimator &   Mean error  & RMSE& &  Mean error & RMSE& &   Mean error& RMSE \\  \hline \hline %\rule[2mm]{0mm}{3mm} 
- 		  $\GeomMean$  &  0.069 (0.0009)& 0.075 & &  0.070 (0.0009)& 0.076&  & 0.074 (0.0010)& 0.081 \\ 
- 		 $\ProjMean$ &   0.070 (0.0009)& 0.076 & &  0.070 (0.0009)& 0.076&  &  0.062 (0.0008)& 0.067\\ 
-		 $\GeomMedian$   & 0.077 (0.0010)& 0.083 & &  0.075 (0.0010)& 0.081&  & 0.027 (0.0005)& 0.031\\ 
- 		  $\ProjMedian$ & 0.079 (0.0010)& 0.086 & &  0.077 (0.0010)& 0.083 & & 0.026 (0.0005)& 0.030\\ \hline
-\end{tabular}
+ \multirow{4}{*}{0.25} 
+ 	& $\GeomMean$ && 0.0690 (0.0009) & 0.0752 && 0.0699 (0.0010) & 0.0761 && 0.0744 (0.0010) & 0.0811 \\ 
+  	& $\ProjMean$ && 0.0698 (0.0009) & 0.0759 && 0.0695 (0.0009) & 0.0756 && 0.0617 (0.0008) & 0.0671 \\ 
+  	& $\GeomMedian$ && 0.0769 (0.0010) & 0.0834 && 0.0747 (0.0010) & 0.0813 && 0.0269 (0.0005) & 0.0310 \\ 
+   	&$\ProjMedian$ && 0.0791 (0.0011) & 0.0858 && 0.0766 (0.0010) & 0.0832 && 0.0256 (0.0005) & 0.0296 \\ \hline
+  	 \multirow{4}{*}{0.50} 
+	&$\GeomMean$ && 0.1086 (0.0014) & 0.1174 && 0.1121 (0.0015) & 0.1219 && 0.1279 (0.0018) & 0.1406 \\ 
+  	& $\ProjMean$ && 0.1129 (0.0015) & 0.1222 && 0.1054 (0.0014) & 0.1143 && 0.0894 (0.0012) & 0.0976 \\ 
+  	& $\GeomMedian$ && 0.1210 (0.0016) & 0.1313 && 0.1113 (0.0015) & 0.1211 && 0.0426 (0.0008) & 0.0491 \\ 
+  	& $\ProjMedian$ && 0.1295 (0.0017) & 0.1407 && 0.1160 (0.0016) & 0.1262 && 0.0379 (0.0007) & 0.0438 \\\hline
+  	 \multirow{4}{*}{0.75} 
+	& $\GeomMean$ && 0.1398 (0.0018) & 0.1514 && 0.1703 (0.0045) & 0.2225 && 0.2039 (0.0028) & 0.2221 \\ 
+  	& $\ProjMean$ && 0.1567 (0.0020) & 0.1695 && 0.1462 (0.0020) & 0.1588 && 0.1276 (0.0017) & 0.1388 \\ 
+  	& $\GeomMedian$ && 0.1597 (0.0021) & 0.1729 && 0.1527 (0.0021) & 0.1660 && 0.0687 (0.0012) & 0.0792 \\ 
+  	& $\ProjMedian$ && 0.1847 (0.0024) & 0.2000 && 0.1597 (0.0022) & 0.1736 && 0.0547 (0.0010) & 0.0628 \\ 
+   \hline
+\end{tabular}}
 \end{table}
-\end{center}
 
 \begin{table}[h]
 \caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ with standard error and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
 \label{tab:percL1}
-\begin{center}
+\centering
 \scalebox{0.9}{
 \begin{tabular}{rrcrrrcrrrcrrr}
   \hline
-  &&&\multicolumn{3}{c}{} & &\multicolumn{3}{c}{\textbf{matrix} } &&\multicolumn{3}{c}{\textbf{circular-}}\\
-    &&&\multicolumn{3}{c}{\textbf{Cayley}} & &\multicolumn{3}{c}{\textbf{Fisher}} & &\multicolumn{3}{c}{\textbf{von Mises}}\\ 
+  %&&&\multicolumn{3}{c}{} & &\multicolumn{3}{c}{\textbf{matrix} } &&\multicolumn{3}{c}{\textbf{circular-}}\\
+    &&&\multicolumn{3}{c}{\textbf{Cayley}} & &\multicolumn{3}{c}{\textbf{matrix Fisher}} & &\multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
 \rule[2mm]{0mm}{3mm} 
   $\nu$&  $n$ && $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% \\ 
   \hline \hline
@@ -176,35 +204,33 @@ Estimator &   Mean error  & RMSE& &  Mean error & RMSE& &   Mean error& RMSE \\ 
   &   100 && 0.0250 & 0.0008 & 0.8580 && 0.0069 & 0.0009 & 0.6030 && -0.0140 & 0.0007 & 0.2400 \\ 
   &   300 && 0.0140 & 0.0004 & 0.8500 && 0.0033 & 0.0005 & 0.5890 && -0.0072 & 0.0003 & 0.2180 \\   \hline
 \end{tabular}}
-\end{center}
 \end{table}
 
 \begin{table}[h!]
-\caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ with standard error and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.  \label{tab:percL2}}
-\begin{center}
+\caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ with standard error and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.}  \label{tab:percL2}
+\centering
 \scalebox{0.9}{
 \begin{tabular}{rrcrrrcrrrcrrr}
   \hline
-  & &&\multicolumn{3}{c}{} & &\multicolumn{3}{c}{\textbf{matrix} } &&\multicolumn{3}{c}{\textbf{circular-}}\\
-    && &\multicolumn{3}{c}{\textbf{Cayley}} & &\multicolumn{3}{c}{\textbf{Fisher}} & &\multicolumn{3}{c}{\textbf{von Mises}}\\ 
+  %& &&\multicolumn{3}{c}{} & &\multicolumn{3}{c}{\textbf{matrix} } &&\multicolumn{3}{c}{\textbf{circular-}}\\
+    && &\multicolumn{3}{c}{\textbf{Cayley}} & &\multicolumn{3}{c}{\textbf{matrix Fisher}} & &\multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
 \rule[2mm]{0mm}{3mm} 
 $\nu$  &  $n$ && $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% & & $\bar{\delta}$&SE($\bar\delta$) & \% \\  
   \hline \hline
-0.25 &    10 && 0.0011 & 0.0004 & 0.5210 && -0.0016 & 0.0005 & 0.4500 && -0.0344 & 0.0030 & 0.1280 \\ 
+\multirow{4}{*}{0.25} &    10 && 0.0011 & 0.0004 & 0.5210 && -0.0016 & 0.0005 & 0.4500 && -0.0344 & 0.0030 & 0.1280 \\ 
  &    50 && 0.0007 & 0.0002 & 0.5310 && -0.0011 & 0.0003 & 0.4350 && -0.0156 & 0.0007 & 0.2090 \\ 
  &   100 && 0.0007 & 0.0001 & 0.5650 && -0.0004 & 0.0002 & 0.4690 && -0.0126 & 0.0005 & 0.2010 \\ 
  &   300 && 0.0005 & 0.0001 & 0.5880 && -0.0003 & 0.0001 & 0.4860 && -0.0070 & 0.0003 & 0.2390 \\\hline
-0.50  &    10 && 0.0099 & 0.0013 & 0.5920 && -0.0178 & 0.0027 & 0.4340 && -0.1011 & 0.0051 & 0.1570 \\ 
+\multirow{4}{*}{0.50}  &    10 && 0.0099 & 0.0013 & 0.5920 && -0.0178 & 0.0027 & 0.4340 && -0.1011 & 0.0051 & 0.1570 \\ 
   &    50 && 0.0069 & 0.0006 & 0.6450 && -0.0107 & 0.0011 & 0.3920 && -0.0545 & 0.0018 & 0.1450 \\ 
   &   100 && 0.0043 & 0.0004 & 0.6420 && -0.0067 & 0.0008 & 0.3930 && -0.0385 & 0.0013 & 0.1620 \\ 
   &   300 && 0.0025 & 0.0002 & 0.6420 && -0.0040 & 0.0004 & 0.3930 && -0.0234 & 0.0007 & 0.1570 \\ \hline
-0.75  &    10 && 0.0163 & 0.0062 & 0.6680 && -0.0958 & 0.0105 & 0.3570 && -0.2101 & 0.0113 & 0.1710 \\ 
+\multirow{4}{*}{0.75}  &    10 && 0.0163 & 0.0062 & 0.6680 && -0.0958 & 0.0105 & 0.3570 && -0.2101 & 0.0113 & 0.1710 \\ 
   &    50 && 0.0257 & 0.0012 & 0.7410 && -0.0356 & 0.0045 & 0.3380 && -0.0955 & 0.0032 & 0.1500 \\ 
   &   100 && 0.0169 & 0.0009 & 0.7350 && -0.0240 & 0.0043 & 0.3460 && -0.0763 & 0.0021 & 0.1110 \\ 
   &   300 && 0.0091 & 0.0005 & 0.7280 && -0.0124 & 0.0009 & 0.3440 && -0.0446 & 0.0012 & 0.1270 \\
    \hline
 \end{tabular}}
-\end{center}
 \end{table}
 
 

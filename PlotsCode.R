@@ -310,19 +310,19 @@ xtable(SumL2,digits=3,label="tab:percL2")
 
 #Table of mean (SE) and RMSE for the distributions, n=100 and nu=0.25
 
-n100nu2575ResFrame<-subset(ResFrame,n==100 & nu%in%c(0.25,0.75))
-n100nu2575ses<-ddply(n100nu2575ResFrame,.(nu,Dist,Estimator),summarize,mean=mean(Error),SE=sd(Error)/sqrt(length(Error)),RMSE=sqrt(mean((Error)^2)))
-n100nu25Tab<-cbind(n100nu2575ses[c(2,3,1,4),c(1,3:6)],n100nu2575ses[c(2,3,1,4)+4,4:6],n100nu2575ses[c(2,3,1,4)+8,4:6])
-levels(n100nu25Tab$Estimator)<-c("GeomMedian","GeomMean","ProjMean","ProjMedian")
-n100nu75Tab<-cbind(n100nu2575ses[c(2,3,1,4)+12,c(1,3:6)],n100nu2575ses[c(2,3,1,4)+16,4:6],n100nu2575ses[c(2,3,1,4)+20,4:6])
-levels(n100nu75Tab$Estimator)<-c("GeomMedian","GeomMean","ProjMean","ProjMedian")
+n100ResFrame<-subset(ResFrame,n==100)
+n100ses<-ddply(n100ResFrame,.(nu,Dist,Estimator),summarize,mean=mean(Error),SE=sd(Error)/sqrt(length(Error)),RMSE=sqrt(mean((Error)^2)))
+levels(n100ses$Estimator)<-c("GeomMedian","GeomMean","ProjMean","ProjMedian")
 
-xtable(rbind(n100nu25Tab,n100nu75Tab),digits=4)
+n100nu25Tab<-cbind(n100ses[c(2,3,1,4),c(1,3:6)],n100ses[c(2,3,1,4)+4,4:6],n100ses[c(2,3,1,4)+8,4:6])
+n100nu5Tab<-cbind(n100ses[c(2,3,1,4)+12,c(1,3:6)],n100ses[c(2,3,1,4)+16,4:6],n100ses[c(2,3,1,4)+20,4:6])
+n100nu75Tab<-cbind(n100ses[c(2,3,1,4)+24,c(1,3:6)],n100ses[c(2,3,1,4)+28,4:6],n100ses[c(2,3,1,4)+32,4:6])
 
 
-n100Res<-x[x$n==100 & x$nu==.25,][,-c(2:3)]
-#n100Tab<-cbind(n100Res[1:8,1:5],n100Res[9:16,c(1,2:5)])
-xtable(n100Res,digits=3)
+xtable(rbind(n100nu25Tab,n100nu5Tab,n100nu75Tab),digits=4)
+
+
+
 ##########################################################################
 ##########################################################################
 ####   This section is dedicated to proving statistical significance  ####
