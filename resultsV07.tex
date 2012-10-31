@@ -8,17 +8,18 @@ In this section we summarize and present the main findings of the simulation stu
 \end{equation}
 
 \noindent Note that for any two rotations $\bm R_1$ and $\bm R_2$ in $SO(3)$ it holds that their Euclidean distance $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$. We refer to Section~\ref{sec:appendix2} of the Appendix for a short proof of this result.  Hence, results using $\Edist$ would prove equivalent, albeit on a smaller scale.   
-\begin{center}
+%\begin{center}
 \begin{figure}[h!]
+\centering
 \includegraphics[width=0.8\textwidth]{N100AllNuBoxes.pdf}
 \caption{Boxplots of the estimation errors for each rotation distribution and level of $\nu$,  $n=100$.}
 \label{fig:NuBoxes}
 \end{figure}
-\end{center}
-Figure~\ref{fig:NuBoxes} displays side-by-side boxplots showing the estimation errors of all four estimators for a given choice of rotation distribution and circular spread $\nu$ when  $n=100$.  Additionally,  Table~\ref{tab:alldN100Nu25} provides the root mean square error (RMSE) as a measure of precision as well as the \textit{mean estimation error} for $\nu=0.25$ in Figure~\ref{fig:NuBoxes}, i.e.~the top three plots. Despite skewness in some of the plotted error distributions the \textit{median estimation error} was quantitatively similar to the mean estimation error and is therefore not reported in Table~\ref{tab:alldN100Nu25} or the following.\\
+%\end{center}
+Figure~\ref{fig:NuBoxes} displays side-by-side boxplots showing the estimation errors of all four estimators for a given choice of rotation distribution and circular spread $\nu$ when  $n=100$.  Additionally,  Table~\ref{tab:alldN100Nu25} provides the root mean square error (RMSE) as a measure of precision as well as the \textit{mean estimation error} for $\nu=0.25$ in Figure~\ref{fig:NuBoxes}, i.e.~the top three plots. Despite skewness in some of the plotted error distributions the \textit{median estimation error} was quantitatively similar to the mean estimation error and is therefore not reported in Table~\ref{tab:alldN100Nu25} or the following.
 
 First and foremost the results suggest that different location estimators emerge as preferable depending on the type of distribution assumed for the rotation errors in \eqref{eqn:1}.  For the circular-von Mises-based distribution both median-type estimators ($\ProjMedian$ and $\GeomMedian$) are superior with respect to the estimation error while for the Cayley and matrix Fisher models the mean-type estimators ($\ProjMean$ and $\GeomMean$) perform better though on a much less pronounced scale. While preferences within the median- and mean-type estimators are visible, these generally disappear as the variability in the data, i.e.~$\nu$ decreases.    
-For the Cayley and the matrix Fisher distribution the overall pattern of estimation is very similar. $\ProjMean$ and $\GeomMean$ typically exhibit a little less spread and a slightly lower average estimation error than $\ProjMedian$ and $\GeomMedian$ but differences between the estimators lessen as $\nu$ becomes smaller. Figure~\ref{fig:NuBoxes} further shows that the estimation error is a function of the circular spread $\nu$; as $\nu$ decreases the range of the observed estimation errors decreases within each rotation model and for each of the four estimators. The same is true for the mean estimation error, and RMSE in Table~\ref{tab:alldN100Nu25}.  For a plot similar to Figure~\ref{fig:NuBoxes} in which the estimation errors are given as a function of sample size for $\nu=0.75$ we refer to the Appendix Section\ref{}.
+For the Cayley and the matrix Fisher distribution the overall pattern of estimation is very similar. $\ProjMean$ and $\GeomMean$ typically exhibit a little less spread and a slightly lower average estimation error than $\ProjMedian$ and $\GeomMedian$ but differences between the estimators lessen as $\nu$ becomes smaller. Figure~\ref{fig:NuBoxes} further shows that the estimation error is a function of the circular spread $\nu$; as $\nu$ decreases the range of the observed estimation errors decreases within each rotation model and for each of the four estimators. The same is true for the mean estimation error, and RMSE in Table~\ref{tab:alldN100Nu25}.  For a plot similar to Figure~\ref{fig:NuBoxes} in which the estimation errors are given as a function of sample size for $\nu=0.75$ we refer to the Appendix Section \ref{sec:appendix1}.
 
 \begin{center}
 \begin{table}[h!]
@@ -66,11 +67,11 @@ Estimator 	& &  Mean error & RMSE& &  Mean error & RMSE& &   Mean error & RMSE \
 
 \begin{figure}[h!]
 \centering
-<<<<<<< HEAD
-\includegraphics[width=0.7\linewidth]{vonMisesnu75MeanRMSE.pdf}
-=======
+%<<<<<<< HEAD
+%\includegraphics[width=0.7\linewidth]{vonMisesnu75MeanRMSE.pdf}
+%=======
 \includegraphics[width=0.8\linewidth]{vonMisesnu75MeanRMSE.pdf}
->>>>>>> shrunk graphs to 0.8 linewidth - down to 28 pages now
+%>>>>>>> shrunk graphs to 0.8 linewidth - down to 28 pages now
 \caption{Plot of the estimation error for all levels of $n$ for the circular-von Mises-based distribution,  $\nu=0.75$.  \label{fig:vmnu75}}
 \end{figure}
 
@@ -101,7 +102,7 @@ For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less esti
 
 \begin{figure}[h!]
 \centering
-\subfloat{\includegraphics[width=0.8\linewidth]{EuclidRiemannNu25.pdf}}\newline
+\subfloat{\includegraphics[width=0.8\linewidth]{EuclidRiemannNu25.pdf}}\\
 \subfloat{\includegraphics[width=0.8\linewidth]{EuclidRiemannNu75.pdf}}
 \caption{Comparison of the estimation errors resulting from the embedding ($x$-axis) and intrinsic ($y$-axis) approaches, $n=100$.  The mean-type estimators are in black dots and the median-type estimators are in light gray.}
 \label{fig:comPL2}
