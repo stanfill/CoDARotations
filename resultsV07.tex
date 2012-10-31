@@ -36,27 +36,27 @@ For the Cayley and the matrix Fisher distribution the overall pattern of estimat
 %\end{table}
 %\end{center}
 
-\begin{table}[h!]
-\centering
-\footnotesize
-\caption{Numerical summaries of the estimation error  by distribution, $n=100$,  $\nu=0.25$ and $0.75$.  \label{tab:alldN100Nu25}}
-\begin{tabular}{cccccccccccc}
-\hline
-& &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
-  \hline
- $\nu$ & Estimator && Mean error (SE) & RMSE && Mean error (SE) & RMSE && Mean error (SE) & RMSE \\ 
-  \hline
- \multirow{4}{*}{0.25} & $\GeomMean$ && 0.0690 (0.0009) & 0.0752 && 0.0699 (0.0010) & 0.0761 && 0.0744 (0.0010) & 0.0811 \\ 
-   & $\ProjMean$ && 0.0698 (0.0009) & 0.0759 && 0.0695 (0.0009) & 0.0756 && 0.0617 (0.0008) & 0.0671 \\ 
-    & $\GeomMedian$&& 0.0769 (0.0010) & 0.0834 && 0.0747 (0.0010) & 0.0813 && 0.0269 (0.0005) & 0.0310 \\ 
-    & $\ProjMedian$ && 0.0791 (0.0011) & 0.0858 && 0.0766 (0.0010) & 0.0832 && 0.0256 (0.0005) & 0.0296 \\ \hline
-   \multirow{4}{*}{0.75} & $\GeomMean$ && 0.1398 (0.0018) & 0.1514 && 0.1703 (0.0045) & 0.2225 && 0.2039 (0.0028) & 0.2221 \\ 
-    & $\ProjMean$ && 0.1567 (0.0020) & 0.1695 && 0.1462 (0.0020) & 0.1588 && 0.1276 (0.0017) & 0.1388 \\ 
-    & $\GeomMedian$ && 0.1597 (0.0021) & 0.1729 && 0.1527 (0.0021) & 0.1660 && 0.0687 (0.0012) & 0.0792 \\ 
-    & $\ProjMedian$ && 0.1847 (0.0024) & 0.2000 && 0.1597 (0.0022) & 0.1736 && 0.0547 (0.0010) & 0.0628 \\ 
-   \hline
-\end{tabular}
-\end{table}
+%\begin{table}[h!]
+%\centering
+%\footnotesize
+%\caption{Numerical summaries of the estimation error  by distribution, $n=100$,  $\nu=0.25$ and $0.75$.  \label{tab:alldN100Nu25}}
+%\begin{tabular}{cccccccccccc}
+%\hline
+%& &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
+%  \hline
+% $\nu$ & Estimator && Mean error (SE) & RMSE && Mean error (SE) & RMSE && Mean error (SE) & RMSE \\ 
+%  \hline
+% \multirow{4}{*}{0.25} & $\GeomMean$ && 0.0690 (0.0009) & 0.0752 && 0.0699 (0.0010) & 0.0761 && 0.0744 (0.0010) & 0.0811 \\ 
+%   & $\ProjMean$ && 0.0698 (0.0009) & 0.0759 && 0.0695 (0.0009) & 0.0756 && 0.0617 (0.0008) & 0.0671 \\ 
+%    & $\GeomMedian$&& 0.0769 (0.0010) & 0.0834 && 0.0747 (0.0010) & 0.0813 && 0.0269 (0.0005) & 0.0310 \\ 
+%    & $\ProjMedian$ && 0.0791 (0.0011) & 0.0858 && 0.0766 (0.0010) & 0.0832 && 0.0256 (0.0005) & 0.0296 \\ \hline
+%   \multirow{4}{*}{0.75} & $\GeomMean$ && 0.1398 (0.0018) & 0.1514 && 0.1703 (0.0045) & 0.2225 && 0.2039 (0.0028) & 0.2221 \\ 
+%    & $\ProjMean$ && 0.1567 (0.0020) & 0.1695 && 0.1462 (0.0020) & 0.1588 && 0.1276 (0.0017) & 0.1388 \\ 
+%    & $\GeomMedian$ && 0.1597 (0.0021) & 0.1729 && 0.1527 (0.0021) & 0.1660 && 0.0687 (0.0012) & 0.0792 \\ 
+%    & $\ProjMedian$ && 0.1847 (0.0024) & 0.2000 && 0.1597 (0.0022) & 0.1736 && 0.0547 (0.0010) & 0.0628 \\ 
+%   \hline
+%\end{tabular}
+%\end{table}
 
 %\begin{figure}[h!]
 %\centering
@@ -130,72 +130,72 @@ For example, in Figure \ref{fig:comPL2},  $\GeomMedian$ tends to yield less esti
 \label{fig:comPL2}
 \end{figure}
 
-\begin{table}[h]
-\caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
-\label{tab:percL1}
-\begin{center}
-\footnotesize
-\begin{tabular}{rrcrrcrrcrr}
-  \hline
-  & &&\multicolumn{2}{c}{\textbf{Cayley}} & &\multicolumn{2}{c}{\textbf{matrix} } &&\multicolumn{2}{c}{\textbf{circular-}}\\
-    && &\multicolumn{2}{c}{} & &\multicolumn{2}{c}{\textbf{Fisher}} & &\multicolumn{2}{c}{\textbf{von Mises}}\\ 
-\rule[2mm]{0mm}{3mm} 
-  &  $n$ && $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% \\ 
-  \hline \hline
-  \multirow{4}{*}{$\nu=0.25$} 
-  &   10 & & 0.008 & 0.743 & &  0.006 & 0.725 & & -0.005 & 0.328 \\ 
-  &   50 & &  0.003 & 0.783 & &  0.002 & 0.697 & & -0.002 & 0.327 \\ 
-  &  100 & &  0.002 & 0.789 & & 0.002 & 0.712 & & -0.001 & 0.308 \\ 
-  &  300 & & 0.001 & 0.781 & & 0.001 & 0.711 & & -0.001 & 0.284 \\ \hline
-  \multirow{4}{*}{$\nu=0.50$} 
-   &   10 & & 0.031 & 0.772 & &  0.017 & 0.662 & &  -0.019 & 0.335 \\ 
-   &   50 & & 0.013 & 0.811 & & 0.005 & 0.620 & &-0.008 & 0.282 \\ 
-   &  100 & & 0.009 & 0.809 & &  0.005 & 0.660 & &  -0.005 & 0.302 \\ 
-   &  300 & & 0.005 & 0.804 & &  0.002 & 0.658 & & -0.003 & 0.255 \\ \hline
-   \multirow{4}{*}{$\nu=0.75$} 
-  &  10 & & 0.089 & 0.821 & & 0.034 & 0.633 & & -0.040 & 0.322 \\ 
-  &   50 & & 0.037 & 0.866 & & 0.009 & 0.597 & & -0.021 & 0.238 \\ 
-  &  100 & &  0.025 & 0.858 & & 0.007 & 0.603 & & -0.014 & 0.240 \\ 
-  &  300 & &  0.014 & 0.850 &&  0.003 & 0.589 & & -0.007 & 0.218 \\ 
-   \hline
-\end{tabular}
-\end{center}
-\end{table}
+%\begin{table}[h]
+%\caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
+%\label{tab:percL1}
+%\begin{center}
+%\footnotesize
+%\begin{tabular}{rrcrrcrrcrr}
+%  \hline
+%  & &&\multicolumn{2}{c}{\textbf{Cayley}} & &\multicolumn{2}{c}{\textbf{matrix} } &&\multicolumn{2}{c}{\textbf{circular-}}\\
+%    && &\multicolumn{2}{c}{} & &\multicolumn{2}{c}{\textbf{Fisher}} & &\multicolumn{2}{c}{\textbf{von Mises}}\\ 
+%\rule[2mm]{0mm}{3mm} 
+%  &  $n$ && $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% \\ 
+%  \hline \hline
+%  \multirow{4}{*}{$\nu=0.25$} 
+%  &   10 & & 0.008 & 0.743 & &  0.006 & 0.725 & & -0.005 & 0.328 \\ 
+%  &   50 & &  0.003 & 0.783 & &  0.002 & 0.697 & & -0.002 & 0.327 \\ 
+%  &  100 & &  0.002 & 0.789 & & 0.002 & 0.712 & & -0.001 & 0.308 \\ 
+%  &  300 & & 0.001 & 0.781 & & 0.001 & 0.711 & & -0.001 & 0.284 \\ \hline
+%  \multirow{4}{*}{$\nu=0.50$} 
+%   &   10 & & 0.031 & 0.772 & &  0.017 & 0.662 & &  -0.019 & 0.335 \\ 
+%   &   50 & & 0.013 & 0.811 & & 0.005 & 0.620 & &-0.008 & 0.282 \\ 
+%   &  100 & & 0.009 & 0.809 & &  0.005 & 0.660 & &  -0.005 & 0.302 \\ 
+%   &  300 & & 0.005 & 0.804 & &  0.002 & 0.658 & & -0.003 & 0.255 \\ \hline
+%   \multirow{4}{*}{$\nu=0.75$} 
+%  &  10 & & 0.089 & 0.821 & & 0.034 & 0.633 & & -0.040 & 0.322 \\ 
+%  &   50 & & 0.037 & 0.866 & & 0.009 & 0.597 & & -0.021 & 0.238 \\ 
+%  &  100 & &  0.025 & 0.858 & & 0.007 & 0.603 & & -0.014 & 0.240 \\ 
+%  &  300 & &  0.014 & 0.850 &&  0.003 & 0.589 & & -0.007 & 0.218 \\ 
+%   \hline
+%\end{tabular}
+%\end{center}
+%\end{table}
 
 In Tables \ref{tab:percL1} and \ref{tab:percL2} we support Figure~\ref{fig:comPL2} with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we show the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another.  We denote the latter quantity by $\bar\delta$ in Table \ref{tab:percL1} where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.    
 Our previous results suggested the use of median-type estimators for the circular-von Mises-based distribution which favors $\ProjMedian$ over $\GeomMedian$ as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley and the matrix Fisher model the preference is reversed, typically  $\ProjMedian$ exhibits a larger spread (cf.~Figure~\ref{fig:NuBoxes}). 
 
 
-\begin{table}[h!]
-\caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.  \label{tab:percL2}}
-\begin{center}
-\footnotesize
-\begin{tabular}{rrcrrcrrcrr}
-  \hline
-  & &&\multicolumn{2}{c}{\textbf{Cayley}} & &\multicolumn{2}{c}{\textbf{matrix} } &&\multicolumn{2}{c}{\textbf{circular-}}\\
-    && &\multicolumn{2}{c}{} & &\multicolumn{2}{c}{\textbf{Fisher}} & &\multicolumn{2}{c}{\textbf{von Mises}}\\ 
-\rule[2mm]{0mm}{3mm} 
-  &  $n$ && $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% \\ 
-  \hline \hline
-\multirow{4}{*}{$\nu=0.25$}
-  &   10 &&  0.001 & 0.521 &&  -0.002 & 0.450 && -0.034 & 0.128 \\  
-  &   50 && 0.001 & 0.531 &&  -0.001 & 0.435 && -0.016 & 0.209 \\\ 
-  &  100 && 0.001 & 0.565 &&  -0.000 & 0.469 && -0.013 & 0.201 \\
-  &  300 && 0.000 & 0.588 &&  -0.000 & 0.486 &&  -0.007 & 0.239 \\ \hline
-  \multirow{4}{*}{$\nu=0.50$}
-   &   10 &&   0.010 & 0.592 &&  -0.018 & 0.434 &&  -0.101 & 0.157 \\ 
-   &   50 &&  0.007 & 0.645 &&  -0.011 & 0.392 &&  -0.055 & 0.145 \\ 
-   &  100 &&   0.004 & 0.642 &&  -0.007 & 0.393 &&  -0.038 & 0.162 \\ 
-   &  300 &&   0.003 & 0.642 &&  -0.004 & 0.393 &&  -0.023 & 0.157 \\ \hline
-  \multirow{4}{*}{$\nu=0.75$}
-   &   10 &&   0.016 & 0.668 &&  -0.096 & 0.357 &&  -0.210 & 0.171 \\ 
-   &   50 &&  0.026 & 0.741 &&  -0.036 & 0.338 &&  -0.096 & 0.150 \\
-   &  100 &&  0.017 & 0.735 &&  -0.024 & 0.346 &&  -0.076 & 0.111 \\ 
-   &  300 &&  0.009 & 0.728 &&  -0.012 & 0.344 && -0.045 & 0.127 \\ 
-   \hline
-\end{tabular}
-\end{center}
-\end{table}
+%\begin{table}[h!]
+%\caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.  \label{tab:percL2}}
+%\begin{center}
+%\footnotesize
+%\begin{tabular}{rrcrrcrrcrr}
+%  \hline
+%  & &&\multicolumn{2}{c}{\textbf{Cayley}} & &\multicolumn{2}{c}{\textbf{matrix} } &&\multicolumn{2}{c}{\textbf{circular-}}\\
+%    && &\multicolumn{2}{c}{} & &\multicolumn{2}{c}{\textbf{Fisher}} & &\multicolumn{2}{c}{\textbf{von Mises}}\\ 
+%\rule[2mm]{0mm}{3mm} 
+%  &  $n$ && $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% \\ 
+%  \hline \hline
+%\multirow{4}{*}{$\nu=0.25$}
+%  &   10 &&  0.001 & 0.521 &&  -0.002 & 0.450 && -0.034 & 0.128 \\  
+%  &   50 && 0.001 & 0.531 &&  -0.001 & 0.435 && -0.016 & 0.209 \\\ 
+%  &  100 && 0.001 & 0.565 &&  -0.000 & 0.469 && -0.013 & 0.201 \\
+%  &  300 && 0.000 & 0.588 &&  -0.000 & 0.486 &&  -0.007 & 0.239 \\ \hline
+%  \multirow{4}{*}{$\nu=0.50$}
+%   &   10 &&   0.010 & 0.592 &&  -0.018 & 0.434 &&  -0.101 & 0.157 \\ 
+%   &   50 &&  0.007 & 0.645 &&  -0.011 & 0.392 &&  -0.055 & 0.145 \\ 
+%   &  100 &&   0.004 & 0.642 &&  -0.007 & 0.393 &&  -0.038 & 0.162 \\ 
+%   &  300 &&   0.003 & 0.642 &&  -0.004 & 0.393 &&  -0.023 & 0.157 \\ \hline
+%  \multirow{4}{*}{$\nu=0.75$}
+%   &   10 &&   0.016 & 0.668 &&  -0.096 & 0.357 &&  -0.210 & 0.171 \\ 
+%   &   50 &&  0.026 & 0.741 &&  -0.036 & 0.338 &&  -0.096 & 0.150 \\
+%   &  100 &&  0.017 & 0.735 &&  -0.024 & 0.346 &&  -0.076 & 0.111 \\ 
+%   &  300 &&  0.009 & 0.728 &&  -0.012 & 0.344 && -0.045 & 0.127 \\ 
+%   \hline
+%\end{tabular}
+%\end{center}
+%\end{table}
 
 Similarly to the median-type estimators, $\Rdist$ is the preferred metric for the Cayley distribution especially when $\nu$ is large.  For the  matrix Fisher distribution the preference is less clear, especially for less variable data, but as $\nu$ increases the Euclidean-based mean yields generally a smaller estimation error more often. In summary,
 \begin{itemize}
