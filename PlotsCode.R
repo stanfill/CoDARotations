@@ -179,7 +179,7 @@ levels(ResFrame$Dist)<-c("Cayley","matrix Fisher","circular-von Mises")
 x<-ddply(ResFrame,.(Dist,nu,n,Estimator),summarize,Median=round(median(Error),4),Mean=round(mean(Error),4),RMSE=round(sqrt(mean(Error^2)),4))
 
 #Make previous Table 4 into a plot for Associate editor
-my.labels <- list(bquote(widehat(S)[E]),bquote(widehat(S)[R]),bquote(widetilde(S)[E]),bquote(widetilde(S)[R]))
+my.labels <- list(bquote(widehat(bold(S))[E]),bquote(widehat(bold(S))[R]),bquote(widetilde(bold(S))[E]),bquote(widetilde(bold(S))[R]))
 
 mx<-melt(x,id=c("Dist","Estimator","n","nu"),measure=c("Mean","RMSE"))
 mx$n<-as.factor(mx$n)
@@ -191,7 +191,7 @@ qplot(n,value,data=mx75,facets=.~variable,geom="path",group=Estimator,linetype=E
   theme(legend.text=element_text(size=12),legend.key.width=unit(3,"line"),legend.title=element_text(size=12))+
   geom_hline(yintercept=0,colour="gray50")+
   theme(axis.text.x=element_text(size=12,color=1),axis.text.y=element_text(size=12,color=1))
-ggsave("vonMisesnu75MeanRMSE.pdf",height=3,width=6)
+#ggsave("vonMisesnu75MeanRMSE.pdf",height=4,width=8)
 
 #Plot boxplots as a function of nu for n=300
 Largen<-ResFrame[ResFrame$n==100,]
@@ -308,6 +308,21 @@ MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summari
 SumL2<-cbind(CaySumL2,FisSumL2[,3:4],MisSumL2[,3:4])
 xtable(SumL2,digits=3,label="tab:percL2")
 
+#Table of mean (SE) and RMSE for the distributions, n=100 and nu=0.25
+
+n100nu2575ResFrame<-subset(ResFrame,n==100 & nu%in%c(0.25,0.75))
+n100nu2575ses<-ddply(n100nu2575ResFrame,.(nu,Dist,Estimator),summarize,mean=mean(Error),SE=sd(Error)/sqrt(length(Error)),RMSE=sqrt(mean((Error)^2)))
+n100nu25Tab<-cbind(n100nu2575ses[c(2,3,1,4),c(1,3:6)],n100nu2575ses[c(2,3,1,4)+4,4:6],n100nu2575ses[c(2,3,1,4)+8,4:6])
+levels(n100nu25Tab$Estimator)<-c("GeomMedian","GeomMean","ProjMean","ProjMedian")
+n100nu75Tab<-cbind(n100nu2575ses[c(2,3,1,4)+12,c(1,3:6)],n100nu2575ses[c(2,3,1,4)+16,4:6],n100nu2575ses[c(2,3,1,4)+20,4:6])
+levels(n100nu75Tab$Estimator)<-c("GeomMedian","GeomMean","ProjMean","ProjMedian")
+
+xtable(rbind(n100nu25Tab,n100nu75Tab),digits=4)
+
+
+n100Res<-x[x$n==100 & x$nu==.25,][,-c(2:3)]
+#n100Tab<-cbind(n100Res[1:8,1:5],n100Res[9:16,c(1,2:5)])
+xtable(n100Res,digits=3)
 ##########################################################################
 ##########################################################################
 ####   This section is dedicated to proving statistical significance  ####
