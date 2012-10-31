@@ -21,20 +21,42 @@ Figure~\ref{fig:NuBoxes} displays side-by-side boxplots showing the estimation e
 First and foremost the results suggest that different location estimators emerge as preferable depending on the type of distribution assumed for the rotation errors in \eqref{eqn:1}.  For the circular-von Mises-based distribution both median-type estimators ($\ProjMedian$ and $\GeomMedian$) are superior with respect to the estimation error while for the Cayley and matrix Fisher models the mean-type estimators ($\ProjMean$ and $\GeomMean$) perform better though on a much less pronounced scale. While preferences within the median- and mean-type estimators are visible, these generally disappear as the variability in the data, i.e.~$\nu$ decreases.    
 For the Cayley and the matrix Fisher distribution the overall pattern of estimation is very similar. $\ProjMean$ and $\GeomMean$ typically exhibit a little less spread and a slightly lower average estimation error than $\ProjMedian$ and $\GeomMedian$ but differences between the estimators lessen as $\nu$ becomes smaller. Figure~\ref{fig:NuBoxes} further shows that the estimation error is a function of the circular spread $\nu$; as $\nu$ decreases the range of the observed estimation errors decreases within each rotation model and for each of the four estimators. The same is true for the mean estimation error, and RMSE in Table~\ref{tab:alldN100Nu25}.  For a plot similar to Figure~\ref{fig:NuBoxes} in which the estimation errors are given as a function of sample size for $\nu=0.75$ we refer to the Appendix Section \ref{sec:appendix1}.
 
-\begin{center}
+%\begin{center}
+%\begin{table}[h!]
+%\caption{Numerical summaries of the estimation error  by distribution, $n=100$,  $\nu=0.25$.  \label{tab:alldN100Nu25}}
+%\begin{tabular}{ccccccccccc}
+%  \hline
+%		& &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
+%Estimator 	& &  Mean error & RMSE& &  Mean error & RMSE& &   Mean error & RMSE \\  \hline \hline %\rule[2mm]{0mm}{3mm} 
+% 		  $\GeomMean$ & &  0.069 & 0.075 & &  0.070 & 0.076&  & 0.074 & 0.081 \\ 
+% 		 $\ProjMean$ &  & 0.070 & 0.076 & &  0.070 & 0.076&  &  0.062 & 0.067\\ 
+%		 $\GeomMedian$ &  & 0.077 & 0.083 & &  0.075 & 0.081&  & 0.027 & 0.031\\ 
+% 		  $\ProjMedian$ &  & 0.079 & 0.086 & &  0.077 & 0.083 & & 0.026 & 0.030\\ \hline
+%\end{tabular}
+%\end{table}
+%\end{center}
+
 \begin{table}[h!]
-\caption{Numerical summaries of the estimation error  by distribution, $n=100$,  $\nu=0.25$.  \label{tab:alldN100Nu25}}
-\begin{tabular}{ccccccccccc}
+\centering
+\footnotesize
+\caption{Numerical summaries of the estimation error  by distribution, $n=100$,  $\nu=0.25$ and $0.75$.  \label{tab:alldN100Nu25}}
+\begin{tabular}{cccccccccccc}
+\hline
+& &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
   \hline
-		& &\multicolumn{3}{c}{\textbf{Cayley}} & \multicolumn{3}{c}{\textbf{matrix Fisher}}  & \multicolumn{3}{c}{\textbf{circular-von Mises}}\\ 
-Estimator 	& &  Mean error & RMSE& &  Mean error & RMSE& &   Mean error & RMSE \\  \hline \hline %\rule[2mm]{0mm}{3mm} 
- 		  $\GeomMean$ & &  0.069 & 0.075 & &  0.070 & 0.076&  & 0.074 & 0.081 \\ 
- 		 $\ProjMean$ &  & 0.070 & 0.076 & &  0.070 & 0.076&  &  0.062 & 0.067\\ 
-		 $\GeomMedian$ &  & 0.077 & 0.083 & &  0.075 & 0.081&  & 0.027 & 0.031\\ 
- 		  $\ProjMedian$ &  & 0.079 & 0.086 & &  0.077 & 0.083 & & 0.026 & 0.030\\ \hline
+ $\nu$ & Estimator && Mean error (SE) & RMSE && Mean error (SE) & RMSE && Mean error (SE) & RMSE \\ 
+  \hline
+ \multirow{4}{*}{0.25} & $\GeomMean$ && 0.0690 (0.0009) & 0.0752 && 0.0699 (0.0010) & 0.0761 && 0.0744 (0.0010) & 0.0811 \\ 
+   & $\ProjMean$ && 0.0698 (0.0009) & 0.0759 && 0.0695 (0.0009) & 0.0756 && 0.0617 (0.0008) & 0.0671 \\ 
+    & $\GeomMedian$&& 0.0769 (0.0010) & 0.0834 && 0.0747 (0.0010) & 0.0813 && 0.0269 (0.0005) & 0.0310 \\ 
+    & $\ProjMedian$ && 0.0791 (0.0011) & 0.0858 && 0.0766 (0.0010) & 0.0832 && 0.0256 (0.0005) & 0.0296 \\ \hline
+   \multirow{4}{*}{0.75} & $\GeomMean$ && 0.1398 (0.0018) & 0.1514 && 0.1703 (0.0045) & 0.2225 && 0.2039 (0.0028) & 0.2221 \\ 
+    & $\ProjMean$ && 0.1567 (0.0020) & 0.1695 && 0.1462 (0.0020) & 0.1588 && 0.1276 (0.0017) & 0.1388 \\ 
+    & $\GeomMedian$ && 0.1597 (0.0021) & 0.1729 && 0.1527 (0.0021) & 0.1660 && 0.0687 (0.0012) & 0.0792 \\ 
+    & $\ProjMedian$ && 0.1847 (0.0024) & 0.2000 && 0.1597 (0.0022) & 0.1736 && 0.0547 (0.0010) & 0.0628 \\ 
+   \hline
 \end{tabular}
 \end{table}
-\end{center}
 
 %\begin{figure}[h!]
 %\centering
