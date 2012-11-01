@@ -13,10 +13,13 @@ For each combination of sample size, circular spread $\nu$ and choice of distrib
 \subsection{Generating Random Rotations in the Location Model}
 \label{subsec:genRR}
 %As mentioned in the introduction, 
-We wish to compare estimators of the (fixed) location parameter $\bm{S}\in SO(3)$ under three common distributional models for describing symmetric rotation errors $\bm{E}\in SO(3)$ in a data model  $\bm{R}=\bm{S}\bm{E}$ (cf.~(\ref{eqn:1})): the symmetric matrix Fisher \citep{langevin05, downs72, khatri77, jupp79}, the symmetric Cayley  \citep{Schaeben97, leon06} and the circular-von Mises-based distribution \citep{bingham09}. A general construction approach exists for random rotations that are symmetrically distributed around the identity matrix $\bm{I}_{3 \times 3}$; see \cite{watson83, bingham09} and \cite{hielscher10}.  To this end, let $\bm{U}\in\mathbb{R}^3$ represent a point chosen uniformly on the unit sphere and, independently, generate a random angle $r$ according to some circular density $C(r|\kappa)$ on $(-\pi,\pi]$, which is symmetric around 0 and where $\kappa$ denotes a concentration parameter governing the spread of the circular distribution.  Then, define a random rotation as $\bm{E}=\bm{E}(\bm{U},r)$ using the constructive definition (\ref{eqn:angleaxis}) (i.e., $\bm{E}$ represents the position of $\bm{I}_{3\times 3}$ upon rotating the standard coordinate frame in $\mathbb{R}^3$ about the random axis $\bm{U}$ by the random angle $r$). The resulting rotation $\bm{E}$ will be symmetrically distributed and its distributional type (i.e., matrix Fisher, Cayley or circular-von Mises-based) is determined by the form of the circular density $C(r|\kappa)$ for the (misorientation) angle $r$.  
-\begin{center} 
-\begin{table}[h]
-\caption{Circular densities with respect to the Lebesgue measure and circular variance $\nu$.  \label{tab:ang.dens}}
+We wish to compare estimators of the (fixed) location parameter $\bm{S}\in SO(3)$ under three common distributional models for describing symmetric rotation errors $\bm{E}\in SO(3)$ in a data model  $\bm{R}=\bm{S}\bm{E}$ (cf.~(\ref{eqn:1})): the symmetric matrix Fisher \citep{langevin05, downs72, khatri77, jupp79}, the symmetric Cayley  \citep{Schaeben97, leon06} and the circular-von Mises-based distribution \citep{bingham09}. A general construction approach exists for random rotations that are symmetrically distributed around the identity matrix $\bm{I}_{3 \times 3}$; see \cite{watson83, bingham09} and \cite{hielscher10}.  To this end, let $\bm{U}\in\mathbb{R}^3$ represent a point chosen uniformly on the unit sphere and, independently, generate a random angle $r$ according to some circular density $C(r|\kappa)$ on $(-\pi,\pi]$, which is symmetric around 0 and where $\kappa$ denotes a concentration parameter governing the spread of the circular distribution.  Then, define a random rotation as $\bm{E}=\bm{E}(\bm{U},r)$ using the constructive definition (\ref{eqn:angleaxis}) (i.e., $\bm{E}$ represents the position of $\bm{I}_{3\times 3}$ upon rotating the standard coordinate frame in $\mathbb{R}^3$ about the random axis $\bm{U}$ by the random angle $r$). The resulting rotation $\bm{E}$ will be symmetrically distributed and its distributional type (i.e., matrix Fisher, Cayley or circular-von Mises-based) is determined by the form of the circular density $C(r|\kappa)$ for the (misorientation) angle $r$.
+
+The circular densities are given in Table~\ref{tab:ang.dens}, where $\mathrm{I_p}(\cdot)$ denotes the Bessel function of order $p$ defined as  $\mathrm{I_p}(\kappa)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos(pr)e^{\kappa\cos r}dr$. To ease the interpretation of the simulation results in Section~\ref{sec:results},  we choose not to present results in terms of $\kappa$ but instead use the circular variance defined as $\nu=1-\rho$ as a measure of spread, where $\rho=\mathrm{E}[\cos(r)]$, which is commonly referred to as the mean resultant length. This allows us to compare the performance of the estimators for densities exhibiting the same spread.  The values of $\kappa$ corresponding to the chosen circular variances are given in Table~\ref{tab:kappas}.
+
+%\begin{center} 
+\begin{table}[h!]
+\caption{Circular densities with respect to the Lebesgue measure and circular variance $\nu$.}  \label{tab:ang.dens}\centering
 \small{
 \begin{tabular}{ lclcl}\hline
 \textbf{Name} & & \textbf{Density} $C(r |\kappa)$ & & \textbf{Circular variance $\nu$}\\ \hline \hline 
@@ -30,25 +33,24 @@ $\frac{3\mathrm{I}_0(2\kappa)-4\mathrm{I}_1(2\kappa)+\mathrm{I}_2(2\kappa)}
 {2[\mathrm{I}_0(2\kappa)-\mathrm{I}_1(2\kappa)]}$ \\
 \rule[2mm]{0mm}{6mm} circular-von Mises & & $\frac{1}{2\pi \mathrm{I_0}(\kappa)}e^{\kappa\cos(r)}$&  & 
 $\frac{\mathrm{I_0}(\kappa)-\mathrm{I_1}(\kappa)}{\mathrm{I_0}(\kappa)}$ \\[-7mm] 
-\rule[2mm]{0mm}{6mm} & & & & \\ \hline
+\rule[2mm]{0mm}{6mm} & & & & \\\hline
 \end{tabular}}
 \end{table}
-\end{center}
-The circular desnities are given in Table~\ref{tab:ang.dens}, where $\mathrm{I_p}(\cdot)$ denotes the Bessel function of order $p$ defined as  $\mathrm{I_p}(\kappa)=\frac{1}{2\pi}\int_{-\pi}^{\pi}\cos(pr)e^{\kappa\cos r}dr$. To ease the interpretation of the simulation results in Section~\ref{sec:results},  we choose not to present results in terms of $\kappa$ but instead use the circular variance defined as $\nu=1-\rho$ as a measure of spread, where $\rho=\mathrm{E}[\cos(r)]$, which is commonly referred to as the mean resultant length. This allows us to compare the performance of the estimators for densities exhibiting the same spread.  The values of $\kappa$ corresponding to the chosen circular variances are given in Table~\ref{tab:kappas}.  \\
+%\end{center}
 
-
+%\begin{center}
 \begin{table}[h!]
-\begin{center}
-\caption{Values of $\kappa$ for each rotational distribution corresponding to the circular variances.  \label{tab:kappas}}\vspace{-0.4cm}
+\caption{Values of $\kappa$ for each rotational distribution corresponding to the circular variances.}  \label{tab:kappas}%\vspace{-0.4cm}
+\centering
 \begin{tabular}{l l ccc}\hline
-{\bf Distribution} & & \multicolumn{3}{c}{\bf Circular variance} \\
-& & $\nu=0.25$ &$\nu=0.50$ & $\nu=0.75$\\ \hline \hline
+{\bf Distribution} & & \multicolumn{3}{c}{\bf Circular variance $\nu$} \\
+& & $0.25$ &$0.50$ & $0.75$\\ \hline \hline
 Cayley & & 10.00 & 4.00 & 2.00 \\
 matrix Fisher & & 3.17 & 1.71 & 1.15\\
 circular-von Mises & & 2.40 & 1.16 & 0.52\\ \hline
 \end{tabular}
-\end{center}
 \end{table}
+%\end{center}
 
 The density, with respect to the Haar measure, for each distribution of a random rotation given a circular variance of $0.75$ is plotted in Figure~\ref{fig:Haar}.  The Haar measure (or uniform distribution on $SO(3)$) acts as the dominating measure for rotations and the symmetric nature of the random rotation $\bm E_i=\bm E_i(\bm U,r)$ means that its density $f(\bm E_i|\nu)=f(r|\nu)$ can be plotted in terms of the misorientation angle $r$ of $\bm E_i$ in \eqref{eqn:angleaxis}, which is common in materials science \citep{matthies88, savyolova95}.  Density plots for the other circular variances we consider in our simulation study are similar and therefore omitted.
 
