@@ -152,44 +152,10 @@ We next explore the effect the choice of geometry has on the estimation error fo
 %\end{table}
 
 Tables \ref{tab:percL1} and \ref{tab:percL2} of Section~\ref{sec:appendix3} of the Appendix support Figure~\ref{fig:comPL2} with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we show the average amount of error by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another.   
-Earlier results suggested the use of median-type estimators for the circular-von Mises-based distribution. Taking the findings with respect to the choice of geometry into account, we consider the $\ProjMedian$ preferable for the circular-von Mises-based distribution as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley and the matrix Fisher model our preference is reversed, as $\ProjMedian$ typically exhibits a larger spread (cf.~Figure~\ref{fig:NuBoxes}), particularly for the light-tailed Cayley distribution. 
-
-
-%\begin{table}[h!]
-%\caption{Average reduction in estimation error by using $\GeomMean$ instead of $\ProjMean$, $\delta=\Rdist(\ProjMean,\bm S) - \Rdist(\GeomMean,\bm S)$ and percentage of samples for which $\Rdist(\GeomMean,\bm S) < \Rdist(\ProjMean,\bm S)$.  \label{tab:percL2}}
-%\begin{center}
-%\footnotesize
-%\begin{tabular}{rrcrrcrrcrr}
-%  \hline
-%  & &&\multicolumn{2}{c}{\textbf{Cayley}} & &\multicolumn{2}{c}{\textbf{matrix} } &&\multicolumn{2}{c}{\textbf{circular-}}\\
-%    && &\multicolumn{2}{c}{} & &\multicolumn{2}{c}{\textbf{Fisher}} & &\multicolumn{2}{c}{\textbf{von Mises}}\\ 
-%\rule[2mm]{0mm}{3mm} 
-%  &  $n$ && $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% & & $\bar{\delta}$ & \% \\ 
-%  \hline \hline
-%\multirow{4}{*}{$\nu=0.25$}
-%  &   10 &&  0.001 & 0.521 &&  -0.002 & 0.450 && -0.034 & 0.128 \\  
-%  &   50 && 0.001 & 0.531 &&  -0.001 & 0.435 && -0.016 & 0.209 \\\ 
-%  &  100 && 0.001 & 0.565 &&  -0.000 & 0.469 && -0.013 & 0.201 \\
-%  &  300 && 0.000 & 0.588 &&  -0.000 & 0.486 &&  -0.007 & 0.239 \\ \hline
-%  \multirow{4}{*}{$\nu=0.50$}
-%   &   10 &&   0.010 & 0.592 &&  -0.018 & 0.434 &&  -0.101 & 0.157 \\ 
-%   &   50 &&  0.007 & 0.645 &&  -0.011 & 0.392 &&  -0.055 & 0.145 \\ 
-%   &  100 &&   0.004 & 0.642 &&  -0.007 & 0.393 &&  -0.038 & 0.162 \\ 
-%   &  300 &&   0.003 & 0.642 &&  -0.004 & 0.393 &&  -0.023 & 0.157 \\ \hline
-%  \multirow{4}{*}{$\nu=0.75$}
-%   &   10 &&   0.016 & 0.668 &&  -0.096 & 0.357 &&  -0.210 & 0.171 \\ 
-%   &   50 &&  0.026 & 0.741 &&  -0.036 & 0.338 &&  -0.096 & 0.150 \\
-%   &  100 &&  0.017 & 0.735 &&  -0.024 & 0.346 &&  -0.076 & 0.111 \\ 
-%   &  300 &&  0.009 & 0.728 &&  -0.012 & 0.344 && -0.045 & 0.127 \\ 
-%   \hline
-%\end{tabular}
-%\end{center}
-%\end{table}
-
-Similarly to the median-type estimators, $\Rdist$ is the preferred metric for the Cayley distribution especially when $\nu$ is large.  For the  matrix Fisher distribution the preference is less clear, especially for less variable data, but as $\nu$ increases the Euclidean-based mean yields generally a smaller estimation error more often. In summary,
+Earlier results suggested the use of median-type estimators for the circular-von Mises-based distribution. Taking the findings with respect to the choice of geometry into account, we consider $\ProjMedian$ preferable for the circular-von Mises-based distribution as $\Rdist(\ProjMedian,\bm S) < \Rdist(\GeomMedian,\bm S)$ most of the time.  For the Cayley distribution our preference regarding the geometry is reversed; although differences are subtle $\Rdist$ is the preferred metric for the Cayley distribution especially when $\nu$ is large and overall $\GeomMean$ typically exhibits the least spread for this distribution as perhaps best illustrated in Table~\ref{tab:alldN100}.   For the  matrix Fisher distribution the preference is less clear, especially for less variable data, but as $\nu$ increases the Euclidean-based mean yields generally a smaller estimation error more often. In summary,
 \begin{itemize}
 \item the choice of location estimator can depend on the rotation error distribution in the location model (1).  For the matrix Fisher and the Cayley distribution  the projected arithmetic mean $\ProjMean$ and the geometric mean $\GeomMean$ are, respectively, preferable though $\ProjMedian$ and $\GeomMedian$ are not far behind especially when the circular spread is smaller. For the circular-von Mises-based distribution  the projected median $\ProjMedian$  should be used.
 
-\item   a significant finding of the simulation results is that the (Euclidean-based)  projected median $\ProjMedian$ is typically a good location estimator across rotation error models.  For the circular-von Mises-based estimation, this generally has the best performance, while for the Cayley or matrix Fisher distributions, this estimator is often quite comparable to the best estimator.  In other words, an estimator $\ProjMedian$ not previously considered for rotation matrices in the literature appears to be suggestible, particularly in small samples and without knowledge of the underlying rotation error distribution.
+\item   a significant finding of the simulation results is that the (Euclidean-based)  projected median $\ProjMedian$ is typically a good location estimator across rotation error models.  For the circular-von Mises-based estimation, this generally has the best performance, while for the Cayley or matrix Fisher distributions, this estimator is often quite comparable to the best estimator.  In other words, $\ProjMedian$, an estimator  not previously considered for rotation matrices in the literature, appears to be suggestible, particularly in small samples and without knowledge of the underlying rotation error distribution.
 
 \end{itemize}
