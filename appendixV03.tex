@@ -1,51 +1,6 @@
  % !TEX root = Stanfill_CoDA.tex
 \appendix
 
-\section{Sampling Process}
-\label{sec:appendix1}
-\subsection{Circular-von Mises-based distribution}
-
-To simulate a random sample of rotation angles from the circular-von Mises-based distribution we follow the  algorithm proposed by \citet{best79}.  The algorithm is available in the IMSL Library (1991) and is implemented as follows.  Let $\mu=0$ denote the mean of the target angular distribution and $\kappa$ its concentration parameter.  We define constants $a, b$ and $d$ as
-$a\equiv 1+\sqrt{1+4\kappa^2},\quad b\equiv(a-\sqrt{2a}),\quad d\equiv(1+b^2)/2b.$
-In steps one, two and four we generate three new observations $u_1$, $u_2$ and $u_3$,  each from a uniform distribution defined over the interval $(0,1)$. 
-\begin{enumerate}
-\item Set $z=\cos(\pi u_1)$, $f=(1+dz)/(z+d)$ and $c=\kappa(d-f)$.
-\item If $c(2-c)-u_2>0$ go to step 4.
-\item If $\log(c/u_2)+1-c<0$ return to step 1.
-\item Set $r=\text{sign}(u_3-0.5)\cos^{-1}(f)$
-\end{enumerate}
-It follows that  $r$ is distributed according to the circular-von Mises$(\kappa)$ distribution.
-
-\subsection{Cayley distribution}%\hfill
-
-To simulate rotation angles from a Cayley distribution we make use of a result given in \citet{leon06}. If the angle $r$ follows a Cayley distribution it holds that $\frac{1+\cos r}{2} \sim \text{Beta}(\kappa+1/2, 3/2)$.  Hence, angles following the Cayley distribution can be simulated through composition: 
-\begin{enumerate}
-\item Generate $Z\sim$Bernoulli(0.5) and set  $Y=1-2Z$
-\item Independently generate $X\sim$ Beta$(\kappa+1/2, 3/2)$
-\item Set $r= \frac{Y}{2}\cos^{-1}(2X-1)$
-\end{enumerate}
-Angles $r$ simulated in this fashion follow a Cayley$(\kappa)$ distribution.
-
-\subsection{matrix Fisher distribution}%\hfill
-
-Simulation from the matrix Fisher distribution is achieved through a rejection algorithm.  Let  $\mathrm{C_F}(r|\kappa)$ denote the matrix Fisher density as given in Table~\ref{tab:ang.dens}. %and $Y\sim$ Uniform$(-\pi,\pi]$.
-
-\begin{enumerate}
-\item Define $M=\frac{1}{2\kappa}e^{2\kappa - 1}\frac{1}{\mathbf{I}_0(2\kappa)-\mathbf{I}_1(2\kappa)}$
-\item Generate $U\sim$ Uniform$(0,1)$ and $Y\sim$ Uniform$(-\pi,\pi]$, where $U$ and $Y$ are independent.
-\item If $U<\frac{1}{M}\mathrm{C_F}(Y|\kappa)$, accept $Y$; otherwise return to step (2)
-\end{enumerate}
-
-%\subsection{Rotation Matrix Formulation}
-%
-%Given a set of randomly generated angles of rotation $r_1,\ldots, r_n$, the rotation matrix formulation following from:
-%\begin{enumerate}
-%\item Generate a point uniformly on the unit sphere
-%$$\bm{U}=(u_1,u_2,u_3)^\top=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)^\top$$
-%where  $0\leq \theta\leq \pi$ and $0\leq \phi\leq 2\pi$.
-%\item Given an angle of rotation,$r_i$ , generated as described above from an angular distribution symmetric about 0 and with concentration $\kappa$ rotate $\bm{I}$ about $\bm{U}$ by $r_i$ radians.
-%\end{enumerate}
-
 \section{Riemannian and Euclidean Distance}
 \label{sec:appendix2}
 In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$ as stated in Section~\ref{sec:results}.
@@ -115,6 +70,52 @@ for $\bm{R}_1,\bm{R}_2\in SO(3)$.  To show this recall that if $\tr(\bm R_1^\top
 \end{align*}
 Taking square roots on both sides gives \eqref{EvR}.
 
+\section{Sampling Process}
+\label{sec:appendix1}
+\subsection{Circular-von Mises-based distribution}
+
+To simulate a random sample of rotation angles from the circular-von Mises-based distribution we follow the  algorithm proposed by \citet{best79}.  The algorithm is available in the IMSL Library (1991) and is implemented as follows.  Let $\mu=0$ denote the mean of the target angular distribution and $\kappa$ its concentration parameter.  We define constants $a, b$ and $d$ as
+$a\equiv 1+\sqrt{1+4\kappa^2},\quad b\equiv(a-\sqrt{2a}),\quad d\equiv(1+b^2)/2b.$
+In steps one, two and four we generate three new observations $u_1$, $u_2$ and $u_3$,  each from a uniform distribution defined over the interval $(0,1)$. 
+\begin{enumerate}
+\item Set $z=\cos(\pi u_1)$, $f=(1+dz)/(z+d)$ and $c=\kappa(d-f)$.
+\item If $c(2-c)-u_2>0$ go to step 4.
+\item If $\log(c/u_2)+1-c<0$ return to step 1.
+\item Set $r=\text{sign}(u_3-0.5)\cos^{-1}(f)$
+\end{enumerate}
+It follows that  $r$ is distributed according to the circular-von Mises$(\kappa)$ distribution.
+
+\subsection{Cayley distribution}%\hfill
+
+To simulate rotation angles from a Cayley distribution we make use of a result given in \citet{leon06}. If the angle $r$ follows a Cayley distribution it holds that $\frac{1+\cos r}{2} \sim \text{Beta}(\kappa+1/2, 3/2)$.  Hence, angles following the Cayley distribution can be simulated through composition: 
+\begin{enumerate}
+\item Generate $Z\sim$Bernoulli(0.5) and set  $Y=1-2Z$
+\item Independently generate $X\sim$ Beta$(\kappa+1/2, 3/2)$
+\item Set $r= \frac{Y}{2}\cos^{-1}(2X-1)$
+\end{enumerate}
+Angles $r$ simulated in this fashion follow a Cayley$(\kappa)$ distribution.
+
+\subsection{matrix Fisher distribution}%\hfill
+
+Simulation from the matrix Fisher distribution is achieved through a rejection algorithm.  Let  $\mathrm{C_F}(r|\kappa)$ denote the matrix Fisher density as given in Table~\ref{tab:ang.dens}. %and $Y\sim$ Uniform$(-\pi,\pi]$.
+
+\begin{enumerate}
+\item Define $M=\frac{1}{2\kappa}e^{2\kappa - 1}\frac{1}{\mathbf{I}_0(2\kappa)-\mathbf{I}_1(2\kappa)}$
+\item Generate $U\sim$ Uniform$(0,1)$ and $Y\sim$ Uniform$(-\pi,\pi]$, where $U$ and $Y$ are independent.
+\item If $U<\frac{1}{M}\mathrm{C_F}(Y|\kappa)$, accept $Y$; otherwise return to step (2)
+\end{enumerate}
+
+%\subsection{Rotation Matrix Formulation}
+%
+%Given a set of randomly generated angles of rotation $r_1,\ldots, r_n$, the rotation matrix formulation following from:
+%\begin{enumerate}
+%\item Generate a point uniformly on the unit sphere
+%$$\bm{U}=(u_1,u_2,u_3)^\top=(\sin\theta\cos\phi,\sin\theta\sin\phi,\cos\theta)^\top$$
+%where  $0\leq \theta\leq \pi$ and $0\leq \phi\leq 2\pi$.
+%\item Given an angle of rotation,$r_i$ , generated as described above from an angular distribution symmetric about 0 and with concentration $\kappa$ rotate $\bm{I}$ about $\bm{U}$ by $r_i$ radians.
+%\end{enumerate}
+
+
 \section{Additional Results}
 \label{sec:appendix3}
 In this section we expand on the results section by providing tabular results that correspond to some of the graphics given in the body of the manuscript.  We also include a few more graphics to further illustrate the relationship between the estimators.
@@ -124,7 +125,8 @@ In Figure \ref{fig:NuBoxes} we presented the distribution of estimation errors f
 To formally test if these estimators are significantly different from one another consider the results of a blocked analysis of variance given in Table \ref{tab:anova}.  In this analysis the response is the log-transformed estimation errors for each estimation (to better approximate normality), blocks correspond to each unique distribution/circular variance/sample size combination and estimators are considered the treatment.  The small p-value indicates that there is convincing statistical evidence that for each scenario we consider there is at least one estimator that is significantly different from the rest.  If the difference is of practical importance will depend on the situation and data collected.
 
 \begin{table}[h!]
-\caption{Numerical summaries of the estimation error  by distribution and circular variance $\nu$ for $n=100$.  The mean error (its standard error) and RMSE are reported here.}  
+\caption{Numerical summaries of the estimation error  by distribution and circular variance $\nu$ for $n=100$.  The mean error (its standard error) and RMSE are reported here. Despite skewness in some of the plotted error distributions the \textit{median estimation error} was quantitatively similar to the mean estimation error and is therefore not reported.
+}  
 \label{tab:alldN100}
 \centering
 \scalebox{.85}{

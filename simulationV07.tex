@@ -4,10 +4,10 @@
 Section~\ref{subsec:simdesign} gives an outline of the simulation design.  Section~\ref{subsec:genRR} briefly describes the parametric distributional models for describing symmetric rotation errors (cf.~(\ref{eqn:1})) with differing variability that are used in the study. 
 \subsection{Design of Simulation Study}
 \label{subsec:simdesign}
-To compare the performance of the proposed location estimators for determining the central direction $\bm{S}$ given a sample of size $n$, we generated random rotation error samples  $\bm E_1, \ldots, \bm E_n$  in model \eqref{eqn:1} with sizes $n=10, 50, 100$ and 300. In \eqref{eqn:1}, without loss of generality, we set the location parameter $\bm S=\bm I_{3\times 3}$ (the identity matrix) and consider circular variances (denoted  by $\nu$) of $\nu=0.25$, $0.50$ and $0.75$. 
+To compare the performance of the proposed location estimators for determining the central direction $\bm{S}$ given a sample of size $n$, we generated random rotation error samples  $\bm E_1, \ldots, \bm E_n$  in model \eqref{eqn:1} with sizes $n=10, 50, 100$ and 300. In \eqref{eqn:1}, without loss of generality, we set the location parameter $\bm S=\bm I_{3\times 3}$ (the identity matrix) and consider circular variances (denoted  by $\nu$) of $\nu=0.25$, $0.50$ and $0.75$. For each combination of sample size, circular spread $\nu$ and choice of distribution, we generated 1,000 samples and for each sample estimated the central direction  $\bm S=\bm I_{3\times 3}$ using each of the four proposed estimators.  We continue with an introduction to the distributions under consideration in the next section.
 
 %\red{that is  a bit abrupt -- should we move all of the above discussion relating to the densities to the next subsection? HH}
-For each combination of sample size, circular spread $\nu$ and choice of distribution, we generated 1,000 samples and for each sample estimated the central direction  $\bm S=\bm I_{3\times 3}$ using each of the four proposed estimators.  We continue with an introduction to the distributions under consideration in the next section.
+%For each combination of sample size, circular spread $\nu$ and choice of distribution, we generated 1,000 samples and for each sample estimated the central direction  $\bm S=\bm I_{3\times 3}$ using each of the four proposed estimators.  We continue with an introduction to the distributions under consideration in the next section.
 
 
 \subsection{Generating Random Rotations in the Location Model}

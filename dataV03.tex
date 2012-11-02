@@ -1,11 +1,10 @@
  % !TEX root = Stanfill_CoDA.tex
 \section{Data Application}\label{sec:data}
 
-The data in our example represent the orientations of cubic crystals on a Nickel surface measured by electron backscatter diffraction. The data were obtained using a 14-fold technical replicate in each location. 
-A central interest in EBSD data is the identification of so-called {\it grain maps} -- grains are defined as regions on the surface with nearly identical main direction $\bm S$. This makes the estimation of $\bm S$ crucial to the field. 
+The data in our example represent the orientations of cubic crystals on a Nickel surface measured by electron backscatter diffraction. The data were obtained using a 14-fold technical replicate in each location. \red{how many locations?}
+A central interest in EBSD data is the identification of so-called {\it grain maps} which are defined as regions on the surface with nearly identical main direction $\bm S$. This makes the estimation of $\bm S$ crucial to the field. 
 
-
-The left hand side of Figure~\ref{fig:grain-map} shows a  map of the surface colored by angle between projected median $\ProjMedian$ and the identity in each location. Distinct spatial structures become apparent.
+The left hand side of Figure~\ref{fig:grain-map} displays a map of the surface colored by the size of the angle between the projected median $\ProjMedian$ and the identity $\bm I_{3\times 3}$ in each location showing distinct spatial structures.
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
@@ -18,7 +17,7 @@ The left hand side of Figure~\ref{fig:grain-map} shows a  map of the surface col
 % Fri Oct 26 15:44:19 2012
 
 \begin{table}[h!]
-\caption{\label{tab:rotations} List of all rotations in a single location exhibiting a large difference between mean and median estimators. We observe two tight clusters of rotations and one outlying rotation. }
+\caption{\label{tab:rotations} List of all rotations in a single location exhibiting a large difference between mean and median estimators. We observe two clusters of rotations and one outlying rotation. }
 \begin{center}
 \footnotesize
 \begin{tabular}{rrrrrrrrrr}
