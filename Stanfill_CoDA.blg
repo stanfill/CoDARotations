@@ -1,0 +1,46 @@
+This is BibTeX, Version 0.99d (TeX Live 2011)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: Stanfill_CoDA.aux
+The style file: abbrvnat.bst
+Database file #1: bing.bib
+You've used 43 entries,
+            2773 wiz_defined-function locations,
+            861 strings with 10479 characters,
+and the built_in function-call counts, 19471 in all, are:
+= -- 1848
+> -- 842
+< -- 40
++ -- 292
+- -- 249
+* -- 1480
+:= -- 2909
+add.period$ -- 139
+call.type$ -- 43
+change.case$ -- 207
+chr.to.int$ -- 43
+cite$ -- 86
+duplicate$ -- 946
+empty$ -- 1735
+format.name$ -- 320
+if$ -- 4149
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 47
+newline$ -- 230
+num.names$ -- 172
+pop$ -- 402
+preamble$ -- 1
+purify$ -- 169
+quote$ -- 0
+skip$ -- 715
+stack$ -- 0
+substring$ -- 1043
+swap$ -- 117
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 448
+warning$ -- 0
+while$ -- 210
+width$ -- 0
+write$ -- 578
