@@ -1,4 +1,4 @@
-\begin{thebibliography}{43}
+\begin{thebibliography}{44}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -30,12 +30,25 @@ M.~Bingham, D.~Nordman, and S.~Vardeman.
 \newblock \emph{Journal of the American Statistical Association}, 104\penalty0
   (488):\penalty0 1385--1397, 2009.
 
-\bibitem[Bingham et~al.(2010)Bingham, Nordman, and Vardeman]{bingham10}
+\bibitem[Bingham et~al.(2010{\natexlab{a}})Bingham, Nordman, and
+  Vardeman]{bingham10}
 M.~Bingham, D.~Nordman, and S.~Vardeman.
 \newblock Finite-sample investigation of likelihood and {B}ayes inference for
   the symmetric von {M}ises-{F}isher distribution.
 \newblock \emph{Computational Statistics \& Data Analysis}, 54\penalty0
-  (5):\penalty0 1317--1327, 2010.
+  (5):\penalty0 1317--1327, 2010{\natexlab{a}}.
+
+\bibitem[Bingham et~al.(2010{\natexlab{b}})Bingham, Lograsso, and
+  Laabs]{bingham10b}
+M.~A. Bingham, B.~K. Lograsso, and F.~C. Laabs.
+\newblock A statistical analysis of the variation in measured crystal
+  orientations obtained through electron backscatter diffraction.
+\newblock \emph{Ultramicroscopy}, 110\penalty0 (10):\penalty0 1312 -- 1319,
+  2010{\natexlab{b}}.
+\newblock ISSN 0304-3991.
+\newblock \doi{10.1016/j.ultramic.2010.06.001}.
+\newblock URL
+  \url{http://www.sciencedirect.com/science/article/pii/S0304399110001828}.
 
 \bibitem[Bunge(1982)]{bunge82}
 H.~Bunge.

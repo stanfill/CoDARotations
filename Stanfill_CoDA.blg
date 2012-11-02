@@ -1,46 +1,46 @@
-This is BibTeX, Version 0.99d (TeX Live 2011)
+This is BibTeX, Version 0.99d (TeX Live 2010)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: Stanfill_CoDA.aux
 The style file: abbrvnat.bst
 Database file #1: bing.bib
-You've used 43 entries,
+You've used 44 entries,
             2773 wiz_defined-function locations,
-            861 strings with 10479 characters,
-and the built_in function-call counts, 19471 in all, are:
-= -- 1848
-> -- 842
+            870 strings with 10808 characters,
+and the built_in function-call counts, 20048 in all, are:
+= -- 1904
+> -- 872
 < -- 40
-+ -- 292
-- -- 249
-* -- 1480
-:= -- 2909
-add.period$ -- 139
-call.type$ -- 43
-change.case$ -- 207
++ -- 303
+- -- 258
+* -- 1540
+:= -- 2998
+add.period$ -- 145
+call.type$ -- 44
+change.case$ -- 213
 chr.to.int$ -- 43
-cite$ -- 86
-duplicate$ -- 946
-empty$ -- 1735
-format.name$ -- 320
-if$ -- 4149
-int.to.chr$ -- 1
+cite$ -- 88
+duplicate$ -- 967
+empty$ -- 1780
+format.name$ -- 330
+if$ -- 4270
+int.to.chr$ -- 2
 int.to.str$ -- 1
-missing$ -- 47
-newline$ -- 230
-num.names$ -- 172
-pop$ -- 402
+missing$ -- 48
+newline$ -- 238
+num.names$ -- 176
+pop$ -- 409
 preamble$ -- 1
-purify$ -- 169
+purify$ -- 174
 quote$ -- 0
-skip$ -- 715
+skip$ -- 727
 stack$ -- 0
-substring$ -- 1043
-swap$ -- 117
+substring$ -- 1078
+swap$ -- 120
 text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 448
+type$ -- 459
 warning$ -- 0
-while$ -- 210
+while$ -- 214
 width$ -- 0
-write$ -- 578
+write$ -- 597
