@@ -3,9 +3,10 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: Stanfill_CoDA.aux
 The style file: abbrvnat.bst
 Database file #1: bing.bib
+Warning--I didn't find a database entry for "bingham2010b"
 You've used 44 entries,
             2773 wiz_defined-function locations,
-            870 strings with 10808 characters,
+            871 strings with 10820 characters,
 and the built_in function-call counts, 20048 in all, are:
 = -- 1904
 > -- 872
@@ -44,3 +45,4 @@ warning$ -- 0
 while$ -- 214
 width$ -- 0
 write$ -- 597
+(There was 1 warning)
