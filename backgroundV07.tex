@@ -18,9 +18,9 @@ approach as is the median-type estimator we propose in Section~\ref{subsec:med}.
 \noindent Alternatively, \textit{intrinsic} estimation approaches use Riemannian geometry to define distances that account for the innate topology or curvature of the space $SO(3)$.  In the intrinsic approach, each rotation from $SO(3)$ is
 associated with a skew-symmetric matrix $\bm{\Phi}(\bm{W})$, defined  as
 \[
-  \bm{\Phi}(\bm{W}) = \left[ \begin{array}{ccc} 0 & -w_3 & -w_2\\
+  \bm{\Phi}(\bm{W}) = \left[ \begin{array}{ccc} 0 & -w_3 & w_2\\
   w_3 & 0 & -w_1\\
-  w_2 & w_1 & 0\\
+ - w_2 & w_1 & 0\\
   \end{array}
  \right]
 \]
