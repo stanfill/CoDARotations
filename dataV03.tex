@@ -1,22 +1,24 @@
  % !TEX root = Stanfill_CoDA.tex
 \section{Data Application}\label{sec:data}
 
-This data example considers orientations of cubic crystals on a Nickel surface measured by electron backscatter diffraction \citep{bingham10b}. The data were obtained using a 14-fold technical replicate scan of a 10 $\mu$m $\times$ 12.5 $\mu$m Nickel surface at locations spaced 0.2 $\mu$m apart.
+This data example considers orientations of cubic crystals on a Nickel surface measured by electron backscatter diffraction \citep{bingham10b}. The data were obtained using a 14-fold technical replicate scan of a 10 $\mu$m $\times$ 12.2 $\mu$m Nickel surface at locations spaced 0.2 $\mu$m apart.
 The identification of so-called {\it grain maps} -- defined as regions on the surface with nearly identical main direction $\bm S$ -- are often of interest in EBSD data making the estimation of the main direction of rotations, $\bm S$, essential to the field. 
 %A central interest in EBSD data is 
 
 In order to demonstrate the impact of different estimators, we calculated all four estimates in each location and found noticeable differences in the results. 
-The left hand side of Figure~\ref{fig:grain-map} shows the results for the projected median   $\ProjMedian$: each dot on the surface is colored by  the mis-orientation angle of the  projected median $\ProjMedian$ at this  location.  Distinct spatial structures \blue{resembling grain maps}  are apparent. On the right hand side of the figure shows the angle distance between projected mean and median estimates for each location. Differences are largest along  boundaries between the spatial structures on the left of Figure~\ref{fig:grain-map}. The literature \citep{bingham10b} suggests that distances of $0.5^\circ$ degrees indicate a difference between grains. About 10\% of the locations result in a difference between median and mean estimates of at least that size. 
+The left hand side of Figure~\ref{fig:grain-map} shows the results for the projected median   $\ProjMedian$: each dot on the surface is colored by  the mis-orientation angle of the  projected median $\ProjMedian$ at this  location.  Distinct spatial structures \blue{resembling grain maps}  are apparent. On the right hand side of the figure shows the angle distance between projected mean and median estimates for each location. . The literature \citep{bingham10b} suggests that distances of $0.5^\circ$ degrees indicate a difference between grains. About 10\% of the locations result in a difference between median and mean estimates of at least that size. Largest differences are found along  boundaries between the spatial structures on the left of Figure~\ref{fig:grain-map}.  
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
+   \vspace{-.15in}
    \includegraphics[width=.49\textwidth]{images/grain-map.pdf} 
    \includegraphics[width=.49\textwidth]{images/grain-diff.pdf} 
-   \caption{ \label{fig:grain-map} Overview of all locations of the investigated Nickel surface (left). Each dot corresponds to one location.  Shading shows the angle between $\ProjMedian$ and the identity. On the right, differences between the $\ProjMedian$ and $\ProjMean$ estimates for each location are shown (in degrees). Distances of 0.5$^\circ$ or more are generally considered to be different. Largest differences fall on the boundaries between spatial structures.}
+    \vspace{-.175in} 
+   \caption{ \label{fig:grain-map}Overview of all locations of the investigated Nickel surface (left). Each dot corresponds to one location.  Shading shows the angle between $\ProjMedian$ and the identity. On the right, differences between the $\ProjMedian$ and $\ProjMean$ estimates for each location are shown (in degrees). Distances of 0.5$^\circ$ or more are generally considered to be different. Note that the mapping of distance to color shading is on a square-root scale.}
 \end{figure}
 \vspace{-0.25cm}
 \begin{table}[h!]
-\caption{\label{tab:rotations} List of all rotations in a single location exhibiting a large difference between mean and median estimators. We observe two clusters of rotations and one outlying rotation. }
+\caption{\label{tab:rotations} List of all rotations in the location with the largest difference between mean and median estimators. We observe two clusters of rotations and one outlying rotation. }
 \begin{center}
 \vspace{-0.5cm}
 \scalebox{0.75}{
@@ -44,7 +46,7 @@ The left hand side of Figure~\ref{fig:grain-map} shows the results for the proje
 \end{center}
 \end{table}
 
-\noindent In an attempt to explain the difference between the estimates in this example,we focus on the  location with a distance of 15.8$^\circ$, the largest distance between projected mean and median estimate. Figure \ref{fig:pcp} shows a parallel coordinate plot of the rotations at this location: each of the nine coefficients $x_{ij}$ is represented on a separate, vertical axis, Coefficients of the same matrix are connected by a line.  Three clusters of rotation matrices become apparent. Note that the values are jittered -- we use a small perturbation in form of a rotation matrix to draw the rotation matrices in each cluster slightly apart  in order to avoid over-plotting and to demonstrate cluster sizes. The colored lines on top of the rotations show the four estimates of the main direction.  For the numeric form of the data see Table~\ref{tab:rotations}.
+\noindent In an attempt to explain the difference between the estimates in this example,we focus on the  location with a distance of 15.8$^\circ$, the largest distance between projected mean and median estimate. Figure \ref{fig:pcp} shows a parallel coordinate plot of the rotations at this location: each of the nine coefficients $x_{ij}$ ($1 \le i,j \le 3$)) is represented on a separate, vertical axis, Coefficients of the same matrix are connected by a line.  Three clusters of rotation matrices become apparent. Note that the values are jittered -- we use a small perturbation in form of a rotation matrix to draw the rotation matrices in each cluster slightly apart  in order to avoid over-plotting and to demonstrate cluster sizes. The colored lines on top of the rotations show the four estimates of the main direction.  For the numeric form of the data see Table~\ref{tab:rotations}.
 
 \noindent Note that the figure shows a sample of a single location, yet the clustering in the data suggests clearly the presence of \emph{several} main directions. The same holds true for locations in the vicinity which happen to coincide with grain boundaries. 
 
