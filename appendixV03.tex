@@ -4,6 +4,7 @@
 \section{Riemannian and Euclidean Distance}
 \label{sec:appendix2}
 In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$ as stated in Section~\ref{sec:results}.
+
 \begin{figure}[h!]
 \begin{center}
 \begin{tikzpicture}[scale=.9]
@@ -12,7 +13,7 @@ In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1
 \draw (3.464102,2) node[anchor =  west]{$\bm R_1\bm v$};
 \draw [->] (0,0)--(4,0);
 %\draw [->] (4,0) arc (0:30:4cm);
-\draw (2,0) node[anchor = north]{$\bm v=(0,1)$};
+\draw (2,0) node[anchor = north]{$\bm v=(0,1)^\top$};
 \draw (-2,3.46) node[anchor = south east]{$\bm R_2\bm v$};
 \draw [line width=.75mm] (3.464102,2) arc (30:120:4cm);
 \draw[line width=.75mm, color=gray] (-2,3.46)--(3.464102,2);
@@ -37,16 +38,17 @@ In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1
 %\draw (2,0) node[anchor=north]{1};
 \end{tikzpicture}
 \end{center}
-\caption{An illustration of the Euclidean and Riemannian distance metric on $SO(2)$. $\bm R_1$, $\bm R_2$ are $2\times2$ rotation matrices in $SO(2)$, where $\bm R_1v$ and $\bm R_2v$ are endpoints of rotating $v$ by  $\bm R_1$ and $\bm R_2$, respectively.  $\Rdist (\bm R_1,\bm R_2)$ is displayed by the curved line (black), $\Edist (\bm R_1,\bm R_2)$ by the straight line (gray).}
+\vspace{-.25cm}
+\caption{An illustration of the Euclidean and Riemannian distance metric on $SO(2)$. To simplify the visualization we use $SO(2)$ in place of $SO(3)$.   $\bm R_1$, $\bm R_2$ are $2\times2$ rotation matrices in $SO(2)$, where $\bm R_1\bm v$ and $\bm R_2\bm v$ are points on the $\mathbb R^2$ unit circle after rotating $\bm v = (0,1)^{\top}$ by  $\bm R_1$ and $\bm R_2$, respectively.  $\Rdist (\bm R_1,\bm R_2)$ is displayed by the curved line (black), $\Edist (\bm R_1,\bm R_2)$ by the straight line (gray).}
 \label{fig:dEvsdG2} 
 \end{figure}
 
-\noindent In Figure \ref{fig:dEvsdG2} the Riemannian distance between $\bm R_1$ and $\bm R_2$ is given by $\Rdist(\bm R_1,\bm R_2)$ and is indicated with the thick black arc.  The Euclidean distance is given by $\Edist(\bm R_1,\bm R_2)$ and is indicated by the straight gray line.  Using geometry it is clear that half of the Euclidean distance is the sine of half of the Riemannian distance, i.e.
+\noindent In Figure \ref{fig:dEvsdG2} the Riemannian distance between $\bm R_1$ and $\bm R_2\in SO(2)$ is given by $\Rdist(\bm R_1,\bm R_2)$ and is indicated with the thick black arc.  The Euclidean distance is given by $\Edist(\bm R_1,\bm R_2)$ and is indicated by the straight gray line.  Using geometry it is clear that half of the Euclidean distance is the sine of half of the Riemannian distance, i.e.
 \[
 \Edist(\bm R_1,\bm R_2)=2\sin\left(\frac{\Rdist(\bm R_1,\bm R_2)}{2}\right).
 \]
 
-\noindent We claim that this can be extended to $SO(3)$ as 
+\noindent We claim that this can be extended to $\bm R_1,\bm R_2 \in SO(3)$ as 
 \begin{equation}\label{EvR}
 \Edist (\bm{R}_1,\bm{R}_2)=2^{3/2}\sin\left(\frac{\Rdist(\bm{R}_1,\bm{R}_2)}{2}\right)
 \end{equation}
