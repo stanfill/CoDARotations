@@ -53,6 +53,8 @@
 \graphicspath{{images/}}
 %\setlength{\parindent}{0pt}
 \begin{document}
+\setcounter{table}{4}
+\setcounter{figure}{9}
 \appendix
 
 \section{Riemannian and Euclidean Distance}
@@ -130,7 +132,7 @@ Taking square roots on both sides gives \eqref{EvR}.
 \label{sec:appendix1}
 \subsection{Circular-von Mises-based distribution}
 
-To simulate a random sample of rotation angles from the circular-von Mises-based distribution we follow the  algorithm proposed by \citet{best79}.  The algorithm is available in the IMSL Library (1991) and is implemented as follows.  Let $\mu=0$ denote the mean of the target angular distribution and $\kappa$ its concentration parameter.  We define constants $a, b$ and $d$ as
+To simulate a random sample of rotation angles from the circular-von Mises-based distribution we follow the  algorithm proposed by Best and Fisher (1979).  The algorithm is available in the IMSL Library (1991) and is implemented as follows.  Let $\mu=0$ denote the mean of the target angular distribution and $\kappa$ its concentration parameter.  We define constants $a, b$ and $d$ as
 $a\equiv 1+\sqrt{1+4\kappa^2},\quad b\equiv(a-\sqrt{2a}),\quad d\equiv(1+b^2)/2b.$
 In steps one, two and four we generate three new observations $u_1$, $u_2$ and $u_3$,  each from a uniform distribution defined over the interval $(0,1)$. 
 \begin{enumerate}
@@ -143,7 +145,7 @@ It follows that  $r$ is distributed according to the circular-von Mises$(\kappa)
 
 \subsection{Cayley distribution}%\hfill
 
-To simulate rotation angles from a Cayley distribution we make use of a result given in \citet{leon06}. If the angle $r$ follows a Cayley distribution it holds that $\frac{1+\cos r}{2} \sim \text{Beta}(\kappa+1/2, 3/2)$.  Hence, angles following the Cayley distribution can be simulated through composition: 
+To simulate rotation angles from a Cayley distribution we make use of a result given in Le{\'o}n et al., (2006). If the angle $r$ follows a Cayley distribution it holds that $\frac{1+\cos r}{2} \sim \text{Beta}(\kappa+1/2, 3/2)$.  Hence, angles following the Cayley distribution can be simulated through composition: 
 \begin{enumerate}
 \item Generate $Z\sim$Bernoulli(0.5) and set  $Y=1-2Z$
 \item Independently generate $X\sim$ Beta$(\kappa+1/2, 3/2)$
@@ -176,7 +178,7 @@ Simulation from the matrix Fisher distribution is achieved through a rejection a
 \label{sec:appendix3}
 In this section we expand on the results section by providing tabular results that correspond to some of the graphics given in the body of the manuscript.  We also include a few more graphics to further illustrate the relationship between the estimators.
 
-In Figure 4 we presented the distribution of estimation errors for each distribution and circular variance given a sample size of 100.  Table \ref{tab:alldN100} summarizes that figure by giving the mean estimation error, its standard error and the RMSE corresponding to each of the box-plots.  Even thought the distributions of the estimation errors looked strikingly similar in Figure \ref{fig:NuBoxes}, the standard error estimates in Table \ref{tab:alldN100} indicate that on average these estimators are significantly different, statistically.  
+In Figure 4 we presented the distribution of estimation errors for each distribution and circular variance given a sample size of 100.  Table \ref{tab:alldN100} summarizes that figure by giving the mean estimation error, its standard error and the RMSE corresponding to each of the box-plots.  Even thought the distributions of the estimation errors looked strikingly similar in Figure 4, the standard error estimates in Table \ref{tab:alldN100} indicate that on average these estimators are significantly different, statistically.  
 
 To formally test if these estimators are significantly different from one another consider the results of a blocked analysis of variance given in Table \ref{tab:anova}.  In this analysis the response is the log-transformed estimation errors for each estimation (to better approximate normality), blocks correspond to each unique distribution/circular variance/sample size combination and estimators are considered the treatment.  The small p-value indicates that there is convincing statistical evidence that for each scenario we consider there is at least one estimator that is significantly different from the rest.  If the difference is of practical importance will depend on the situation and data collected.
 
@@ -272,7 +274,7 @@ Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function
 %\end{table}
 %\end{center}
 
-Finally, Figure \ref{fig:comPL2} in Section \ref{sec:results} showed how the choice of geometry affected the estimation error for both types of loss functions.  Tables \ref{tab:percL1} and \ref{tab:percL2} support these figures with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we give the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another (along with a standard error estimate).  We denote the latter quantity by $\bar\delta$ where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.   
+Finally, Figure 7 indicated how the choice of geometry affected the estimation error for both types of loss functions.  Tables \ref{tab:percL1} and \ref{tab:percL2} support these figures with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we give the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another (along with a standard error estimate).  We denote the latter quantity by $\bar\delta$ where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.   
 
 \begin{table}[h]
 \caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ with standard error and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
