@@ -10,12 +10,12 @@ manifold.  This fact is helpful in understanding the two different geometric app
 for estimating the central location $\bm{S} \in SO(3)$ from a sample of orientation data, referred to here 
 as the \textit{intrinsic}  and  the \textit{embedding} estimation approaches (see also \citet{jupp89} and \citet{mardia00} for analogs with directional data).
 
-\noindent The rotation group $SO(3)$ is not closed under routine addition or scalar multiplication (i.e., operations natural to statisticians). Hence, statistical estimation approaches often \textit{embed} the rotation group into the higher-dimensional linear space consisting of all $3\times 3$ real matrices, denoted as $\M(3)$.  Doing so enables the use of the familiar Euclidean geometry (and ``averaging'' notions) to define standard distance measures  and loss criteria for obtaining location estimators (see Section~\ref{subsec:metrics} and the estimators given in Sections \ref{subsec:pam} and \ref{subsec:med}).  This embedding technique has been largely  applied by statisticians, typically resulting in the projected arithmetic mean of Section~\ref{subsec:pam}.
+The rotation group $SO(3)$ is not closed under routine addition or scalar multiplication (i.e., operations natural to statisticians). Hence, statistical estimation approaches often \textit{embed} the rotation group into the higher-dimensional linear space consisting of all $3\times 3$ real matrices, denoted as $\M(3)$.  Doing so enables the use of the familiar Euclidean geometry (and ``averaging'' notions) to define standard distance measures  and loss criteria for obtaining location estimators (see Section~\ref{subsec:metrics} and the estimators given in Sections \ref{subsec:pam} and \ref{subsec:med}).  This embedding technique has been largely  applied by statisticians, typically resulting in the projected arithmetic mean of Section~\ref{subsec:pam}.
 See, for example, \cite{downs72, khatri77} and \cite{jupp79, jupp89}. The Bayesian estimator used in \cite{bingham10} is another concrete example of this
 approach as is the median-type estimator we propose in Section~\ref{subsec:med}.
 
 
-\noindent Alternatively, \textit{intrinsic} estimation approaches use Riemannian geometry to define distances that account for the innate topology or curvature of the space $SO(3)$.  In the intrinsic approach, each rotation from $SO(3)$ is
+Alternatively, \textit{intrinsic} estimation approaches use Riemannian geometry to define distances that account for the innate topology or curvature of the space $SO(3)$.  In the intrinsic approach, each rotation from $SO(3)$ is
 associated with a skew-symmetric matrix $\bm{\Phi}(\bm{W})$, defined  as
 \[
   \bm{\Phi}(\bm{W}) = \left[ \begin{array}{ccc} 0 & -w_3 & w_2\\
@@ -31,7 +31,7 @@ we map  $\bm{\Phi}(\bm{W})$ to a rotation matrix as
 \]
 where $r=\|\bm{W}\|$ and $\bm{U} =\bm{W}/\|\bm{W}\| $.  The space $\mathfrak{so}(3)$ of all skew-symmetric matrices forms the tangent space (Lie-algebra) of $SO(3)$, which is closed under familiar summation and scalar multiplication operations in the usual (i.e., element-wise) manner. The fact that $SO(3)$ is a differentiable manifold allows a distance measure (the geodesic distance in Section~\ref{subsec:metrics}) to be defined between points in $SO(3)$ according to Riemannian geometry. The resulting geodesic distance provides the basis for the ``geometric" location estimators commonly found in computer science \citep{fletcher08, fletcher09, hartley11} and engineering applications \citep{manton04}; see Sections~\ref{section:ltwo} and \ref{subsec:lone}.
 
-\noindent Before leaving this section, it is helpful to note that each rotation matrix $\bm{R}$ can be associated with a
+Before leaving this section, it is helpful to note that each rotation matrix $\bm{R}$ can be associated with a
 pair $(r,\bm{U})$, where $r\in(-\pi,\pi]$ and $\bm{U}\in\mathbb{R}^3$, $\|\bm{U}\|=1$, through
 \begin{equation}
 \label{eqn:angleaxis}
@@ -52,7 +52,7 @@ metric between two random matrices is the Euclidean distance, $\Edist $, which i
 \end{equation}
 where $\|\bm{A}\|_F = \sqrt{\mathbf{tr}({\bm A^\top \bm A})}$ denotes the Frobenius norm of a matrix $\bm A$ and $\mathbf{tr}(\cdot)$ denotes the trace of a matrix.  The Euclidean distance between two rotation matrices corresponds to the shortest cord in $\M(3)$  that connects both matrices. (For an illustrative example of $\Edist (\bm{R}_1,\bm{R}_2)$ we refer to Figure~\ref{fig:dEvsdG} where $\Edist (\bm{R}_1,\bm{R}_2)$ corresponds to the gray line.)  If $r\in(-\pi,\pi]$ denotes the misorientation angle in the angle-axis representation (\ref{eqn:angleaxis}) of $\bm{R}_1^\top \bm{R}_2 \equiv \bm{R}_1^\top \bm{R}_2(r,\bm{U})$ (so that $\mathbf{tr}(\bm{R}_1^\top \bm{R}_2) =1 +2 \cos r$), then $\Edist (\bm{R}_1,\bm{R}_2) = 2\sqrt{(1-\cos r)}$ holds.
 
-\noindent By staying in the Riemannian space $SO(3)$ under the intrinsic approach, the natural distance metric becomes the Riemannian (or geodesic) distance, $\Rdist $, between two rotations $\bm{R}_1,\bm{R}_2\in SO(3)$ defined as
+By staying in the Riemannian space $SO(3)$ under the intrinsic approach, the natural distance metric becomes the Riemannian (or geodesic) distance, $\Rdist $, between two rotations $\bm{R}_1,\bm{R}_2\in SO(3)$ defined as
 \begin{equation}
 \label{d_R}
 \Rdist (\bm{R}_1,\bm{R}_2)=  \frac{1}{\sqrt{2}}||
@@ -70,7 +70,7 @@ where $\Log(\bm{R})$ denotes the principle logarithm of $\bm{R}$ (i.e., $\Log(\b
 \draw (3.464102,2) node[anchor =  west]{$\bm R_1\bm v$};
 \draw [->] (0,0)--(4,0);
 %\draw [->] (4,0) arc (0:30:4cm);
-\draw (2,0) node[anchor = north]{$\bm v=(0,1)$};
+\draw (2,0) node[anchor = north]{$\bm v=(0,1)^\top$};
 \draw (-2,3.46) node[anchor = south east]{$\bm R_2\bm v$};
 \draw [line width=.75mm] (3.464102,2) arc (30:120:4cm);
 \draw[line width=.75mm, color=gray] (-2,3.46)--(3.464102,2);

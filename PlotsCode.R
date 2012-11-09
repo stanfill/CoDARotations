@@ -395,11 +395,39 @@ a2<-aov(logError~Blocks+Estimator,data=aovResFrame)
 summary(a2)
 xtable(summary(a2))
 
-#Do one ANOVA just for n=100, nu=0.25 to match table in Appendix
-aovResFramen100nu25<-subset(aovResFrame,n==100&nu==0.25)
-a3<-aov(logError~Dist+Estimator,data=aovResFramen100nu25)
+#Do one ANOVA just for n=10, nu=0.25 and Cayley
+aovResFramen10nu25<-subset(aovResFrame,n==10&nu==0.25&Dist=="Cayley")
+
+m<-sample(unique(aovResFramen10nu25$Sample),200)
+subs<-aovResFramen10nu25[aovResFramen10nu25$Sample%in%m,]
+#a3<-aov(logError~Estimator,data=aovResFramen10nu25)
+a3<-aov(logError~Estimator,data=subs)
 summary(a3)
-xtable(summary(a3))
+
+#P-value plot
+setwd("U://Thesis//PointEstimationPaper")
+aovResFramen10nu25<-subset(aovResFrame,n==10&nu==0.75&Dist=="Cayley")
+
+pval<-rep(NA,1000)
+for(i in 1:1000){
+
+  m<-sample(unique(aovResFramen10nu25$Sample),100)
+  subs<-aovResFramen10nu25[aovResFramen10nu25$Sample%in%m,]
+
+  a3<-aov(logError~Estimator,data=subs)
+  sum<-summary(a3)
+  pval[i]<-sum[[1]][,5][1]
+}
+
+#pdf("Fishern10nu75.pdf")
+plot(pval,main=paste(length(which(pval<.1))/length(pval)*100,"% of Samples Significant at 0.1 level"))
+abline(h=.1)
+#dev.off()
+####################
+#Pairwise comparison
+
+pairDF<-ddply(ResFrame,.(Dist,nu,n,Sample),summarize,StEStR=)
+
 ##########################################################################
 ##########################################################################
 ##########################################################################

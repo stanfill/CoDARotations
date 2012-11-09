@@ -1,9 +1,66 @@
- % !TEX root = Stanfill_CoDA.tex
+\documentclass[12pt]{article}
+
+%Technometrics specified margins:
+
+% NOTE: To produce blinded version, replace "0" with "1" below.
+\newcommand{\blind}{0}
+
+% DON'T change margins - should be 1 inch all around.
+\addtolength{\oddsidemargin}{-.5in}%
+\addtolength{\evensidemargin}{-.5in}%
+\addtolength{\textwidth}{1in}%
+\addtolength{\textheight}{1.3in}%
+\addtolength{\topmargin}{-.8in}%
+\usepackage{psfrag,epsf,enumerate}
+
+%\usepackage[margin=1.1in]{geometry}
+\usepackage{color, amssymb, amsmath,bm,verbatim}
+\usepackage{rotating, subfig, setspace, tikz}
+\usepackage{graphicx, graphics, epsfig}
+\usepackage{multirow,multicol}
+\usepackage{natbib}
+\newcommand{\tr}{{\mathbf{tr}}}
+\newcommand{\rmk}{{\mathcal{K}}}
+\newcommand{\I}{{\mathrm{I}}}
+\newcommand{\E}{{\mathrm{E}}}
+\newcommand{\B}{{\mathcal{B}}}
+\newcommand{\bmo}{{\bm{o}}}
+\newcommand{\R}{{\mathbb{R}}}
+\newcommand{\cov}{{\mathrm{Cov}}}
+\newcommand{\Log}{\text{Log}}
+\newcommand{\M}{\mathcal{M}}
+\newcommand{\refeq}[1]{{eq.~(\ref{#1})}}
+
+\newcommand{\ProjMean}{{\widehat{\bm S}_E}}
+\newcommand{\ProjMedian}{{\widetilde{\bm S}_E}}
+\newcommand{\GeomMean}{{\widehat{\bm S}_R}}
+\newcommand{\GeomMedian}{{\widetilde{\bm S}_R}}
+\newcommand{\Rdist}{{d_R}}
+\newcommand{\Edist}{{d_E}}
+
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\blue}[1]{{\color{blue} #1}}
+\newcommand{\red}[1]{{\color{red} #1}}
+\newcommand{\green}[1]{{\color{green} #1}}
+\newcommand{\hh}[1]{{\color{orange} #1}}
+
+%\pagestyle{plain}
+%\bibliographystyle{plainnat}
+\bibliographystyle{abbrvnat}
+\setcounter{section}{0}
+\bibpunct{(}{)}{;}{a}{,}{;}
+\graphicspath{{images/}}
+%\setlength{\parindent}{0pt}
+\begin{document}
+\setcounter{table}{4}
+\setcounter{figure}{9}
 \appendix
 
 \section{Riemannian and Euclidean Distance}
 \label{sec:appendix2}
-In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$ as stated in Section~\ref{sec:results}.
+In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1,\bm R_2)=2\sqrt{2}\sin[\Rdist(\bm R_1,\bm R_2)/2]$ as stated in Section 5.
+
 \begin{figure}[h!]
 \begin{center}
 \begin{tikzpicture}[scale=.9]
@@ -12,7 +69,7 @@ In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1
 \draw (3.464102,2) node[anchor =  west]{$\bm R_1\bm v$};
 \draw [->] (0,0)--(4,0);
 %\draw [->] (4,0) arc (0:30:4cm);
-\draw (2,0) node[anchor = north]{$\bm v=(0,1)$};
+\draw (2,0) node[anchor = north]{$\bm v=(0,1)^\top$};
 \draw (-2,3.46) node[anchor = south east]{$\bm R_2\bm v$};
 \draw [line width=.75mm] (3.464102,2) arc (30:120:4cm);
 \draw[line width=.75mm, color=gray] (-2,3.46)--(3.464102,2);
@@ -37,16 +94,17 @@ In this section we show that for $\bm R_i\in SO(3)$ for $i=1,2$, $\Edist(\bm R_1
 %\draw (2,0) node[anchor=north]{1};
 \end{tikzpicture}
 \end{center}
-\caption{An illustration of the Euclidean and Riemannian distance metric on $SO(2)$. $\bm R_1$, $\bm R_2$ are $2\times2$ rotation matrices in $SO(2)$, where $\bm R_1v$ and $\bm R_2v$ are endpoints of rotating $v$ by  $\bm R_1$ and $\bm R_2$, respectively.  $\Rdist (\bm R_1,\bm R_2)$ is displayed by the curved line (black), $\Edist (\bm R_1,\bm R_2)$ by the straight line (gray).}
+\vspace{-.25cm}
+\caption{An illustration of the Euclidean and Riemannian distance metric on $SO(2)$. To simplify the visualization we use $SO(2)$ in place of $SO(3)$.   $\bm R_1$, $\bm R_2$ are $2\times2$ rotation matrices in $SO(2)$, where $\bm R_1\bm v$ and $\bm R_2\bm v$ are points on the $\mathbb R^2$ unit circle after rotating $\bm v = (0,1)^{\top}$ by  $\bm R_1$ and $\bm R_2$, respectively.  $\Rdist (\bm R_1,\bm R_2)$ is displayed by the curved line (black), $\Edist (\bm R_1,\bm R_2)$ by the straight line (gray).}
 \label{fig:dEvsdG2} 
 \end{figure}
 
-\noindent In Figure \ref{fig:dEvsdG2} the Riemannian distance between $\bm R_1$ and $\bm R_2$ is given by $\Rdist(\bm R_1,\bm R_2)$ and is indicated with the thick black arc.  The Euclidean distance is given by $\Edist(\bm R_1,\bm R_2)$ and is indicated by the straight gray line.  Using geometry it is clear that half of the Euclidean distance is the sine of half of the Riemannian distance, i.e.
+\noindent In Figure \ref{fig:dEvsdG2} the Riemannian distance between $\bm R_1$ and $\bm R_2\in SO(2)$ is given by $\Rdist(\bm R_1,\bm R_2)$ and is indicated with the thick black arc.  The Euclidean distance is given by $\Edist(\bm R_1,\bm R_2)$ and is indicated by the straight gray line.  Using geometry it is clear that half of the Euclidean distance is the sine of half of the Riemannian distance, i.e.
 \[
 \Edist(\bm R_1,\bm R_2)=2\sin\left(\frac{\Rdist(\bm R_1,\bm R_2)}{2}\right).
 \]
 
-\noindent We claim that this can be extended to $SO(3)$ as 
+\noindent We claim that this can be extended to $\bm R_1,\bm R_2 \in SO(3)$ as 
 \begin{equation}\label{EvR}
 \Edist (\bm{R}_1,\bm{R}_2)=2^{3/2}\sin\left(\frac{\Rdist(\bm{R}_1,\bm{R}_2)}{2}\right)
 \end{equation}
@@ -74,7 +132,7 @@ Taking square roots on both sides gives \eqref{EvR}.
 \label{sec:appendix1}
 \subsection{Circular-von Mises-based distribution}
 
-To simulate a random sample of rotation angles from the circular-von Mises-based distribution we follow the  algorithm proposed by \citet{best79}.  The algorithm is available in the IMSL Library (1991) and is implemented as follows.  Let $\mu=0$ denote the mean of the target angular distribution and $\kappa$ its concentration parameter.  We define constants $a, b$ and $d$ as
+To simulate a random sample of rotation angles from the circular-von Mises-based distribution we follow the  algorithm proposed by Best and Fisher (1979).  The algorithm is available in the IMSL Library (1991) and is implemented as follows.  Let $\mu=0$ denote the mean of the target angular distribution and $\kappa$ its concentration parameter.  We define constants $a, b$ and $d$ as
 $a\equiv 1+\sqrt{1+4\kappa^2},\quad b\equiv(a-\sqrt{2a}),\quad d\equiv(1+b^2)/2b.$
 In steps one, two and four we generate three new observations $u_1$, $u_2$ and $u_3$,  each from a uniform distribution defined over the interval $(0,1)$. 
 \begin{enumerate}
@@ -87,7 +145,7 @@ It follows that  $r$ is distributed according to the circular-von Mises$(\kappa)
 
 \subsection{Cayley distribution}%\hfill
 
-To simulate rotation angles from a Cayley distribution we make use of a result given in \citet{leon06}. If the angle $r$ follows a Cayley distribution it holds that $\frac{1+\cos r}{2} \sim \text{Beta}(\kappa+1/2, 3/2)$.  Hence, angles following the Cayley distribution can be simulated through composition: 
+To simulate rotation angles from a Cayley distribution we make use of a result given in Le{\'o}n et al., (2006). If the angle $r$ follows a Cayley distribution it holds that $\frac{1+\cos r}{2} \sim \text{Beta}(\kappa+1/2, 3/2)$.  Hence, angles following the Cayley distribution can be simulated through composition: 
 \begin{enumerate}
 \item Generate $Z\sim$Bernoulli(0.5) and set  $Y=1-2Z$
 \item Independently generate $X\sim$ Beta$(\kappa+1/2, 3/2)$
@@ -97,7 +155,7 @@ Angles $r$ simulated in this fashion follow a Cayley$(\kappa)$ distribution.
 
 \subsection{matrix Fisher distribution}%\hfill
 
-Simulation from the matrix Fisher distribution is achieved through a rejection algorithm.  Let  $\mathrm{C_F}(r|\kappa)$ denote the matrix Fisher density as given in Table~\ref{tab:ang.dens}. %and $Y\sim$ Uniform$(-\pi,\pi]$.
+Simulation from the matrix Fisher distribution is achieved through a rejection algorithm.  Let  $\mathrm{C_F}(r|\kappa)$ denote the matrix Fisher density.% as given in Table~\ref{tab:ang.dens}. %and $Y\sim$ Uniform$(-\pi,\pi]$.
 
 \begin{enumerate}
 \item Define $M=\frac{1}{2\kappa}e^{2\kappa - 1}\frac{1}{\mathbf{I}_0(2\kappa)-\mathbf{I}_1(2\kappa)}$
@@ -120,7 +178,7 @@ Simulation from the matrix Fisher distribution is achieved through a rejection a
 \label{sec:appendix3}
 In this section we expand on the results section by providing tabular results that correspond to some of the graphics given in the body of the manuscript.  We also include a few more graphics to further illustrate the relationship between the estimators.
 
-In Figure \ref{fig:NuBoxes} we presented the distribution of estimation errors for each distribution and circular variance given a sample size of 100.  Table \ref{tab:alldN100} summarizes that figure by giving the mean estimation error, its standard error and the RMSE corresponding to each of the box-plots.  Even thought the distributions of the estimation errors looked strikingly similar in Figure \ref{fig:NuBoxes}, the standard error estimates in Table \ref{tab:alldN100} indicate that on average these estimators are significantly different, statistically.  
+In Figure 4 we presented the distribution of estimation errors for each distribution and circular variance given a sample size of 100.  Table \ref{tab:alldN100} summarizes that figure by giving the mean estimation error, its standard error and the RMSE corresponding to each of the box-plots.  Even thought the distributions of the estimation errors looked strikingly similar in Figure 4, the standard error estimates in Table \ref{tab:alldN100} indicate that on average these estimators are significantly different, statistically.  
 
 To formally test if these estimators are significantly different from one another consider the results of a blocked analysis of variance given in Table \ref{tab:anova}.  In this analysis the response is the log-transformed estimation errors for each estimation (to better approximate normality), blocks correspond to each unique distribution/circular variance/sample size combination and estimators are considered the treatment.  The small p-value indicates that there is convincing statistical evidence that for each scenario we consider there is at least one estimator that is significantly different from the rest.  If the difference is of practical importance will depend on the situation and data collected.
 
@@ -216,7 +274,7 @@ Figure \ref{fig:NBoxes} illustrates the behavior of the estimators as a function
 %\end{table}
 %\end{center}
 
-Finally, Figure \ref{fig:comPL2} in Section \ref{sec:results} showed how the choice of geometry affected the estimation error for both types of loss functions.  Tables \ref{tab:percL1} and \ref{tab:percL2} support these figures with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we give the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another (along with a standard error estimate).  We denote the latter quantity by $\bar\delta$ where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.   
+Finally, Figure 7 indicated how the choice of geometry affected the estimation error for both types of loss functions.  Tables \ref{tab:percL1} and \ref{tab:percL2} support these figures with an exact count (expressed as a percentage) of how often $\Rdist$ resulted in a smaller estimation error than $\Edist$.  Additionally, we give the average amount by which the $\Rdist-$ and $\Edist-$based estimates deviate from one another (along with a standard error estimate).  We denote the latter quantity by $\bar\delta$ where  $\delta=\Rdist(\ProjMedian,\bm S)-\Rdist(\GeomMedian,\bm S)$.   
 
 \begin{table}[h]
 \caption{Average reduction in estimation error by using $\GeomMedian$ instead of $\ProjMedian$, $\delta=\Rdist(\ProjMedian,\bm S) - \Rdist(\GeomMedian,\bm S)$ with standard error and percentage of samples for which $\Rdist(\GeomMedian,\bm S) < \Rdist(\ProjMedian,\bm S)$.}
@@ -325,3 +383,4 @@ Figures \ref{fig:eye-cayley} to \ref{fig:eye-vmises} show sphere plots for 100 s
 \includegraphics[width=.3\linewidth]{eye-vmises-3}
 \caption{\label{fig:eye-vmises}Sphere plots for a sample of 100 rotations from a circular-von Mises distribution with circular variance $\nu=0.25$}
 \end{figure}
+\end{document}
