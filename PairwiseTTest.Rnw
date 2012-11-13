@@ -1,0 +1,73 @@
+\documentclass{article}
+\usepackage{multirow}
+
+\begin{document}
+
+<<vals,echo=FALSE,results='asis'>>=
+library(ggplot2)
+library(reshape2)
+library(plyr)
+library(grid)
+library(xtable)
+
+setwd("/CoDARotations/")
+Res<-read.csv("FullFinalResults.csv")[,-c(1)]
+
+tests<-function(x){
+ 
+  num<-ncol(x)
+  pval<-rep(0,num)
+  for(i in 1:num){
+   pval[i]<-round(t.test(x[,i])$p.value,5)
+  } 
+  return(pval)
+}
+
+Res$Medians<-Res$HL1Error-Res$MedError
+Res$Means<-Res$ML2Error-Res$ArithError
+Res$Euclid<-Res$ArithError-Res$MedError
+Res$Rieman<-Res$ML2Error-Res$HL1Error
+Res$HL1Arith<-Res$HL1Error-Res$ArithError
+Res$MedML2<-Res$MedError-Res$ML2Error
+
+results<-matrix(NA,24,10)
+dist<-c("Cayley","Fisher")
+B<-c(50,100,1000)
+n<-c(10,50)
+nu<-c(.25,0.75)
+rowind<-1
+ps<-0
+for(i in 1:2){
+  
+  for(j in 1:2){
+    
+    for(k in 1:2){
+
+      for(l in 1:3){
+      
+        ResSub<-Res[Res$nu==nu[j] & Res$n==n[k] & Res$Dist==dist[i],12:17]
+        if(B[l]!=1000){
+          for(m in 1:100){
+            samp<-sample(1:1000,B[l],replace=F)
+            ps<-ps+tests(ResSub[samp,])/100
+          }
+        }else{
+          ps<-tests(ResSub)
+        }
+        results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
+        rowind<-rowind+1
+        ps<-0
+      }
+    }
+  }
+}
+
+results<-data.frame(results)
+colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
+
+xtable(results,digits=3)
+
+@
+
+
+\end{document}
