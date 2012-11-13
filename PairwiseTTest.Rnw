@@ -1,4 +1,4 @@
-\documentclass{article}
+\documentclass[10pt]{article}
 \usepackage{multirow}
 
 \begin{document}
@@ -18,7 +18,7 @@ tests<-function(x){
   num<-ncol(x)
   pval<-rep(0,num)
   for(i in 1:num){
-   pval[i]<-round(t.test(x[,i])$p.value,5)
+   pval[i]<-t.test(x[,i])$p.value
   } 
   return(pval)
 }
@@ -54,6 +54,7 @@ for(i in 1:2){
         }else{
           ps<-tests(ResSub)
         }
+        ps<-round(ps,5)
         results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
         rowind<-rowind+1
         ps<-0
@@ -65,9 +66,43 @@ for(i in 1:2){
 results<-data.frame(results)
 colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
 
-xtable(results,digits=3)
-
+xtable(results,digits=3,caption="Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Medians is the difference in median estimators, means is the difference in mean estimators, euclid is the difference in Euclidean type estimators, Rieman is the difference in Reimannian type estimators, HL1Arith is the difference in geometric median and projected mean and MedML2 is the difference in the geometric mean and projected median.")
 @
 
+
+<<only1,echo=FALSE,results='asis'>>=
+
+results<-matrix(NA,24,10)
+dist<-c("Cayley","Fisher")
+B<-c(50,100,1000)
+n<-c(10,50)
+nu<-c(.25,0.75)
+rowind<-1
+ps<-0
+for(i in 1:2){
+  
+  for(j in 1:2){
+    
+    for(k in 1:2){
+
+      for(l in 1:3){
+      
+        ResSub<-Res[Res$nu==nu[j] & Res$n==n[k] & Res$Dist==dist[i],12:17]
+        samp<-sample(1:1000,B[l],replace=F)
+        ps<-tests(ResSub[samp,])
+
+        ps<-round(ps,5)
+        results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
+        rowind<-rowind+1
+      }
+    }
+  }
+}
+
+results<-data.frame(results)
+colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
+
+xtable(results,digits=3,caption="Results from a t-test on the pairwise differences between estimators.  Only one sample of size B from all 100 simulations is given.  Medians is the difference in median estimators, means is the difference in mean estimators, euclid is the difference in Euclidean type estimators, Rieman is the difference in Reimannian type estimators, HL1Arith is the difference in geometric median and projected mean and MedML2 is the difference in the geometric mean and projected median.")
+@
 
 \end{document}
