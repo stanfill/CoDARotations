@@ -212,6 +212,21 @@ qplot(Estimator,Error,geom="boxplot",data=Largen,xlab="",ylab=expression(d[R](bo
   theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
 #ggsave("N100AllNuBoxes.pdf",width=9)
 
+Midn<-ResFrame[ResFrame$n==50,]
+Midn<-Midn[Midn$Error<2,]
+
+
+Midn$nu<-as.factor(Midn$nu)
+Midn$nu<-factor(Midn$nu,labels=c("nu == 0.25","nu == 0.50","nu == 0.75"))
+levels(Midn$Dist)<-c("Cayley","matrix~~Fisher","circular-von~~Mises")
+
+qplot(Estimator,Error,geom="boxplot",data=Midn,xlab="",ylab=expression(d[R](bold(S),.)))+
+  geom_hline(xintercept=0,colour="gray50")+
+  facet_grid(nu~Dist,scales="free",labeller=label_parsed)+
+  scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[E]),expression(widehat(bold(S))[R]),expression(widetilde(bold(S))[E]),expression(widetilde(bold(S))[R])))+
+  theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
+ggsave("N50AllNuBoxes.pdf",width=9)
+
 #Plot nu=.75 as a function of n.  Remove the bad observations that make the plot useless for n=50,100
 Largenu<-ResFrame[ResFrame$nu==.75,]
 
@@ -312,6 +327,7 @@ xtable(SumL2,digits=3,label="tab:percL2")
 
 n100ResFrame<-subset(ResFrame,n==100)
 n100ses<-ddply(n100ResFrame,.(nu,Dist,Estimator),summarize,mean=mean(Error),SE=sd(Error)/sqrt(length(Error)),RMSE=sqrt(mean((Error)^2)))
+
 levels(n100ses$Estimator)<-c("GeomMedian","GeomMean","ProjMean","ProjMedian")
 
 n100nu25Tab<-cbind(n100ses[c(2,3,1,4),c(1,3:6)],n100ses[c(2,3,1,4)+4,4:6],n100ses[c(2,3,1,4)+8,4:6])
@@ -426,7 +442,14 @@ abline(h=.1)
 ####################
 #Pairwise comparison
 
-pairDF<-ddply(ResFrame,.(Dist,nu,n,Sample),summarize,StEStR=)
+Resn10nu25<-Res[Res$n==10&Res$nu==0.25,]
+SheShr<-t.test(Resn10nu25$ArithError,Resn10nu25$ML2Error,paired=T)$p.value
+SheSte<-t.test(Resn10nu25$ArithError,Resn10nu25$MedError,paired=T)$p.value
+SheStr<-t.test(Resn10nu25$ArithError,Resn10nu25$HL1Error,paired=T)$p.value
+ShrSte<-t.test(Resn10nu25$ML2Error,Resn10nu25$MedError,paired=T)$p.value
+ShrStr<-t.test(Resn10nu25$ML2Error,Resn10nu25$HL1Error,paired=T)$p.value
+SteStr<-t.test(Resn10nu25$MedError,Resn10nu25$HL1Error,paired=T)$p.value
+
 
 ##########################################################################
 ##########################################################################
