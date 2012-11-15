@@ -10,7 +10,8 @@ library(plyr)
 library(grid)
 library(xtable)
 
-setwd("/CoDARotations/")
+#setwd("/CoDARotations/")
+setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations")
 Res<-read.csv("FullFinalResults.csv")[,-c(1)]
 
 tests<-function(x){
@@ -37,6 +38,7 @@ n<-c(10,50)
 nu<-c(.25,0.75)
 rowind<-1
 ps<-0
+
 for(i in 1:2){
   
   for(j in 1:2){
@@ -67,6 +69,24 @@ results<-data.frame(results)
 colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
 
 xtable(results,digits=3,caption="Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Medians is the difference in median estimators, means is the difference in mean estimators, euclid is the difference in Euclidean type estimators, Rieman is the difference in Reimannian type estimators, HL1Arith is the difference in geometric median and projected mean and MedML2 is the difference in the geometric mean and projected median.")
+@
+
+<<phists,echo=FALSE,fig.height=8,fig.width=5,out.width="1\\linewidth",fig.cap="Histograms of 100 p-values corresponding to difference in mean-type estiators for 50 random simulation runs from the Cayley distribution, $\\nu=0.75$ and n=10 (top), n=50 (bottom).",fig.align='center'>>=
+ResSub<-Res[Res$nu==.75 & Res$n%in%c(10,50) & Res$Dist=="Cayley",c(3,12:17)]
+B<-50
+M<-1000
+p10<-rep(0,M)
+p50<-rep(0,M)
+
+for(i in 1:M){
+  idx<-sample(1:1000,B)
+  
+  p10[i]<-t.test(ResSub[idx,]$Means)$p.value
+  p50[i]<-t.test(ResSub[(idx+1000),]$Means)$p.value
+}
+par(mfrow=c(2,1))
+hist(p10,breaks=100,xlim=c(0,1),prob=T,main=paste("n=10, mean(p)= ",round(mean(p10),3),", sd(p)= ",round(sd(p10),3)),xlab="p-value")
+hist(p50,breaks=100,xlim=c(0,1),prob=T,main=paste("n=50, mean(p)= ",round(mean(p50),3),", sd(p)= ",round(sd(p50),3)),xlab="p-value")
 @
 
 
