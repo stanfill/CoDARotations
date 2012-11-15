@@ -13,6 +13,12 @@ library(xtable)
 #setwd("/CoDARotations/")
 setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations")
 Res<-read.csv("FullFinalResults.csv")[,-c(1)]
+Res$Medians<-Res$HL1Error-Res$MedError
+Res$Means<-Res$ML2Error-Res$ArithError
+Res$Euclid<-Res$ArithError-Res$MedError
+Res$Rieman<-Res$ML2Error-Res$HL1Error
+Res$HL1Arith<-Res$HL1Error-Res$ArithError
+Res$MedML2<-Res$MedError-Res$ML2Error
 
 tests<-function(x){
  
@@ -24,12 +30,6 @@ tests<-function(x){
   return(pval)
 }
 
-Res$Medians<-Res$HL1Error-Res$MedError
-Res$Means<-Res$ML2Error-Res$ArithError
-Res$Euclid<-Res$ArithError-Res$MedError
-Res$Rieman<-Res$ML2Error-Res$HL1Error
-Res$HL1Arith<-Res$HL1Error-Res$ArithError
-Res$MedML2<-Res$MedError-Res$ML2Error
 
 results<-matrix(NA,24,10)
 dist<-c("Cayley","Fisher")
@@ -71,22 +71,30 @@ colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL
 xtable(results,digits=3,caption="Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Medians is the difference in median estimators, means is the difference in mean estimators, euclid is the difference in Euclidean type estimators, Rieman is the difference in Reimannian type estimators, HL1Arith is the difference in geometric median and projected mean and MedML2 is the difference in the geometric mean and projected median.")
 @
 
-<<phists,echo=FALSE,fig.height=8,fig.width=5,out.width="1\\linewidth",fig.cap="Histograms of 100 p-values corresponding to difference in mean-type estiators for 50 random simulation runs from the Cayley distribution, $\\nu=0.75$ and n=10 (top), n=50 (bottom).",fig.align='center'>>=
+<<phists,echo=FALSE,fig.height=8,fig.width=5,out.width="1\\linewidth",fig.cap="Histograms of 100 p-values and standard deviations corresponding to difference in mean-type estiators for 50 random simulation runs from the Cayley distribution, $\\nu=0.75$ and n=10 (top), n=50 (bottom).",fig.align='center'>>=
 ResSub<-Res[Res$nu==.75 & Res$n%in%c(10,50) & Res$Dist=="Cayley",c(3,12:17)]
 B<-50
 M<-1000
 p10<-rep(0,M)
 p50<-rep(0,M)
+sd10<-rep(0,M)
+sd50<-rep(0,M)
 
 for(i in 1:M){
   idx<-sample(1:1000,B)
-  
   p10[i]<-t.test(ResSub[idx,]$Means)$p.value
+  sd10[i]<-sd(ResSub[idx,]$Means)
   p50[i]<-t.test(ResSub[(idx+1000),]$Means)$p.value
+  sd50[i]<-sd(ResSub[(idx+1000),]$Means)
 }
 par(mfrow=c(2,1))
 hist(p10,breaks=100,xlim=c(0,1),prob=T,main=paste("n=10, mean(p)= ",round(mean(p10),3),", sd(p)= ",round(sd(p10),3)),xlab="p-value")
 hist(p50,breaks=100,xlim=c(0,1),prob=T,main=paste("n=50, mean(p)= ",round(mean(p50),3),", sd(p)= ",round(sd(p50),3)),xlab="p-value")
+
+xman<-max(sd10)
+
+hist(sd10,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=10, mean(sd)= ",round(mean(sd10),3),", sd(sd)= ",round(sd(sd10),3)),xlab="standard deviation")
+hist(sd50,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=50, mean(sd)= ",round(mean(sd50),3),", sd(sd)= ",round(sd(sd50),3)),xlab="standard deviation")
 @
 
 
