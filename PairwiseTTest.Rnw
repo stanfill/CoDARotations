@@ -10,8 +10,8 @@ library(plyr)
 library(grid)
 library(xtable)
 
-#setwd("/CoDARotations/")
-setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations")
+setwd("/CoDARotations/")
+#setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations")
 Res<-read.csv("FullFinalResults.csv")[,-c(1)]
 Res$Medians<-Res$HL1Error-Res$MedError
 Res$Means<-Res$ML2Error-Res$ArithError
@@ -95,6 +95,15 @@ xman<-max(sd10)
 
 hist(sd10,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=10, mean(sd)= ",round(mean(sd10),3),", sd(sd)= ",round(sd(sd10),3)),xlab="standard deviation")
 hist(sd50,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=50, mean(sd)= ",round(mean(sd50),3),", sd(sd)= ",round(sd(sd50),3)),xlab="standard deviation")
+@
+
+<<badShatR,echo=FALSE,fig.align='center',out.width="1\\linewidth",fig.height=7,fig.width=7,fig.cap="Plot of the difference in errors for the mean-estimators versus the error of the geometric mean, $\\widehat{S}_R$.  It seems reasonable that the points off of the big mass for n=10 are victims of bad starting points.">>=
+ResSub<-Res[Res$nu==.75 & Res$n%in%c(10,50) & Res$Dist=="Cayley",c(3,6,12:17)]
+qplot(Means,ML2Error,data=ResSub,facets=.~n,ylab=expression(hat(S)[R]),xlab=expression(hat(S)[R]-hat(S)[E]))
+@
+<<baddiehist,echo=FALSE,fig.align='center',out.width="1\\linewidth",fig.height=7,fig.width=7,fig.cap="Histogram of misorientation angles that led to a bad estimate with $\\widehat{S}_R$">>=
+badShatR<-ResSub[ResSub$ML2Error>1,]
+hist(badShatR$ML2Error,breaks=50)
 @
 
 
