@@ -180,7 +180,6 @@ In this section we expand on the results section by providing tabular results th
 
 In Figure 4 we presented the distribution of estimation errors for each distribution and circular variance given a sample size of 100.  Table \ref{tab:alldN100} summarizes that figure by giving the mean estimation error, its standard error and the RMSE corresponding to each of the box-plots.  Even thought the distributions of the estimation errors looked strikingly similar in Figure 4, the standard error estimates in Table \ref{tab:alldN100} indicate that on average these estimators are significantly different, statistically.  
 
-To formally test if these estimators are significantly different from one another consider the results of a blocked analysis of variance given in Table \ref{tab:anova}.  In this analysis the response is the log-transformed estimation errors for each estimation (to better approximate normality), blocks correspond to each unique distribution/circular variance/sample size combination and estimators are considered the treatment.  The small p-value indicates that there is convincing statistical evidence that for each scenario we consider there is at least one estimator that is significantly different from the rest.  If the difference is of practical importance will depend on the situation and data collected.
 
 \begin{table}[h!]
 \caption{Numerical summaries of the estimation error  by distribution and circular variance $\nu$ for $n=100$.  The mean error (its standard error) and RMSE are reported here. Despite skewness in some of the plotted error distributions the \textit{median estimation error} was quantitatively similar to the mean estimation error and is therefore not reported.
@@ -212,19 +211,47 @@ To formally test if these estimators are significantly different from one anothe
 \end{tabular}}
 \end{table}
 
+To formally test if these estimators are significantly different from one another we performed two-sided t-tests on the differences between all possible combinations of estimators.  More formally we tested the null hypothesis that the difference in estimators is zero versus the two-sided alternative that the difference in non-zero at an $\alpha=0.05$ level.  The p-values that result from each test for the Cayley and matrix-Fisher distributions with sample sizes of 10, 100 and a circular variance of 0.25 or 0.75 are given in Table \ref{tab:pvalues}.  
+
+The bold face p-values correspond to tests that are statistically significant after a Bonferonni correction for multiple comparisons, i.e., the p-value is less than $0.05/(6\times 2)=0.0042$.  To compute each p-value in this table we first tested all simulation runs at once to find that nearly all estimators are significantly different from one another in every situation.  As this significance is just an artifact of how large our simulation study was, we also considered taking a subset of the simulations to avoid falsely reporting significant results.  The quantity $B$ is how many simulation runs were considered in each t-test and is thus the sample size of each test.  For $B=10$ and $B=100$ we randomly selected $B$ simulation runs, performed the t-test and record the p-value.  The value given in the table is an average of the 100 p-values.
+
+From Table \ref{tab:pvalues} we can conclude that for the Cayley distribution the choice of geometry is important when using median type estimators (column 1), but not as important for mean type estimators (column 2) unless the circular variance and sample size is large.  For a given geometry, the difference between mean and median type estimator depends on the level of variability in the data as is the case in the one dimension case (columns 3 and 4).  As for the matrix-Fisher distribution, the choice of estimator does not appear to be overtly significant for any sample size or circular variance.  This is likely due to the fact that this distribution closely resembles the normal distribution on the range $[-\pi,\pi)$ in which case the mean and median are equivalent.
+
 \begin{table}[h!]
-\caption{Results from an analysis of variance on the log transformed error data.  Each unique sample size ($n$), circular variance ($\nu$) and distribution combination is treated as a fixed block.}\label{tab:anova}
+\caption{Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Samples in which SR didn't converege were omitted.}
+\label{tab:pvalues}
 \begin{center}
-\begin{tabular}{lrrrrr}
-  \hline
- & Df & Sum Sq & Mean Sq & F value & Pr($>$F) \\ 
-  \hline\hline
-Blocks      & 35 & 84515.71 & 2414.73 & 6805.73 & $<1\times 10^{-5}$ \\ 
-Estimator   & 3 & 2714.88 & 904.96 & 2550.56 & $<1\times 10^{-5}$ \\ 
-Residuals   & 143961 & 51078.63 & 0.35 &  &  \\ \hline
-Total & 143999 & 138309.2&&&\\
+\scalebox{.89}{
+\begin{tabular}{ccccrrrrrr}
+  \hline\\[-4pt]
+ Distribution & $\nu$ & $n$ & $B$ &$\ProjMedian-\GeomMedian$ & $\ProjMean-\GeomMean$ & $\ProjMean-\ProjMedian$ & $\GeomMean-\GeomMedian$ & $\ProjMean-\GeomMedian$ & $\ProjMedian-\GeomMean$ \\ 
+ \hline
+ \multirow{12}{*}{Cayley} & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & \textbf{0.0012} & 0.4106 & 0.0181 & 0.0591 & 0.0385 & 0.0298 \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & 0.3438 & \textbf{0.0004} & \textbf{0.0040} & \textbf{0.0022} & \textbf{0.0008} \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0022} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & $>$\textbf{0.0001} & 0.2937 & 0.0110 & 0.0360 & 0.0248 & 0.0179 \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & 0.1356 & \textbf{0.0002} & \textbf{0.0012} & \textbf{0.0007} & \textbf{0.0003} \\ 
+  &  &  & 1000 &$>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{2-10}
+  &  \multirow{6}{*}{0.75}& \multirow{3}{*}{10} & 50 & \textbf{0.0001} & 0.0343 & \textbf{0.0008} & 0.0376 & 0.3306 & \textbf{0.0005} \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & \textbf{0.0015} & $>$\textbf{0.0001} & \textbf{0.0018} & 0.2848 & $>$\textbf{0.0001} \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & $>$\textbf{0.0001} & \textbf{0.0017} & \textbf{0.0001} & \textbf{0.0024} & 0.3292 &$>$\textbf{0.0001} \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.3046 & $>$\textbf{0.0001} \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\[5pt] \hline\\[-4pt]
+  & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & 0.0116 & 0.5032 & 0.0791 & 0.2135 & 0.1338 & 0.1394 \\ 
+  &  &  & 100 & \textbf{0.0012} & 0.3815 & 0.0213 & 0.1171 & 0.0540 & 0.0586 \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0008} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & 0.0072 & 0.4314 & 0.0773 & 0.2313 & 0.1200 & 0.1620 \\ 
+  &  &  & 100 & \textbf{0.0001} & 0.4250 & 0.0047 & 0.0603 & 0.0143 & 0.0244 \\ 
+  matrix-&  &  & 1000 & $>$\textbf{0.0001} & 0.0303 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{2-10}
+  Fisher& \multirow{6}{*}{0.75} & \multirow{3}{*}{10} & 50 & 0.1027 & 0.1864 & 0.0842 & 0.3483 & 0.3509 & 0.4652 \\ 
+  &  &  & 100 & 0.0205 & 0.0730 & 0.0075 & 0.2476 & 0.1666 & 0.5001 \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.1050 \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & 0.1475 & 0.0586 & 0.0559 & 0.2005 & 0.2296 & 0.4738 \\ 
+  &  &  & 100 & 0.0419 & 0.0081 & 0.0056 & 0.0747 & 0.0768 & 0.4437 \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.0198 \\ 
    \hline
-\end{tabular}
+\end{tabular}}
 \end{center}
 \end{table}
 

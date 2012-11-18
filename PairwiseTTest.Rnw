@@ -254,10 +254,10 @@ for(i in 5:ncol(resultsg)){
 printbold(xtable(results,digits=4,caption="Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Samples in which SR didn't converege were omitted."),results<sig)
 @
 
-\begin{table}[ht]
+\begin{table}[h!]
 \begin{center}
-\begin{tabular}{llllrrrrrr}
-  \hline\\[-2pt]
+\begin{tabular}{ccccrrrrrr}
+  \hline\\[-4pt]
  Distribution & $\nu$ & n & B &$\ProjMedian-\GeomMedian$ & $\ProjMean-\GeomMean$ & $\ProjMean-\ProjMedian$ & $\GeomMean-\GeomMedian$ & $\ProjMean-\GeomMedian$ & $\ProjMedian-\GeomMean$ \\ 
  \hline
  \multirow{12}{*}{Cayley} & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & \textbf{0.0012} & 0.4106 & 0.0181 & 0.0591 & 0.0385 & 0.0298 \\ 
@@ -271,7 +271,7 @@ printbold(xtable(results,digits=4,caption="Results from a t-test on the pairwise
   &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
   &  & \multirow{3}{*}{100} & 50 & $>$\textbf{0.0001} & \textbf{0.0017} & \textbf{0.0001} & \textbf{0.0024} & 0.3292 &$>$\textbf{0.0001} \\ 
   &  &  & 100 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.3046 & $>$\textbf{0.0001} \\ 
-  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\[5pt] \hline
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\[5pt] \hline\\[-4pt]
   & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & 0.0116 & 0.5032 & 0.0791 & 0.2135 & 0.1338 & 0.1394 \\ 
   &  &  & 100 & \textbf{0.0012} & 0.3815 & 0.0213 & 0.1171 & 0.0540 & 0.0586 \\ 
   &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0008} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
