@@ -213,7 +213,7 @@ In Figure 4 we presented the distribution of estimation errors for each distribu
 
 To formally test if these estimators are significantly different from one another we performed two-sided t-tests on the differences between all possible combinations of estimators.  More formally, we tested the null hypothesis that the difference in estimators is zero versus the two-sided alternative that the difference in non-zero at an $\alpha=0.05$ level.  The p-values that result from each test for the Cayley and matrix-Fisher distributions with sample sizes of 10, 100 and a circular variance of 0.25 or 0.75 are given in Table \ref{tab:pvalues}.  
 
-The bold face p-values correspond to tests that are statistically significant after a Bonferonni correction for multiple comparisons, i.e., the p-value is less than $0.05/(6\times 2)=0.0042$.  To compute each p-value in this table we first tested all simulation runs in which the algorithm converged (B=1000) to find that nearly all estimators are significantly different from one another in every situation.  As this significance is likely an artifact of how large our simulation study was, we also considered taking a subset of the simulations to avoid falsely reporting significant results.  The quantity $B$ is how many simulation runs were considered in each t-test and is thus the sample size of each test.  For $B=10$ and $B=100$ we randomly selected $B$ simulation runs, performed the t-test and record the p-value.  Each value given in the rows with $B=10,100$ is the average of 100 p-values computed in this way.
+The bold face p-values correspond to tests that are statistically significant after a Bonferonni correction for multiple comparisons, i.e., the p-value is less than $0.05/6=0.0083$.  To compute each p-value in this table we first tested all simulation runs in which the algorithm converged (B=1000) to find that nearly all estimators are significantly different from one another in every situation.  As this significance is likely an artifact of how large our simulation study was, we also considered taking a subset of the simulations to avoid falsely reporting significant results.  The quantity $B$ is how many simulation runs were considered in each t-test and is thus the sample size of each test.  For $B=10$ and $B=100$ we randomly selected $B$ simulation runs, performed the t-test and record the p-value.  Each value given in the rows with $B=10,100$ is the average of 100 p-values computed in this way.
 
 From Table \ref{tab:pvalues} we can conclude that for the Cayley distribution the choice of geometry is important when using median type estimators (column 1), but not as important for mean type estimators (column 2) unless the circular variance and sample size is large.  For a given geometry, the difference between mean and median type estimator depends on the level of variability in the data as is the case in the one dimension case (columns 3 and 4).  As for the matrix-Fisher distribution, the choice of estimator does not appear to be overtly significant for any sample size or circular variance.  This is likely due to the fact that this distribution closely resembles the normal distribution on the range $[-\pi,\pi)$ in which case the mean and median are equivalent.
 
@@ -241,14 +241,14 @@ From Table \ref{tab:pvalues} we can conclude that for the Cayley distribution th
   & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & 0.0116 & 0.5032 & 0.0791 & 0.2135 & 0.1338 & 0.1394 \\ 
   &  &  & 100 & \textbf{0.0012} & 0.3815 & 0.0213 & 0.1171 & 0.0540 & 0.0586 \\ 
   &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0008} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
-  &  & \multirow{3}{*}{100} & 50 & 0.0072 & 0.4314 & 0.0773 & 0.2313 & 0.1200 & 0.1620 \\ 
-  &  &  & 100 & \textbf{0.0001} & 0.4250 & 0.0047 & 0.0603 & 0.0143 & 0.0244 \\ 
+  &  & \multirow{3}{*}{100} & 50 & \textbf{0.0072} & 0.4314 & 0.0773 & 0.2313 & 0.1200 & 0.1620 \\ 
+  &  &  & 100 & \textbf{0.0001} & 0.4250 & \textbf{0.0047} & 0.0603 & 0.0143 & 0.0244 \\ 
   matrix-&  &  & 1000 & $>$\textbf{0.0001} & 0.0303 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{2-10}
   Fisher& \multirow{6}{*}{0.75} & \multirow{3}{*}{10} & 50 & 0.1027 & 0.1864 & 0.0842 & 0.3483 & 0.3509 & 0.4652 \\ 
-  &  &  & 100 & 0.0205 & 0.0730 & 0.0075 & 0.2476 & 0.1666 & 0.5001 \\ 
+  &  &  & 100 & 0.0205 & 0.0730 &\textbf{0.0075} & 0.2476 & 0.1666 & 0.5001 \\ 
   &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.1050 \\ \cline{3-10}
   &  & \multirow{3}{*}{100} & 50 & 0.1475 & 0.0586 & 0.0559 & 0.2005 & 0.2296 & 0.4738 \\ 
-  &  &  & 100 & 0.0419 & 0.0081 & 0.0056 & 0.0747 & 0.0768 & 0.4437 \\ 
+  &  &  & 100 & 0.0419 & \textbf{0.0081} & \textbf{0.0056} & 0.0747 & 0.0768 & 0.4437 \\ 
   &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.0198 \\ 
    \hline
 \end{tabular}}
