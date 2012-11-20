@@ -1,23 +1,22 @@
-<<<<<<< HEAD
- % !TEX root = Stanfill_CoDA.tex
+% !TEX root = Stanfill_CoDA.tex
 \section{Data Application}\label{sec:data}
 
 We consider electron backscatter diffraction (EBSD) data obtained by scanning a fixed  12.5 $\mu$m $\times$ 10 $\mu$m nickel surface at individual locations spaced 0.2 $\mu$m apart. This scan was repeated 14 times for each location yielding a total of 3,449 observations, \citep{bingham09, bingham10b}. Every observation corresponds to the orientation, expressed as a rotation matrix, of a cubic crystal in the metal at a particular location. One goal of analyzing ESBD data is to identify the main orientation of cubic crystals in the metal, thus making the estimation of the main direction $\bm S$ for a sample of rotations important to the field.\\
 
 \noindent At every location we implemented each of the four estimators ($\ProjMean$, $\ProjMedian$, $\GeomMean$, and $\GeomMedian$) to compare resulting differences in the corresponding estimates.  In the following we will focus particularly on the differences between $\ProjMean$ and $\ProjMedian$ as the Riemannian estimators  $\GeomMedian$ and $\GeomMean$ largely agree with their Euclidean counterparts. 
 
-\noindent The left hand side of Figure~\ref{fig:grain-map} illustrates the implementation of $\ProjMedian$: each location on the plot is colored according to the mis-orientation angle between $\ProjMedian$  and the identity $\bm I_{3\times 3}$ (as an arbitrarily chosen reference point).  The plot shows a distinct spatial structure \blue{resembling somewhat that of a grain map}. On the right hand side of Figure~\ref{fig:grain-map} we illustrate the difference between $\ProjMean$ and $\ProjMedian$ at each location. The difference in estimates is again defined with respect to the mis-orientation angle between both estimates and locations are colored accordingly. Note that the literature, e.g. \cite{bingham10b}, suggests that distances of $0.5^\circ$ degrees are indicative of different grains. In our example, about 10\% of the locations result in a difference between $\ProjMean$ and $\ProjMedian$ estimates of at least that size. Differences tend to be largest along boundaries between the spatial structures on the left of Figure~\ref{fig:grain-map}.  
+\noindent The left hand side of Figure~\ref{fig:grain-map} illustrates the implementation of $\ProjMedian$: each location on the plot is colored according to the mis-orientation angle between $\ProjMedian$  and the identity $\bm I_{3\times 3}$ (as an arbitrarily chosen reference point).  The plot shows a distinct spatial structure \blue{resembling a grain map}. On the right hand side of Figure~\ref{fig:grain-map} we illustrate the difference between $\ProjMean$ and $\ProjMedian$ at each location. The difference in estimates is again defined with respect to the mis-orientation angle between both estimates and locations are colored accordingly. Note that the literature, e.g. \cite{bingham10b}, suggests that distances of $0.5^\circ$ degrees are indicative of different grains. In our example, about 10\% of the locations result in a difference between $\ProjMean$ and $\ProjMedian$ estimates of at least that size. Differences tend to be largest along boundaries between the spatial structures on the left of Figure~\ref{fig:grain-map}.  
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
    \vspace{-.15in}
    \includegraphics[width=.49\textwidth]{images/grain-map.pdf} 
    \includegraphics[width=.49\textwidth]{images/grain-diff.pdf} 
     \vspace{-.175in} 
-   \caption{ \label{fig:grain-map}  Display of all locations of the investigated nickel surface (left). Each dot corresponds to one location, where shading reflects the angle between $\ProjMedian$ and $\bm I_{3\times 3}$. On the right, differences (in degrees) between $\ProjMedian$ and $\ProjMean$ estimates for each location are shown. Distances of 0.5$^\circ$ or more are generally considered to suggest different \red{main orientations.} Note that the mapping of distance to color shading is on a square-root scale.}
+   \caption{ \label{fig:grain-map}  Display of all locations of the investigated nickel surface (left). Each dot corresponds to one location, where shading reflects the angle between $\ProjMedian$ and $\bm I_{3\times 3}$. On the right, differences (in degrees) between $\ProjMedian$ and $\ProjMean$ estimates for each location are shown. Distances of 0.5$^\circ$ or more are generally considered to suggest different main orientations. Note that the mapping of distance to color shading is on a square-root scale.}
 \end{figure}
-Table~\ref{tab:rotations} provides an explanation for the observed differences between $\ProjMedian$ and $\ProjMean$ along the spatial structure in Figure~\ref{fig:grain-map}. The table contains the observed orientation (collection of all nine coefficients $x_{ij}$, $1 \le i,j \le 3$, of the $3\times 3$ rotation matrix) for each of the 14 repeated scans at the location with the largest observed difference between $\ProjMedian$ and $\ProjMean$, namely 15.8$^\circ$.   The scans have been re-ordered to better illustrate  three clusters of orientations observed at this particular location. The clusters suggest that for a subset of the scans the orientation from a neighboring \red{cubic crystal likely belonging to a different grain} was picked up instead of the orientation of the   target cubic crystal. A median-type estimator naturally does better for such data than a mean-type estimator.  
+Table~\ref{tab:rotations} provides an explanation for the observed differences between $\ProjMedian$ and $\ProjMean$ along the spatial structure in Figure~\ref{fig:grain-map}. The table contains the observed orientation (collection of all nine coefficients $x_{ij}$, $1 \le i,j \le 3$, of the $3\times 3$ rotation matrix) for each of the 14 repeated scans at the location with the largest observed difference between $\ProjMedian$ and $\ProjMean$, namely 22.3$^\circ$.   The scans have been re-ordered to better illustrate  three clusters of orientations observed at this particular location. The clusters suggest that for a subset of the scans the orientation from a neighboring cubic crystal, likely belonging to a different grain, was picked up instead of the orientation of the   target cubic crystal. A median-type estimator naturally does better for such data than a mean-type estimator.  
 \begin{table}[h!]
-\caption{\label{tab:rotations} List of all rotations in the location with the largest difference between mean and median estimators. We observe two clusters of rotations and several \red{\textit{outlying}} rotations. }
+\caption{\label{tab:rotations} List of all rotations in the location with the largest difference between mean and median estimators. We observe one main cluster and one smaller cluster with three additional rotations in the proximity. }
 \begin{center}
 \scalebox{0.75}{
 \begin{tabular}{crrrrrrrrrr}
@@ -48,7 +47,7 @@ scan& & $x_{11}$ & $x_{12}$& $x_{13}$& $x_{21}$& $x_{22}$& $x_{23}$& $x_{31}$& $
 We visualize Table~\ref{tab:rotations} and the estimates resulting from applying $\ProjMedian$ and $\ProjMean$ at this location in Figure \ref{fig:pcp} using a parallel coordinate plot: for every scan each of the nine coefficients $x_{ij}$ ($1 \le i,j \le 3$)) is plotted separately. Coefficients that correspond to the same scan are connected by a line.   Note that the coefficient values are jittered using a small perturbation in form of a rotation matrix to avoid over-plotting and to illustrate cluster sizes. The light- and dark blue colored line represent the $\ProjMedian$ and $\ProjMean$ estimates of the main direction based on the 14 scans.   
 %Note that the figure shows a sample of a single location, yet the clustering in the data suggests clearly the presence of \emph{several} main directions. The same holds true for locations in the vicinity which happen to coincide with grain boundaries. 
 
-\noindent The purpose of this example was to illustrate that the median estimate, $\ProjMedian$,  can more reliably estimate the main direction in the presence of \red{clustered data}.
+\noindent This example  illustrates that the median estimate, $\ProjMedian$,  can more reliably estimate the main direction in the presence of \red{clustered data}.
 
 
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
@@ -66,78 +65,3 @@ We visualize Table~\ref{tab:rotations} and the estimates resulting from applying
    \caption{ \label{fig:pcp}Parallel coordinate plot of all nine coefficients of the rotation matrices in a single location. }
 \end{figure}
 
-
-
-=======
- % !TEX root = Stanfill_CoDA.tex
-\section{Data Application}\label{sec:data}
-
-This data example considers orientations of cubic crystals on a Nickel surface measured by electron backscatter diffraction \citep{bingham10b}. The data were obtained using a 14-fold technical replicate scan of a 10 $\mu$m $\times$ 12.2 $\mu$m Nickel surface at locations spaced 0.2 $\mu$m apart.
-The identification of so-called {\it grain maps} -- defined as regions on the surface with nearly identical main direction $\bm S$ -- are often of interest in EBSD data making the estimation of the main direction of rotations, $\bm S$, essential to the field. 
-%A central interest in EBSD data is 
-
-In order to demonstrate the impact of different estimators, we calculated all four estimates in each location and found noticeable differences in the results. 
-The left hand side of Figure~\ref{fig:grain-map} shows the results for the projected median   $\ProjMedian$: each dot on the surface is colored by  the mis-orientation angle of the  projected median $\ProjMedian$ at this  location.  Distinct spatial structures \blue{resembling grain maps}  are apparent. On the right hand side of the figure shows the angle distance between projected mean and median estimates for each location. . The literature \citep{bingham10b} suggests that distances of $0.5^\circ$ degrees indicate a difference between grains. About 10\% of the locations result in a difference between median and mean estimates of at least that size. Largest differences are found along  boundaries between the spatial structures on the left of Figure~\ref{fig:grain-map}.  
-
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \vspace{-.15in}
-   \includegraphics[width=.49\textwidth]{images/grain-map.pdf} 
-   \includegraphics[width=.49\textwidth]{images/grain-diff.pdf} 
-    \vspace{-.175in} 
-   \caption{ \label{fig:grain-map}Overview of all locations of the investigated Nickel surface (left). Each dot corresponds to one location.  Shading shows the angle between $\ProjMedian$ and the identity. On the right, differences between the $\ProjMedian$ and $\ProjMean$ estimates for each location are shown (in degrees). Distances of 0.5$^\circ$ or more are generally considered to be different. Note that the mapping of distance to color shading is on a square-root scale.}
-\end{figure}
-\vspace{-0.25cm}
-\begin{table}[h!]
-\caption{\label{tab:rotations} List of all rotations in the location with the largest difference between mean and median estimators. We observe two clusters of rotations and one outlying rotation. }
-\begin{center}
-\vspace{-0.5cm}
-\scalebox{0.75}{
-\begin{tabular}{rrrrrrrrrr}
-  \hline
- & $x_{11}$ & $x_{12}$& $x_{13}$& $x_{21}$& $x_{22}$& $x_{23}$& $x_{31}$& $x_{32}$& $x_{33}$ \\ 
-  \hline
-   & -0.999 & -0.000 & -0.043 & 0.043 & 0.077 & -0.996 & 0.004 & -0.997 & 0.077 \\ 
-   & -0.999 & -0.006 & -0.047 & 0.047 & 0.079 & -0.996 & 0.009 & -0.997 & 0.079 \\ 
-   & -0.999 & -0.005 & -0.044 & 0.044 & 0.080 & -0.996 & 0.009 & -0.997 & 0.080 \\ 
-   & -0.999 & -0.005 & -0.047 & 0.047 & 0.079 & -0.996 & 0.009 & -0.997 & 0.078 \\ 
-   & -0.999 & -0.004 & -0.044 & 0.044 & 0.079 & -0.996 & 0.007 & -0.997 & 0.078 \\ 
-   & -0.999 & -0.008 & -0.048 & 0.047 & 0.079 & -0.996 & 0.011 & -0.997 & 0.079 \\ 
-   & -0.998 & -0.008 & -0.056 & 0.055 & 0.076 & -0.996 & 0.012 & -0.997 & 0.075 \\ 
-   & -0.998 & -0.010 & -0.054 & 0.054 & 0.073 & -0.996 & 0.014 & -0.997 & 0.072 \\ [5pt]
-   & -0.871 & -0.061 & -0.487 & 0.446 & 0.510 & -0.735 & 0.203 & -0.858 & 0.472 \\ 
-   & -0.874 & -0.059 & -0.483 & 0.441 & 0.513 & -0.737 & 0.204 & -0.857 & 0.474 \\ 
-   & -0.872 & -0.053 & -0.487 & 0.442 & 0.516 & -0.734 & 0.212 & -0.855 & 0.473 \\ 
-   & -0.870 & -0.060 & -0.489 & 0.447 & 0.512 & -0.733 & 0.207 & -0.857 & 0.472 \\ 
-   & -0.874 & -0.066 & -0.482 & 0.445 & 0.510 & -0.736 & 0.198 & -0.858 & 0.475 \\ [5pt] 
- & -0.708 & -0.315 & -0.632 & 0.609 & 0.181 & -0.773 & 0.358 & -0.932 & 0.063 \\ 
-   \hline
-\end{tabular}}
-\vspace{-0.5cm}
-\end{center}
-\end{table}
-
- In an attempt to explain the difference between the estimates in this example,we focus on the  location with a distance of 15.8$^\circ$, the largest distance between projected mean and median estimate. Figure \ref{fig:pcp} shows a parallel coordinate plot of the rotations at this location: each of the nine coefficients $x_{ij}$ ($1 \le i,j \le 3$)) is represented on a separate, vertical axis, Coefficients of the same matrix are connected by a line.  Three clusters of rotation matrices become apparent. Note that the values are jittered -- we use a small perturbation in form of a rotation matrix to draw the rotation matrices in each cluster slightly apart  in order to avoid over-plotting and to demonstrate cluster sizes. The colored lines on top of the rotations show the four estimates of the main direction.  For the numeric form of the data see Table~\ref{tab:rotations}.
-
-Note that the figure shows a sample of a single location, yet the clustering in the data suggests clearly the presence of \emph{several} main directions. The same holds true for locations in the vicinity which happen to coincide with grain boundaries. 
-
-This example illustrates that the median estimates, $\ProjMedian$  and $\GeomMedian$, are not nearly as much affected by the clustering in the sample as the means, and reliably estimate the main direction of the largest cluster of rotations within the location.
-
-%\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-%   \centering
-%   \includegraphics[width=.275\textwidth]{images/eyeball-1031-1.pdf} 
-%   \includegraphics[width=.275\textwidth]{images/eyeball-1031-2.pdf} 
-%   \includegraphics[width=.275\textwidth]{images/eyeball-1031-3.pdf} 
-%   \includegraphics[height=.275\textwidth]{images/legend.pdf} 
-%   \caption{ \label{fig:eyeballs-1}Sphere plots of EBSD measurements at a single location. The data sample is shown as dark grey points, the estimates of the main direction are colored and labelled. The clustering of the results makes the existence  of several main directions  quite obvious. }
-%\end{figure}
-
-\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
-   \centering
-   \includegraphics[width=.7\textwidth]{images/pcp.pdf} 
-   \caption{ \label{fig:pcp}Parallel coordinate plot of all nine coefficients of the rotation matrices in a single location. Three clusters of rotation matrices are apparent.  }
-\end{figure}
-
-
-
->>>>>>> 8d55e2ee59a3a8245e9d60d1ce59305ba15cc4ab
