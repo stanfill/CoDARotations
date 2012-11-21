@@ -129,7 +129,7 @@
 &=2\tr(\bm{I})-\tr(\bm R_2^\top\bm R_1)-\tr(\bm R_1^\top\bm R_2)\\
 &=6-2\tr(\bm R_1^\top\bm R_2)\\
 %&=6-2(1+2\cos(r))\\
-&=6-2-4\cos(|r|)\\
+&=4-4\cos(|r|)\\
 &=8\left(\frac{1-\cos(|r|)}{2}\right)\\
 &=8\sin^2\left(\frac{|r|}{2}\right)\\
 &=\left[2^{3/2}\sin\left(\frac{|r|}{2}\right)\right]^2\\
@@ -238,29 +238,29 @@ a Bonferroni correction for multiple comparisons and therefore, within a set of 
  Distribution & $\nu$ & $n$ & $B$ &$\ProjMedian-\GeomMedian$ & $\ProjMean-\GeomMean$ & $\ProjMean-\ProjMedian$ & $\GeomMean-\GeomMedian$ & $\ProjMean-\GeomMedian$ & $\ProjMedian-\GeomMean$ \\ 
  \hline\hline
  \multirow{12}{*}{Cayley} & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & \textbf{0.0012} & 0.4106 & 0.0181 & 0.0591 & 0.0385 & 0.0298 \\ 
-  &  &  & 100 & $>$\textbf{0.0001} & 0.3438 & \textbf{0.0004} & \textbf{0.0040} & \textbf{0.0022} & \textbf{0.0008} \\ 
-  &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0022} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
-  &  & \multirow{3}{*}{100} & 50 & $>$\textbf{0.0001} & 0.2937 & 0.0110 & 0.0360 & 0.0248 & 0.0179 \\ 
-  &  &  & 100 & $>$\textbf{0.0001} & 0.1356 & \textbf{0.0002} & \textbf{0.0012} & \textbf{0.0007} & \textbf{0.0003} \\ 
-  &  &  & 1000 &$>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{2-10}
+  &  &  & 100 & $<$\textbf{0.0001} & 0.3438 & \textbf{0.0004} & \textbf{0.0040} & \textbf{0.0022} & \textbf{0.0008} \\ 
+  &  &  & 1000 & $<$\textbf{0.0001} & \textbf{0.0022} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & $<$\textbf{0.0001} & 0.2937 & 0.0110 & 0.0360 & 0.0248 & 0.0179 \\ 
+  &  &  & 100 & $<$\textbf{0.0001} & 0.1356 & \textbf{0.0002} & \textbf{0.0012} & \textbf{0.0007} & \textbf{0.0003} \\ 
+  &  &  & 1000 &$<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} \\ \cline{2-10}
   &  \multirow{6}{*}{0.75}& \multirow{3}{*}{10} & 50 & \textbf{0.0001} & 0.0343 & \textbf{0.0008} & 0.0376 & 0.3306 & \textbf{0.0005} \\ 
-  &  &  & 100 & $>$\textbf{0.0001} & \textbf{0.0015} & $>$\textbf{0.0001} & \textbf{0.0018} & 0.2848 & $>$\textbf{0.0001} \\ 
-  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
-  &  & \multirow{3}{*}{100} & 50 & $>$\textbf{0.0001} & \textbf{0.0017} & \textbf{0.0001} & \textbf{0.0024} & 0.3292 &$>$\textbf{0.0001} \\ 
-  &  &  & 100 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.3046 & $>$\textbf{0.0001} \\ 
-  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\[5pt] \hline\\[-4pt]
+  &  &  & 100 & $<$\textbf{0.0001} & \textbf{0.0015} & $<$\textbf{0.0001} & \textbf{0.0018} & 0.2848 & $<$\textbf{0.0001} \\ 
+  &  &  & 1000 & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & $<$\textbf{0.0001} & \textbf{0.0017} & \textbf{0.0001} & \textbf{0.0024} & 0.3292 &$<$\textbf{0.0001} \\ 
+  &  &  & 100 & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & 0.3046 & $<$\textbf{0.0001} \\ 
+  &  &  & 1000 & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} \\[5pt] \hline\\[-4pt]
   & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & 0.0116 & 0.5032 & 0.0791 & 0.2135 & 0.1338 & 0.1394 \\ 
   &  &  & 100 & \textbf{0.0012} & 0.3815 & 0.0213 & 0.1171 & 0.0540 & 0.0586 \\ 
-  &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0008} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
+  &  &  & 1000 & $<$\textbf{0.0001} & \textbf{0.0008} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} \\ \cline{3-10}
   &  & \multirow{3}{*}{100} & 50 & \textbf{0.0072} & 0.4314 & 0.0773 & 0.2313 & 0.1200 & 0.1620 \\ 
   &  &  & 100 & \textbf{0.0001} & 0.4250 & \textbf{0.0047} & 0.0603 & 0.0143 & 0.0244 \\ 
-  matrix-&  &  & 1000 & $>$\textbf{0.0001} & 0.0303 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{2-10}
+  matrix-&  &  & 1000 & $<$\textbf{0.0001} & 0.0303 & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} \\ \cline{2-10}
   Fisher& \multirow{6}{*}{0.75} & \multirow{3}{*}{10} & 50 & 0.1027 & 0.1864 & 0.0842 & 0.3483 & 0.3509 & 0.4652 \\ 
   &  &  & 100 & 0.0205 & 0.0730 &\textbf{0.0075} & 0.2476 & 0.1666 & 0.5001 \\ 
-  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.1050 \\ \cline{3-10}
+  &  &  & 1000 & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & 0.1050 \\ \cline{3-10}
   &  & \multirow{3}{*}{100} & 50 & 0.1475 & 0.0586 & 0.0559 & 0.2005 & 0.2296 & 0.4738 \\ 
   &  &  & 100 & 0.0419 & \textbf{0.0081} & \textbf{0.0056} & 0.0747 & 0.0768 & 0.4437 \\ 
-  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.0198 \\ 
+  &  &  & 1000 & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & $<$\textbf{0.0001} & 0.0198 \\ 
    \hline
 \end{tabular}}
 \end{center}
