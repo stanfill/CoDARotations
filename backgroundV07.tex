@@ -27,11 +27,11 @@ associated with a skew-symmetric matrix $\bm{\Phi}(\bm{W})$, defined  as
 for $\bm{W}=(w_1, w_2, w_3)^\top \in \mathbb{R}^3$. That is, through a so-called exponential operator,
 we map  $\bm{\Phi}(\bm{W})$ to a rotation matrix as
 \[
-  \exp[\bm{\Phi}(\bm{W})] = \cos(r)\bm{I}_{3\times3} + \sin(r) \bm{\Phi}(\bm{U}) + (1-\cos r) \bm{U} \bm{U}^\top
+  \exp[\bm{\Phi}(\bm{W})] = \sum\limits_{k=0}^\infty \frac{[\bm{\Phi}(\bm{W})]^k}{k!}=\cos(r)\bm{I}_{3\times3} + \sin(r) \bm{\Phi}(\bm{U}) + (1-\cos r) \bm{U} \bm{U}^\top
 \]
 where $r=\|\bm{W}\|$ and $\bm{U} =\bm{W}/\|\bm{W}\| $.  The space $\mathfrak{so}(3)$ of all skew-symmetric matrices forms the tangent space (Lie-algebra) of $SO(3)$, which is closed under familiar summation and scalar multiplication operations in the usual (i.e., element-wise) manner. The fact that $SO(3)$ is a differentiable manifold allows a distance measure (the geodesic distance in Section~\ref{subsec:metrics}) to be defined between points in $SO(3)$ according to Riemannian geometry. The resulting geodesic distance provides the basis for the ``geometric" location estimators commonly found in computer science \citep{fletcher08, fletcher09, hartley11} and engineering applications \citep{manton04}; see Sections~\ref{section:ltwo} and \ref{subsec:lone}.
 
-Before leaving this section, it is helpful to note that each rotation matrix $\bm{R}$ can be associated with a
+\noindent Before leaving this section, it is helpful to note that each rotation matrix $\bm{R}$ can be associated with an angle-axis 
 pair $(r,\bm{U})$, where $r\in(-\pi,\pi]$ and $\bm{U}\in\mathbb{R}^3$, $\|\bm{U}\|=1$, through
 \begin{equation}
 \label{eqn:angleaxis}
@@ -43,14 +43,14 @@ $\bm{U}$ and $r$ are commonly referred to as the misorientation axis and misorie
 
 \subsection{Choice of Distance Metrics}\label{subsec:metrics}
 
-The choice of geometry, i.e.\!\! Riemannian or Euclidean, results in two different metrics to measure the distance
+The choice of geometry, i.e.~Riemannian or Euclidean, results in two different metrics to measure the distance
 between two rotation matrices $\bm{R}_1$ and $\bm{R}_2 \in SO(3)$. Under the embedding approach, the natural distance
 metric between two random matrices is the Euclidean distance, $\Edist $, which is induced by the Frobenius norm
 \begin{equation}
 \label{d_E}
 \Edist (\bm{R}_1,\bm{R}_2)=\|\bm{R}_1-\bm{R}_2\|_F, 
 \end{equation}
-where $\|\bm{A}\|_F = \sqrt{\mathbf{tr}({\bm A^\top \bm A})}$ denotes the Frobenius norm of a matrix $\bm A$ and $\mathbf{tr}(\cdot)$ denotes the trace of a matrix.  The Euclidean distance between two rotation matrices corresponds to the shortest cord in $\M(3)$  that connects both matrices. (For an illustrative example of $\Edist (\bm{R}_1,\bm{R}_2)$ we refer to Figure~\ref{fig:dEvsdG} where $\Edist (\bm{R}_1,\bm{R}_2)$ corresponds to the gray line.)  If $r\in(-\pi,\pi]$ denotes the misorientation angle in the angle-axis representation (\ref{eqn:angleaxis}) of $\bm{R}_1^\top \bm{R}_2 \equiv \bm{R}_1^\top \bm{R}_2(r,\bm{U})$ (so that $\mathbf{tr}(\bm{R}_1^\top \bm{R}_2) =1 +2 \cos r$), then $\Edist (\bm{R}_1,\bm{R}_2) = 2\sqrt{(1-\cos r)}$ holds.
+where $\|\bm{A}\|_F = \sqrt{\mathbf{tr}({\bm A^\top \bm A})}$ denotes the Frobenius norm of a matrix $\bm A$ and $\mathbf{tr}(\cdot)$ denotes the trace of a matrix.  The Euclidean distance between two rotation matrices corresponds to the shortest cord in $\M(3)$  that connects both matrices. (For an illustrative example of $\Edist (\bm{R}_1,\bm{R}_2)$, we refer to Figure~\ref{fig:dEvsdG} where $\Edist (\bm{R}_1,\bm{R}_2)$ corresponds to the gray line.)  If $r\in(-\pi,\pi]$ denotes the misorientation angle in the angle-axis representation (\ref{eqn:angleaxis}) of $\bm{R}_1^\top \bm{R}_2 \equiv \bm{R}_1^\top \bm{R}_2(r,\bm{U})$ (so that $\mathbf{tr}(\bm{R}_1^\top \bm{R}_2) =1 +2 \cos r$), then $\Edist (\bm{R}_1,\bm{R}_2) = 2\sqrt{(1-\cos r)}$ holds.
 
 By staying in the Riemannian space $SO(3)$ under the intrinsic approach, the natural distance metric becomes the Riemannian (or geodesic) distance, $\Rdist $, between two rotations $\bm{R}_1,\bm{R}_2\in SO(3)$ defined as
 \begin{equation}
@@ -58,7 +58,10 @@ By staying in the Riemannian space $SO(3)$ under the intrinsic approach, the nat
 \Rdist (\bm{R}_1,\bm{R}_2)=  \frac{1}{\sqrt{2}}||
 \Log(\bm{R}_1^\top\bm{R}_2)||_F = |r|,
 \end{equation}
-where $\Log(\bm{R})$ denotes the principle logarithm of $\bm{R}$ (i.e., $\Log(\bm{R}) = \Log(\bm{R}(\bm U,r))= \bm \Phi(r\bm U)$ in \eqref{eqn:angleaxis}) and $r\in(-\pi,\pi]$   is the misorientation angle of $\bm{R}_1^\top \bm{R}_2$.  The Riemannian distance corresponds to the length of the shortest path that connects $\bm{R}_1$ and $\bm{R}_2$ {\it within} the space $SO(3)$; see Figure~\ref{fig:dEvsdG} for an illustration. For this reason, the Riemannian distance is often considered the more natural metric on $SO(3)$; see \cite{moakher02} for this discussion along with more details on exponential and logarithmic operators related to $SO(3)$.    
+where $\Log(\bm{R})$ denotes the principle logarithm of $\bm{R}$ where $\Log(\bm{R})$ denotes the principle logarithm of 
+$\bm{R}$  and $r\in(-\pi,\pi]$   is the misorientation angle of $\bm{R}_1^\top \bm{R}_2$. For more information on the definition and existence 
+of $\Log(\bm{R})$ we refer to \cite{moakher02}.
+The Riemannian distance corresponds to the length of the shortest path that connects $\bm{R}_1$ and $\bm{R}_2$ {\it within} the space $SO(3)$; see Figure~\ref{fig:dEvsdG} for an illustration. For this reason, the Riemannian distance is often considered the more natural metric on $SO(3)$; see \cite{moakher02} for this discussion along with more details on exponential and logarithmic operators related to $SO(3)$.    
  
 %To exemplify the difference between the Euclidean and Riemannian distance metric, we visualize each distance in a lower dimensional example in Figure \ref{fig:dEvsdG}.  In Figure \ref{fig:dEvsdG} $\bm R_1,\bm R_2$ refer to the endpoints of two rotations on $SO(2)$.  The Riemannian distance between both rotations, $\Rdist (\bm R_1,\bm R_2)$,  corresponds to the thick curved line.  The rotation of $\bm R_1\bm v$ into $\bm R_2\bm v$ follows the curved path and therefore is considered to stay in the space.  The Euclidean distance between $\bm R_1,\bm R_2$, $\Edist (\bm R_1,\bm R_2)$, is represented by the straight gray line.  Because it is not possible for $\bm R_1\bm v$ to follow this straight path, the distance $\Edist (\bm R_1,\bm R_2)$ can only be obtained by leaving $SO(2)$.
 
@@ -96,7 +99,7 @@ where $\Log(\bm{R})$ denotes the principle logarithm of $\bm{R}$ (i.e., $\Log(\b
 \end{tikzpicture}
 \end{center}
 \vspace{-.25cm}
-\caption{An illustration of the Euclidean and Riemannian distance metric on $SO(2)$. To simplify the visualization we use $SO(2)$ in place of $SO(3)$.   $\bm R_1$, $\bm R_2$ are $2\times2$ rotation matrices in $SO(2)$, where $\bm R_1\bm v$ and $\bm R_2\bm v$ are points on the $\mathbb R^2$ unit circle  \red{after} rotating $\bm v = (0,1)^{\top}$ by  $\bm R_1$ and $\bm R_2$, respectively.  $\Rdist (\bm R_1,\bm R_2)$ is displayed by the curved line (black), $\Edist (\bm R_1,\bm R_2)$ by the straight line (gray).}
+\caption{An illustration of the Euclidean and Riemannian distance metric, where to simplify the visualization, we use $SO(2)$ (rotations of points on the $\mathbb R^2$ unit circle) in place of $SO(3)$.  Here $\bm R_1$, $\bm R_2$ are $2\times2$ rotation matrices in $SO(2)$, where $\bm R_1\bm v$ and $\bm R_2\bm v$ are points on the $\mathbb R^2$ unit circle  after rotating $\bm v = (0,1)^{\top}$ by  $\bm R_1$ and $\bm R_2$, respectively.  $\Rdist (\bm R_1,\bm R_2)$ is displayed by the curved line (black), $\Edist (\bm R_1,\bm R_2)$ by the straight line (gray).}
 \label{fig:dEvsdG} 
 \end{figure}
 
