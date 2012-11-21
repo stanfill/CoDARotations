@@ -128,31 +128,30 @@ qplot(r,Value,data=denData2[denData2$Variance==.75,],linetype=Density,geom="line
 ##################################################
 ## Densities zoomed in
 ##################################################
+setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations/images")
+Boxx<-c(1.75,1.75,2.5,2.5,1.75)
+Boxy<-c(0,.25,.25,0,0)
 
-Boxx<-c(1,1,pi,pi,1)
-Boxy<-c(0,.8,.8,0,0)
 
-#pdf("Var75DensityBox.pdf",height=5,width=5)
 qplot(r,Value,data=denData[denData$Variance==.75,],geom="blank",ylim=c(0,2.25),ylab="f(r)")+
   scale_linetype_manual(values=c(1,12,3))+theme(legend.position="none")+geom_path(aes(x=Boxx,y=Boxy),lwd=I(1.25),colour="gray")+
   geom_line(aes(x=r,y=Value,linetype=Density),lwd=I(1.25))+geom_abline(intercept=0,slope=c(0,100000),colour="gray50")+
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
-#dev.off()
+#ggsave("Var75DensityBox.pdf",height=5,width=5)
 
 
-#pdf("Var75DensityZoom.pdf",height=5,width=5)
 qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.8),xlim=c(1,pi),ylab="f(r)")+
   scale_linetype_manual(values=c(1,12,3))+theme(legend.position=c(1,1),legend.justification=c(1,1),legend.background=element_rect(fill="white",linetype=0))+
   theme(legend.title=element_text(size=16,face="bold"),legend.text=element_text(size=16,face="bold"))+geom_abline(intercept=0,slope=c(0,100000),colour="gray50")+
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
-#dev.off()
+#ggsave("Var75DensityZoom.pdf",height=5,width=5)
 
-#pdf("Var75DensityZoomNoGuide.pdf",height=5,width=5)
-qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.8),xlim=c(1,pi),ylab="f(r)")+
+
+qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.25),xlim=c(1.75,2.5),ylab="f(r)")+
   scale_linetype_manual(values=c(1,12,3))+theme(legend.position="NONE")+
   theme(legend.title=element_text(size=16,face="bold"),legend.text=element_text(size=16,face="bold"))+geom_abline(intercept=0,slope=c(0,100000),colour="gray50")+
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
-#dev.off()
+#ggsave("Var75DensityZoomNoGuide.pdf",height=5,width=5)
 
 
 ###############################################################################
