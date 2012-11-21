@@ -53,7 +53,7 @@ circular-von Mises & & 2.40 & 1.16 & 0.52\\ \hline
 \end{table}
 %\end{center}
 
-The density, with respect to the Haar measure, for each distribution of a random rotation given a circular variance of $0.75$ is plotted in Figure~\ref{fig:Haar}.  The Haar measure (or uniform distribution on $SO(3)$) acts as the dominating measure for rotations and the symmetric nature of the random rotation $\bm E_i=\bm E_i(\bm U,r)$ means that its density $f(\bm E_i|\nu)=f(r|\nu)$ can be plotted in terms of the misorientation angle $r$ of $\bm E_i$ in \eqref{eqn:angleaxis}, which is common in materials science \citep{matthies88, savyolova95}.  Density plots with the other circular variances  considered in our simulations  are similar.
+\noindent The density, with respect to the Haar measure, for each distribution of a random rotation given a circular variance of $0.75$ is plotted in Figure~\ref{fig:Haar}.  The Haar measure (or uniform distribution on $SO(3)$) acts as the dominating measure for rotations and the symmetric nature of the random rotation $\bm E_i=\bm E_i(\bm U,r)$ means that its density $f(\bm E_i|\nu)=f(r|\nu)$ can be plotted in terms of the misorientation angle $r$ of $\bm E_i$ in \eqref{eqn:angleaxis}, which is common in materials science \citep{matthies88, savyolova95}.  Density plots with the other circular variances  considered in our simulations  are similar.
 
 %Old figures the AE didn't like.  Wanted us to show whole c-vM distribution and add zoom plot here to save space.
 % \begin{figure}[h!]
@@ -84,10 +84,7 @@ A visualization of a random sample of 100 rotations, one sample for each of the 
 \includegraphics[width=.3\linewidth]{eye-vmises}
 \caption{\label{eyeballs}Sphere plots of the first column for randomly generated rotations with different distributions having  $\nu = 0.25$}
 \end{figure}
-
-
-
-In the simulation study to follow, for generating random rotation errors based on the construction above, we used different samplers to randomly generate angles $r\in(-\pi,\pi]$ from a given circular density, recalling that the form of $C(r|\kappa)$ depends on the intended symmetric distribution for the rotation errors $\bm{E}$, see also the supplemental material on-line.
+\noindent In the simulation study to follow, for generating random rotation errors based on the construction above, we used different samplers to randomly generate angles $r\in(-\pi,\pi]$ from a given circular density, recalling that the form of $C(r|\kappa)$ depends on the intended symmetric distribution for the rotation errors $\bm{E}$, see also the supplemental material on-line.
 
 %\subsection{Estimator Algorithms}
 %\label{subsec:algorithms}
