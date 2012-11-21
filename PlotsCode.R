@@ -522,6 +522,17 @@ ggplot(alldf[alldf$n>299,],aes(Prop,ScalePdiff))+xlab("Proportion Observations i
 #ggsave("Nu75N300TailBehaviorStandard.pdf",width=7,height=4)
 
 
+ggplot(alldf[alldf$n==100,],aes(Prop,ScalePdiff))+xlab("Proportion of Observations in Tail")+
+  ylab(expression(frac(d[R](bold(S),widehat(bold(S))[E])-d[R](bold(S),widetilde(bold(S))[E]),d[R](bold(S),widehat(bold(S))[E])+d[R](bold(S),widetilde(bold(S))[E]))))+
+  geom_hline(yintercept=0,colour="gray50")+
+  stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
+  geom_point(aes(shape=Dist),alpha=I(.6),position="jitter")+theme_bw()+
+  scale_shape_manual(values=c(16,0,17),name="Distribution")+
+  theme(legend.text=element_text(size=12),legend.title=element_text(size=14))+
+  theme(legend.justification=c(0,1),legend.position=c(0,1))
+#ggsave("Nu75N100TailBehaviorStandard.pdf",width=7,height=4)
+
+
 ###############################################################
 ####### Find the cases where the                ###############
 ####### Riemannian estimate really sucks        ###############
