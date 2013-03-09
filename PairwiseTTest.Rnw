@@ -1,0 +1,360 @@
+\documentclass[10pt]{article}
+\usepackage{multirow,bm}
+\newcommand{\ProjMean}{{\widehat{\bm S}_E}}
+\newcommand{\ProjMedian}{{\widetilde{\bm S}_E}}
+\newcommand{\GeomMean}{{\widehat{\bm S}_R}}
+\newcommand{\GeomMedian}{{\widetilde{\bm S}_R}}
+\begin{document}
+
+<<vals,echo=FALSE,results='asis',eval=TRUE>>=
+library(ggplot2)
+library(reshape2)
+library(plyr)
+library(grid)
+library(xtable)
+
+#setwd("/CoDARotations/")
+setwd("\\\\iastate.edu/cyfiles/stanfill/Desktop/GitHub/CoDARotations")
+Res<-read.csv("FullFinalResults.csv")[,-c(1)]
+Res$Medians<-Res$HL1Error-Res$MedError
+Res$Means<-Res$ML2Error-Res$ArithError
+Res$Euclid<-Res$ArithError-Res$MedError
+Res$Rieman<-Res$ML2Error-Res$HL1Error
+Res$HL1Arith<-Res$HL1Error-Res$ArithError
+Res$MedML2<-Res$MedError-Res$ML2Error
+
+tests<-function(x){
+ 
+  num<-ncol(x)
+  pval<-rep(0,num)
+  for(i in 1:num){
+   pval[i]<-t.test(x[,i])$p.value
+  } 
+  return(pval)
+}
+
+
+results<-matrix(NA,24,10)
+dist<-c("Cayley","Fisher")
+B<-c(50,100,1000)
+n<-c(10,100)
+nu<-c(.25,0.75)
+rowind<-1
+ps<-0
+
+for(i in 1:2){
+  
+  for(j in 1:2){
+    
+    for(k in 1:2){
+
+      for(l in 1:3){
+      
+        ResSub<-Res[Res$nu==nu[j] & Res$n==n[k] & Res$Dist==dist[i],12:17]
+        if(B[l]!=1000){
+          for(m in 1:100){
+            samp<-sample(1:1000,B[l],replace=F)
+            ps<-ps+tests(ResSub[samp,])/100
+          }
+        }else{
+          ps<-tests(ResSub)
+        }
+        ps<-round(ps,5)
+        results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
+        rowind<-rowind+1
+        ps<-0
+      }
+    }
+  }
+}
+
+results<-data.frame(results)
+colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
+
+xtable(results,digits=3,caption="Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Medians is the difference in median estimators, means is the difference in mean estimators, euclid is the difference in Euclidean type estimators, Rieman is the difference in Reimannian type estimators, HL1Arith is the difference in geometric median and projected mean and MedML2 is the difference in the geometric mean and projected median.")
+@
+
+<<phists,echo=FALSE,fig.height=8,fig.width=5,out.width="1\\linewidth",fig.cap="Histograms of 100 p-values and standard deviations corresponding to difference in mean-type estiators for 50 random simulation runs from the Cayley distribution, $\\nu=0.75$ and n=10 (top), n=100 (bottom).",fig.align='center',eval=FALSE>>=
+ResSub<-Res[Res$nu==.75 & Res$n%in%c(10,100) & Res$Dist=="Cayley",c(3,12:17)]
+B<-50
+M<-1000
+p10<-rep(0,M)
+p50<-rep(0,M)
+sd10<-rep(0,M)
+sd50<-rep(0,M)
+
+for(i in 1:M){
+  idx<-sample(1:1000,B)
+  p10[i]<-t.test(ResSub[idx,]$Means)$p.value
+  sd10[i]<-sd(ResSub[idx,]$Means)
+  p50[i]<-t.test(ResSub[(idx+1000),]$Means)$p.value
+  sd50[i]<-sd(ResSub[(idx+1000),]$Means)
+}
+par(mfrow=c(2,1))
+hist(p10,breaks=100,xlim=c(0,1),prob=T,main=paste("n=10, mean(p)= ",round(mean(p10),3),", sd(p)= ",round(sd(p10),3)),xlab="p-value")
+hist(p50,breaks=100,xlim=c(0,1),prob=T,main=paste("n=100, mean(p)= ",round(mean(p50),3),", sd(p)= ",round(sd(p50),3)),xlab="p-value")
+
+xman<-max(sd10)
+
+hist(sd10,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=10, mean(sd)= ",round(mean(sd10),3),", sd(sd)= ",round(sd(sd10),3)),xlab="standard deviation")
+hist(sd50,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=100, mean(sd)= ",round(mean(sd50),3),", sd(sd)= ",round(sd(sd50),3)),xlab="standard deviation")
+@
+
+<<badShatR,echo=FALSE,fig.align='center',out.width="1\\linewidth",fig.height=7,fig.width=7,fig.cap="Plot of the difference in errors for the mean-estimators versus the error of the geometric mean, $\\widehat{S}_R$.  It seems reasonable that the points off of the big mass for n=10 are victims of bad starting points.",eval=FALSE>>=
+ResSub<-Res[Res$nu==.75 & Res$n%in%c(10,100) & Res$Dist=="Cayley",c(3,6,12:17)]
+qplot(Means,ML2Error,data=ResSub,facets=.~n,ylab=expression(hat(S)[R]),xlab=expression(hat(S)[R]-hat(S)[E]))
+@
+<<baddiehist,echo=FALSE,fig.align='center',out.width="1\\linewidth",fig.height=7,fig.width=7,fig.cap="Histogram of misorientation angles that led to a bad estimate with $\\widehat{S}_R$",eval=FALSE>>=
+badShatR<-ResSub[ResSub$ML2Error>1,]
+hist(badShatR$ML2Error,breaks=50)
+@
+
+<<printBfn,echo=FALSE,eval=TRUE>>=
+printbold <-
+    function(x, which = NULL, each = c("column", "row"), max = TRUE,
+             NA.string = "", type = c("latex", "html"),
+             sanitize.text.function = force,
+             sanitize.rownames.function = NULL,
+             sanitize.colnames.function = NULL, ...)
+{
+    stopifnot(inherits(x, "xtable"))
+    each <- match.arg(each)
+    type <- match.arg(type)
+    digits <- rep(digits(x), length = ncol(x)+1)
+    if (!is.null(which)) {
+        stopifnot(nrow(which) == nrow(x))
+        stopifnot(ncol(which) == ncol(x))
+        boldmatrix <- which
+    } else {
+        boldmatrix <- matrix(FALSE, ncol = ncol(x), nrow = nrow(x))
+        ## round values before calculating max/min to avoid trivial diffs
+        for (i in 1:ncol(x)) {
+            if (!is.numeric(x[,i])) next
+            x[,i] <- round(x[,i], digits = digits[i+1])
+        }
+        if (each == "column") {
+            max <- rep(max, length = ncol(x))
+            for (i in 1:ncol(x)) {
+                xi <- x[,i]
+                if (!is.numeric(xi)) next
+                if (is.na(max[i])) next
+                imax <- max(xi, na.rm = TRUE)
+                if (!max[i])
+                    imax <- min(xi, na.rm = TRUE)
+                boldmatrix[xi == imax, i] <- TRUE
+            }
+        } else if (each == "row") {
+            max <- rep(max, length = nrow(x))
+            for (i in 1:nrow(x)) {
+                xi <- x[i,]
+                ok <- sapply(xi, is.numeric)
+                if (!any(ok)) next
+                if (is.na(max[i])) next
+                imax <- max(unlist(xi[ok]), na.rm = TRUE)
+                if (!max[i])
+                    imax <- min(unlist(xi[ok]), na.rm = TRUE)
+                whichmax <- sapply(xi, identical, imax)
+                boldmatrix[i, whichmax] <- TRUE
+            }
+        }
+    }
+    ## need to convert to character
+    ## only support per-column formats, not cell formats
+    display <- rep(display(x), length = ncol(x)+1)
+    for (i in 1:ncol(x)) {
+        if (!is.numeric(x[,i])) next
+        ina <- is.na(x[,i])
+        x[,i] <- formatC(x[,i], digits = digits[i+1],
+                         format = display[i+1])
+        x[ina, i] <- NA.string
+        display(x)[i+1] <- "s"
+        ## embolden
+        yes <- boldmatrix[,i]
+        if (type == "latex") {
+            x[yes,i] <- paste("\\textbf{", x[yes,i], "}", sep = "")
+        } else {
+            x[yes,i] <- paste("<strong>", x[yes,i], "</strong>", sep = "")
+        }
+    }
+    print(x, ..., type = type, NA.string = NA.string,
+          sanitize.text.function = sanitize.text.function,
+          sanitize.rownames.function = sanitize.rownames.function,
+          sanitize.colnames.function = sanitize.colnames.function)
+}
+@
+
+
+<<TabNoBads,echo=FALSE,results='asis',eval=TRUE>>=
+ResforTab<-Res[Res$n%in%c(10,100) & Res$nu%in%c(0.25,0.75) & Res$Dist%in%c("Cayley","Fisher"),]
+Omits<-which(ResforTab$Means>.22 & ResforTab$ML2Error>=1)
+
+ResforTabOmit<-ResforTab[-Omits,]
+#qplot(Means,ML2Error,data=ResforTabOmit[ResforTabOmit$n==100,],facets=.~n,ylab=expression(hat(S)[R]),xlab=expression(hat(S)[R]-hat(S)[E]))
+
+
+results<-matrix(NA,24,10)
+dist<-c("Cayley","Fisher")
+B<-c(50,100,1000)
+n<-c(10,100)
+nu<-c(.25,0.75)
+rowind<-1
+ps<-0
+
+for(i in 1:2){
+  
+  for(j in 1:2){
+    
+    for(k in 1:2){
+
+      for(l in 1:3){
+      
+        ResSub<-ResforTabOmit[ResforTabOmit$nu==nu[j] & ResforTabOmit$n==n[k] & ResforTabOmit$Dist==dist[i],12:17]
+        convN<-nrow(ResSub)
+        
+        if(B[l]!=1000){
+          for(m in 1:100){
+            samp<-sample(1:convN,B[l],replace=F)
+            ps<-ps+tests(ResSub[samp,])/100
+          }
+        }else{
+          addTo<-1000-convN
+          addSamp<-sample(1:convN,addTo,replace=F)
+          ResSubtemp<-rbind(ResSub,ResSub[addSamp,])
+          ps<-tests(ResSubtemp)
+        }
+        ps<-round(ps,5)
+        results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
+        rowind<-rowind+1
+        ps<-0
+      }
+    }
+  }
+}
+
+
+results<-data.frame(results)
+colnames(results)<-c("Distribution","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
+
+for(k in 5:10)
+  results[,k]<-as.numeric(as.character(results[,k]))
+
+results[5:10]<-round(results[5:10],4)
+sig<-0.05/6
+
+resultsg<-results
+for(i in 5:ncol(resultsg)){
+  for(j in 1:nrow(resultsg)){
+    if(resultsg[j,i]<sig){
+      resultsg[j,i]<-paste("\\bf ",resultsg[j,i])
+    }
+  }
+}
+
+
+printbold(xtable(results,digits=4,caption="Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Samples in which SR didn't converege were omitted."),results<sig)
+@
+
+\begin{table}[h!]
+\begin{center}
+\begin{tabular}{ccccrrrrrr}
+  \hline\\[-4pt]
+ Distribution & $\nu$ & n & B &$\ProjMedian-\GeomMedian$ & $\ProjMean-\GeomMean$ & $\ProjMean-\ProjMedian$ & $\GeomMean-\GeomMedian$ & $\ProjMean-\GeomMedian$ & $\ProjMedian-\GeomMean$ \\ 
+ \hline
+ \multirow{12}{*}{Cayley} & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & \textbf{0.0012} & 0.4106 & 0.0181 & 0.0591 & 0.0385 & 0.0298 \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & 0.3438 & \textbf{0.0004} & \textbf{0.0040} & \textbf{0.0022} & \textbf{0.0008} \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0022} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & $>$\textbf{0.0001} & 0.2937 & 0.0110 & 0.0360 & 0.0248 & 0.0179 \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & 0.1356 & \textbf{0.0002} & \textbf{0.0012} & \textbf{0.0007} & \textbf{0.0003} \\ 
+  &  &  & 1000 & \textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{2-10}
+  &  \multirow{6}{*}{0.75}& \multirow{3}{*}{10} & 50 & \textbf{0.0001} & 0.0343 & \textbf{0.0008} & 0.0376 & 0.3306 & \textbf{0.0005} \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & \textbf{0.0015} & $>$\textbf{0.0001} & \textbf{0.0018} & 0.2848 & $>$\textbf{0.0001} \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & $>$\textbf{0.0001} & \textbf{0.0017} & \textbf{0.0001} & \textbf{0.0024} & 0.3292 &$>$\textbf{0.0001} \\ 
+  &  &  & 100 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.3046 & $>$\textbf{0.0001} \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\[5pt] \hline\\[-4pt]
+  & \multirow{6}{*}{0.25} & \multirow{3}{*}{10} & 50 & 0.0116 & 0.5032 & 0.0791 & 0.2135 & 0.1338 & 0.1394 \\ 
+  &  &  & 100 & \textbf{0.0012} & 0.3815 & 0.0213 & 0.1171 & 0.0540 & 0.0586 \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & \textbf{0.0008} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & 0.0072 & 0.4314 & 0.0773 & 0.2313 & 0.1200 & 0.1620 \\ 
+  &  &  & 100 & \textbf{0.0001} & 0.4250 & 0.0047 & 0.0603 & 0.0143 & 0.0244 \\ 
+  matrix-&  &  & 1000 & $>$\textbf{0.0001} & 0.0303 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} \\ \cline{2-10}
+  Fisher& \multirow{6}{*}{0.75} & \multirow{3}{*}{10} & 50 & 0.1027 & 0.1864 & 0.0842 & 0.3483 & 0.3509 & 0.4652 \\ 
+  &  &  & 100 & 0.0205 & 0.0730 & 0.0075 & 0.2476 & 0.1666 & 0.5001 \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.1050 \\ \cline{3-10}
+  &  & \multirow{3}{*}{100} & 50 & 0.1475 & 0.0586 & 0.0559 & 0.2005 & 0.2296 & 0.4738 \\ 
+  &  &  & 100 & 0.0419 & 0.0081 & 0.0056 & 0.0747 & 0.0768 & 0.4437 \\ 
+  &  &  & 1000 & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & $>$\textbf{0.0001} & 0.0198 \\ 
+   \hline
+\end{tabular}
+\caption{Results from a t-test on the pairwise differences between estimators.  If B isn't 1000 then I averaged 100 p-values from random samples of size B from all 1000 simulation runs.  Samples in which SR didn't converege were omitted.}
+\end{center}
+\end{table}
+
+<<phistsNoBads,echo=FALSE,fig.height=8,fig.width=5,out.width="1\\linewidth",fig.cap="Histograms of 100 p-values and standard deviations corresponding to difference in mean-type estiators for 50 random simulation runs from the Cayley distribution, $\\nu=0.75$ and n=10 (top), n=100 (bottom) with the abnormal sample held out.",fig.align='center',eval=FALSE>>=
+ResSub<-Res[Res$nu==.75 & Res$n%in%c(10,100) & Res$Dist=="Cayley",c(3,6,12:17)]
+ResSub<-ResSub[ResSub[ResSub$n==10,]$Means<0.22,]
+B<-50
+M<-1000
+p10<-rep(0,M)
+p50<-rep(0,M)
+sd10<-rep(0,M)
+sd50<-rep(0,M)
+n10End<-max(which(ResSub$n==10))
+
+for(i in 1:M){
+  idx<-sample(1:n10End,B)
+  p10[i]<-t.test(ResSub[idx,]$Means)$p.value
+  sd10[i]<-sd(ResSub[idx,]$Means)
+  
+  idx<-sample((n10End+1):(nrow(ResSub)),B)
+  p50[i]<-t.test(ResSub[(idx),]$Means)$p.value
+  sd50[i]<-sd(ResSub[(idx),]$Means)
+}
+par(mfrow=c(2,1))
+hist(p10,breaks=100,xlim=c(0,1),prob=T,main=paste("n=10, mean(p)= ",round(mean(p10),3),", sd(p)= ",round(sd(p10),3)),xlab="p-value")
+hist(p50,breaks=100,xlim=c(0,1),prob=T,main=paste("n=100, mean(p)= ",round(mean(p50),3),", sd(p)= ",round(sd(p50),3)),xlab="p-value")
+
+xman<-max(sd10)
+
+hist(sd10,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=10, mean(sd)= ",round(mean(sd10),3),", sd(sd)= ",round(sd(sd10),3)),xlab="standard deviation")
+hist(sd50,breaks=100,xlim=c(0,xman),prob=T,main=paste("n=100, mean(sd)= ",round(mean(sd50),3),", sd(sd)= ",round(sd(sd50),3)),xlab="standard deviation")
+@
+
+<<only1,echo=FALSE,results='asis',eval=FALSE>>=
+ResSub<-Res[Res$nu==.75 & Res$n%in%c(10,100) & Res$Dist=="Cayley",c(3,6,12:17)]
+results<-matrix(NA,24,10)
+dist<-c("Cayley","Fisher")
+B<-c(50,100,1000)
+n<-c(10,100)
+nu<-c(.25,0.75)
+rowind<-1
+ps<-0
+for(i in 1:2){
+  
+  for(j in 1:2){
+    
+    for(k in 1:2){
+
+      for(l in 1:3){
+      
+        ResSub<-Res[Res$nu==nu[j] & Res$n==n[k] & Res$Dist==dist[i],12:17]
+        samp<-sample(1:1000,B[l],replace=F)
+        ps<-tests(ResSub[samp,])
+
+        ps<-round(ps,5)
+        results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
+        rowind<-rowind+1
+      }
+    }
+  }
+}
+
+results<-data.frame(results)
+colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
+
+xtable(results,digits=3,caption="Results from a t-test on the pairwise differences between estimators.  Only one sample of size B from all 100 simulations is given.  Medians is the difference in median estimators, means is the difference in mean estimators, euclid is the difference in Euclidean type estimators, Rieman is the difference in Reimannian type estimators, HL1Arith is the difference in geometric median and projected mean and MedML2 is the difference in the geometric mean and projected median.")
+@
+
+
+
+\end{document}
