@@ -94,14 +94,18 @@ qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",
   scale_linetype_manual(values=c(1,12,3))+theme(legend.position=c(0,1),legend.justification=c(0.1,1-.11),legend.background=element_rect(fill="white",linetype=0))+
   theme(legend.title=element_text(size=15,face="bold"),legend.text=element_text(size=14,face="bold"))+geom_abline(intercept=0,slope=0,colour="gray50")+
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))+geom_vline(xintercept=0)
-ggsave("Var75DensityHaarFull.pdf",height=5,width=5)
+#ggsave("Var75DensityHaarFull.pdf",height=5,width=5)
 
+qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,25),ylab="f(r)")+geom_abline(intercept=0,slope=0,colour="gray50")+
+  theme(legend.position='NONE')+scale_linetype_manual(values=c(1,12,3))+
+  theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))+geom_vline(xintercept=0)
+#ggsave("Var75DensityHaarFullNoGuide.pdf",height=5,width=5)
 
 qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylab="f(r)")+
   scale_linetype_manual(values=c(1,12,3))+theme(legend.position=c(0,1),legend.justification=c(0.1,1-.11),legend.background=element_rect(fill="white",linetype=0))+
   theme(legend.title=element_text(size=15,face="bold"),legend.text=element_text(size=14,face="bold"))+geom_abline(intercept=0,slope=0,colour="gray50")+
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))+geom_vline(xintercept=0)
-ggsave("Var75DensityHaarFullFull.pdf",height=5,width=5)
+#ggsave("Var75DensityHaarFullFull.pdf",height=5,width=5)
 
 #With respect to lebesgue
 
@@ -140,9 +144,10 @@ qplot(r,Value,data=denData[denData$Variance==.75,],geom="blank",ylim=c(0,2.25),y
 #ggsave("Var75DensityBox.pdf",height=5,width=5)
 
 
-qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.8),xlim=c(1,pi),ylab="f(r)")+
+qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.25),xlim=c(1.75,2.5),ylab="f(r)")+
   scale_linetype_manual(values=c(1,12,3))+theme(legend.position=c(1,1),legend.justification=c(1,1),legend.background=element_rect(fill="white",linetype=0))+
-  theme(legend.title=element_text(size=16,face="bold"),legend.text=element_text(size=16,face="bold"))+geom_abline(intercept=0,slope=c(0,100000),colour="gray50")+
+  theme(legend.title=element_text(size=16,face="bold"),legend.text=element_text(size=16,face="bold"),legend.key.width=unit(3,"line"))+
+  geom_abline(intercept=0,slope=c(0,100000),colour="gray50")+
   theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
 #ggsave("Var75DensityZoom.pdf",height=5,width=5)
 

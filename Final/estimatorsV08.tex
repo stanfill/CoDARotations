@@ -33,16 +33,16 @@ where $\bar{\bm{R}}=\frac{1}{n}\sum_{i=1}^n\bm{R}_i$. The estimator is obtained 
 \subsection{The projected median}
 \label{subsec:med}
 
-A modification of the estimator from Section~\ref{subsec:pam} is obtained by replacing the squared distances in \eqref{est:pam} with absolute distances, leading to a median-type estimator defined as
+Previously proposed estimators for $X_1, \ldots,X_n \in \mathbb{R}^p$  include, for example, the Euclidean median (also known as the Weber point \citep{bajaj88}), the mediancentre \citep{gower74} or the projection median \citep{durocher09}. %Specifically, \cite{durocher09} explore the stability of the above-mentioned estimators with respect to small perturbations at a small, selected set of points.  
+For directional and spherical data, exemplary estimators include the circular median \citep{mardia72}, the normalized spatial median \citep{ducharme87} and the Fisher median \citep{fisher85} also known as the spherical median. \citet{chan93} compare the performance of the normalized spatial median,  an $L_1$ estimator on the sphere by \cite{he92} and the Fisher median for the central direction for spherical data following the von Mises-Fisher distribution. They conclude that the normalized spatial median estimator is preferable for spherical data under the von Mises-Fisher model. 
+
+A modification of the estimator from Section~\ref{subsec:pam} \red{in line with these proposals} is obtained by replacing the squared distances in \eqref{est:pam} with absolute distances, leading to a median-type estimator defined as
 \begin{equation}\label{est:med}
 \ProjMedian=\argmin_{\bm{S}\in
 SO(3)}\sum_{i=1}^n\Edist(\bm{R}_i,\bm{S}).
 \end{equation}
 We will refer to this estimator of $\bm{S}$ as the \textit{projected median}.  %To the best of our knowledge, the estimator defined in (\ref{est:med}) is the first median-type estimator for $SO(3)$ data.\\
 Although median-type estimators exist for high dimensional and directional  high dimensional  data, such estimators have not been defined for rotational data. 
-
-Previously proposed estimators for $X_1, \ldots, X_n \in \mathbb{R}^p$  include, for example, the Euclidean median (also known as the Weber point \citep{bajaj88}), the mediancentre \citep{gower74} or the projection median \citep{durocher09}. %Specifically, \cite{durocher09} explore the stability of the above-mentioned estimators with respect to small perturbations at a small, selected set of points.  
-For directional and spherical data, exemplary estimators include the circular median \citep{mardia72}, the normalized spatial median \citep{ducharme87} and the Fisher median \citep{fisher85} also known as the spherical median. \citet{chan93} compare the performance of the normalized spatial median,  an $L_1$ estimator on the sphere by \cite{he92} and the Fisher median for the central direction for spherical data following the von Mises-Fisher distribution. They conclude that the normalized spatial median estimator is preferable for spherical data under the von Mises-Fisher model. 
 
 We next propose an algorithm to compute the projected median (\ref{est:med}).  We base our method on the Weiszfeld algorithm originally given by \cite{weiszfeld37}.  The algorithm requires an initial value that does not equal any sample point.   Note that the solution is generally not sensitive to the choice of starting points unless the data exhibit extreme spread.
 \begin{enumerate}
@@ -52,7 +52,7 @@ We next propose an algorithm to compute the projected median (\ref{est:med}).  W
 \[
 \bar{\bm R}_W=\frac{\sum_{i=1}^n\bm R_i/||\bm s_i||_F}{\sum_{i=1}^n1/||\bm s_i||_F}
 \]
-which we call the weighted mean with respect to $\widehat{\bm S}$. Note that  there is a theoretical probability of zero for $||\bm s_i||_F = 0$, in practice we impose a lower limit on $||\bm s_i||_F = \delta > 0$ (for some $\delta \in \mathbb R$) to avoid division by zero. 
+which we call the weighted mean with respect to $\widehat{\bm S}$. \red{Note that in theory the probability that $||\bm s_i||_F = 0$ is zero, but in practice we impose a lower limit on $||\bm s_i||_F = \delta > 0$ (for some $\delta \in \mathbb R$) to avoid an undefined result.} 
 \item Define $\widehat{\bm S}_{\text{new}} = \argmax_{\bm{S}\in
 SO(3)}\tr(\bm{S}^{\top}\bar{\bm{R}}_W)$ as the $\mathcal{M}(3)$ projection of $\bar{\bm R}_W$; see (\ref{est:pam}).
 \item If $\varepsilon>||\widehat{\bm S}-\widehat{\bm S}_{\text{new}}||_F$ return $\ProjMedian=\widehat{\bm S}_{\text{new}}$; otherwise set $\widehat{\bm S}=\widehat{\bm S}_{\text{new}}$ and return to step 2.
