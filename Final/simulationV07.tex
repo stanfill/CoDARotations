@@ -79,10 +79,10 @@ A visualization of a random sample of 100 rotations, one sample for each of the 
 %Section~\ref{sec:appendix.eyeballs} 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=.3\linewidth]{eye-cayley}
-\includegraphics[width=.3\linewidth]{eye-fisher}
-\includegraphics[width=.3\linewidth]{eye-vmises}
-\caption{\label{eyeballs}Sphere plots of the first column for randomly generated rotations with different distributions having  $\nu = 0.25$}
+\subfloat[Cayley]{\includegraphics[width=.3\linewidth]{eye-cayley}}
+\subfloat[matrix Fisher]{\includegraphics[width=.3\linewidth]{eye-fisher}}
+\subfloat[circular-von Mises]{\includegraphics[width=.3\linewidth]{eye-vmises}}
+\caption{\label{eyeballs}Sphere plots of the first column (x axis) for randomly generated rotations with different distributions having  $\nu = 0.25$}
 \end{figure}
 In the simulation study to follow, for generating random rotation errors based on the construction above, we used different samplers to randomly generate angles $r\in(-\pi,\pi]$ from a given circular density, recalling that the form of $C(r|\kappa)$ depends on the intended symmetric distribution for the rotation errors $\bm{E}$, see also the supplemental material on-line.
 
