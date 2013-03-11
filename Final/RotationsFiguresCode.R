@@ -3,6 +3,7 @@ library(rotations)
 library(reshape2)
 library(plyr)
 library(splines)
+library(xtable)
 
 ######################
 ##In this section the plots in the Section 4 (Simulation Study) 
@@ -109,6 +110,16 @@ cResFrame<-dcast(ResFrame,n+nu+Sample+Dist~Estimator,value.var="Error")
 Midn<-cResFrame[cResFrame$n==100,]
 xmax25<-max(Midn[Midn$nu==.25,5:8])
 xmax75<-max(Midn[Midn$nu==.75,c(5,7:8)])
+Largenu<-ResFrame[ResFrame$nu==.75,]
+Largenu50<-Largenu[Largenu$n==50,]
+badeggs<-Largenu50[Largenu50$Error>2,]$Sample
+Largenu100<-Largenu[Largenu$n==100,]
+badeggs<-c(badeggs,Largenu100[Largenu100$Error>2,]$Sample)
+beggs<-which(Largenu$Sample %in% badeggs)
+Largenu<-Largenu[-beggs,]
+Largenu$n<-as.factor(Largenu$n)
+levels(Largenu$n)<-c("n = 10","n = 50","n = 100","n = 300")
+
 #Use the data frames to make plots
 
 #This will make Figure 4
@@ -141,7 +152,6 @@ ggplot(Midn[Midn$nu==.25,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alp
 	scale_x_continuous(expression(paste(d[E],"-based estimators")),limits=c(0,xmax25))+
 	scale_y_continuous(expression(paste(d[R],"-based estimators")),limits=c(0,xmax25))+
 	geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray70")
-#ggsave("EuclidRiemannNu25.pdf",width=9,height=4)
 
 #This will make Figure 7(b)
 ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alpha=I(.75))+geom_point(aes(E.Median,R.Median),color="grey50",alpha=I(.75))+
@@ -149,5 +159,25 @@ ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alp
 	scale_x_continuous(expression(paste(d[E],"-based estimators")),limits=c(0,xmax75))+
 	scale_y_continuous(expression(paste(d[R],"-based estimators")),limits=c(0,xmax75))+
 	geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray70")
-#ggsave("EuclidRiemannNu75.pdf",width=9,height=4)
 
+
+#This will make Figure 1 of the Supplementary Materials
+qplot(Estimator,Error,geom="boxplot",data=Largenu,xlab="",ylab=expression(d[R](bold(S),.)))+
+	facet_grid(n~Dist,scales="free")+
+	geom_hline(xintercept=0,colour="gray50")+
+	scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[E]),expression(widehat(bold(S))[R]),expression(widetilde(bold(S))[E]),expression(widetilde(bold(S))[R])))+
+	theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
+
+#This will make Table 3 of the Supplementary Materials
+CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
+FisSumL1<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
+MisSumL1<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
+SumL1<-cbind(CaySumL1[,2:5],FisSumL1[,3:5],MisSumL1[,3:5])
+xtable(SumL1,digits=4)
+
+#This will make Table 4 of the Supplementary Materials
+CaySumL2<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean)/sqrt(1000),perc=sum(R.Mean<E.Mean)/1000)
+FisSumL2<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean)/sqrt(1000),perc=sum(R.Mean<E.Mean)/1000)
+MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean)/sqrt(1000),perc=sum(R.Mean<E.Mean)/1000)
+SumL2<-cbind(CaySumL2[,2:5],FisSumL2[,3:5],MisSumL2[,3:5])
+xtable(SumL2,digits=4)

@@ -229,7 +229,7 @@ qplot(Estimator,Error,geom="boxplot",data=Midn,xlab="",ylab=expression(d[R](bold
   facet_grid(nu~Dist,scales="free",labeller=label_parsed)+
   scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[E]),expression(widehat(bold(S))[R]),expression(widetilde(bold(S))[E]),expression(widetilde(bold(S))[R])))+
   theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
-ggsave("N50AllNuBoxes.pdf",width=9)
+#ggsave("N50AllNuBoxes.pdf",width=9)
 
 #Plot nu=.75 as a function of n.  Remove the bad observations that make the plot useless for n=50,100
 Largenu<-ResFrame[ResFrame$nu==.75,]
