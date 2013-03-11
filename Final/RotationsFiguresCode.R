@@ -5,6 +5,15 @@ library(plyr)
 library(splines)
 library(xtable)
 
+tests<-function(x){
+	num<-ncol(x)
+	pval<-rep(0,num)
+	for(i in 1:num){
+		pval[i]<-t.test(x[,i])$p.value
+	} 
+	return(pval)
+}
+
 ######################
 ##In this section the plots in the Section 4 (Simulation Study) 
 ## and some of the Supplementary Materials plots are made
@@ -168,7 +177,7 @@ qplot(Estimator,Error,geom="boxplot",data=Largenu,xlab="",ylab=expression(d[R](b
 	scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[E]),expression(widehat(bold(S))[R]),expression(widetilde(bold(S))[E]),expression(widetilde(bold(S))[R])))+
 	theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
 
-#This will make Table 2 of the Supplementary Materials
+#This will make Table 1 of the Supplementary Materials
 n100ResFrame<-subset(ResFrame,n==100)
 n100ses<-ddply(n100ResFrame,.(nu,Dist,Estimator),summarize,mean=mean(Error),SE=sd(Error)/sqrt(length(Error)),RMSE=sqrt(mean((Error)^2)))
 levels(n100ses$Estimator)<-c("GeomMedian","GeomMean","ProjMean","ProjMedian")
@@ -176,6 +185,47 @@ n100nu25Tab<-cbind(n100ses[c(2,3,1,4),c(1,3:6)],n100ses[c(2,3,1,4)+4,4:6],n100se
 n100nu5Tab<-cbind(n100ses[c(2,3,1,4)+12,c(1,3:6)],n100ses[c(2,3,1,4)+16,4:6],n100ses[c(2,3,1,4)+20,4:6])
 n100nu75Tab<-cbind(n100ses[c(2,3,1,4)+24,c(1,3:6)],n100ses[c(2,3,1,4)+28,4:6],n100ses[c(2,3,1,4)+32,4:6])
 xtable(rbind(n100nu25Tab,n100nu5Tab,n100nu75Tab),digits=4)
+
+#This will make Table 2
+Res$Medians<-Res$HL1Error-Res$MedError
+Res$Means<-Res$ML2Error-Res$ArithError
+Res$Euclid<-Res$ArithError-Res$MedError
+Res$Rieman<-Res$ML2Error-Res$HL1Error
+Res$HL1Arith<-Res$HL1Error-Res$ArithError
+Res$MedML2<-Res$MedError-Res$ML2Error
+
+results<-matrix(NA,24,10)
+dist<-c("Cayley","Fisher")
+B<-c(50,100,1000)
+n<-c(10,100)
+nu<-c(.25,0.75)
+rowind<-1
+ps<-0
+for(i in 1:2){
+	for(j in 1:2){
+		for(k in 1:2){
+			for(l in 1:3){
+				ResSub<-Res[Res$nu==nu[j] & Res$n==n[k] & Res$Dist==dist[i],12:17]
+				if(B[l]!=1000){
+					for(m in 1:100){
+						samp<-sample(1:1000,B[l],replace=F)
+						ps<-ps+tests(ResSub[samp,])/100
+					}
+				}else{
+					ps<-tests(ResSub)
+				}
+				ps<-round(ps,5)
+				results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
+				rowind<-rowind+1
+				ps<-0
+			}
+		}
+	}
+}
+
+results<-data.frame(results)
+colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
+xtable(results,digits=3)
 
 #This will make Table 3 of the Supplementary Materials
 CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
