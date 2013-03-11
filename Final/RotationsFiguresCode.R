@@ -1,5 +1,14 @@
+#Load the necessary libraries
 library(rotations)
 library(reshape2)
+library(plyr)
+library(splines)
+
+######################
+##In this section the plots in the Section 4 (Simulation Study) 
+## and some of the Supplementary Materials plots are made
+######################
+
 r<-seq(-pi,pi,length=1000)
 
 cayKap<-c(10,4,2,.065)
@@ -58,3 +67,87 @@ Rs<-ruars(100,rvmises,nu=0.25)
 plot(Rs,center=id.SO3,col=1)
 plot(Rs,center=id.SO3,col=2)
 plot(Rs,center=id.SO3,col=3)
+
+######################
+##In this section the plots in the Section 5 (Simulation Results)
+######################
+
+#Read in the data and manipulate it to use ggplot2 easily
+Res<-read.csv("FullFinalResults.csv")[,-c(1)]
+alldf<-read.csv("Nu75TailBehavior.csv")[,-1]
+
+ResFrame<-melt(Res,id=c("nu","n","Dist","Sample"),measure.var=c("HL1Error","ML2Error","ArithError","MedError"))
+colnames(ResFrame)[5:6]<-c("Estimator","Error")
+levels(ResFrame$Estimator)<-c("R.Median","R.Mean","E.Mean","E.Median")
+levels(ResFrame$Dist)<-c("Cayley","matrix Fisher","circular-von Mises")
+
+Largen<-ResFrame[ResFrame$n==100,]
+Largen<-Largen[-which.max(Largen$Error),]
+Largen<-Largen[-which.max(Largen$Error),]
+
+Largen$nu<-as.factor(Largen$nu)
+Largen$nu<-factor(Largen$nu,labels=c("nu == 0.25","nu == 0.50","nu == 0.75"))
+levels(Largen$Dist)<-c("Cayley","matrix~~Fisher","circular-von~~Mises")
+
+x<-ddply(ResFrame,.(Dist,nu,n,Estimator),summarize,Median=round(median(Error),4),Mean=round(mean(Error),4),RMSE=round(sqrt(mean(Error^2)),4))
+my.labels <- list(bquote(widehat(bold(S))[E]),bquote(widehat(bold(S))[R]),bquote(widetilde(bold(S))[E]),bquote(widetilde(bold(S))[R]))
+mx<-melt(x,id=c("Dist","Estimator","n","nu"),measure=c("Mean","RMSE"))
+mx$n<-as.factor(mx$n)
+mx75<-mx[(mx$nu==0.75&mx$Dist=="circular-von Mises"),]
+mx75$Estimator<-factor(mx75$Estimator,levels=c("E.Mean","R.Mean","E.Median","R.Median"))
+
+
+alldf$Dist<-factor(alldf$Dist,levels=levels(alldf$Dist)[c(1,3,2)])
+tail75<-mean(c(2.109,2.185,1.975))
+realProbs<-rep(0,3)
+realProbs[1]<-integrate(dcayley,lower=tail75,upper=pi,Haar=F,kappa=2)$value*2
+realProbs[2]<-integrate(dfisher,lower=tail75,upper=pi,Haar=F,kappa=1.15)$value*2
+realProbs[3]<-integrate(dvmises,lower=tail75,upper=pi,Haar=F,kappa=0.52)$value*2
+alldf$ScalePdiff<-alldf$Pdiff/(alldf$PMean+alldf$PMedian)
+
+cResFrame<-dcast(ResFrame,n+nu+Sample+Dist~Estimator,value.var="Error")
+Midn<-cResFrame[cResFrame$n==100,]
+xmax25<-max(Midn[Midn$nu==.25,5:8])
+xmax75<-max(Midn[Midn$nu==.75,c(5,7:8)])
+#Use the data frames to make plots
+
+#This will make Figure 4
+qplot(Estimator,Error,geom="boxplot",data=Largen,xlab="",ylab=expression(d[R](bold(S),.)))+
+	geom_hline(xintercept=0,colour="gray50")+
+	facet_grid(nu~Dist,scales="free",labeller=label_parsed)+
+	scale_x_discrete(limits=c("E.Mean","R.Mean","E.Median","R.Median"),breaks=c("E.Mean","R.Mean","E.Median","R.Median"),labels=c(expression(widehat(bold(S))[E]),expression(widehat(bold(S))[R]),expression(widetilde(bold(S))[E]),expression(widetilde(bold(S))[R])))+
+	theme(axis.text.x=element_text(size=12,color=1,face='bold'),axis.text.y=element_text(size=12,color=1))
+
+#This will make Figure 5
+qplot(n,value,data=mx75,facets=.~variable,geom="path",group=Estimator,linetype=Estimator,lwd=I(1))+
+	scale_linetype_manual(values=c(3,4,2,1),labels=my.labels)+coord_equal(ratio=4)+
+	theme(legend.text=element_text(size=12),legend.key.width=unit(3,"line"),legend.title=element_text(size=12))+
+	geom_hline(yintercept=0,colour="gray50")+
+	theme(axis.text.x=element_text(size=12,color=1),axis.text.y=element_text(size=12,color=1))
+
+#This will make Figure 6
+ggplot(alldf[alldf$n>299,],aes(Prop,ScalePdiff))+xlab("Proportion Observations in Tail")+
+	ylab(expression(frac(d[R](bold(S),widehat(bold(S))[E])-d[R](bold(S),widetilde(bold(S))[E]),d[R](bold(S),widehat(bold(S))[E])+d[R](bold(S),widetilde(bold(S))[E]))))+
+	geom_hline(yintercept=0,colour="gray50")+
+	stat_smooth(method=lm,formula=y~ns(x,2),fullrange=T,colour=1)+
+	geom_point(aes(shape=Dist),alpha=I(.6))+theme_bw()+
+	scale_shape_manual(values=c(16,0,17),name="Distribution")+
+	theme(legend.text=element_text(size=12),legend.title=element_text(size=14))+
+	theme(legend.justification=c(0,1),legend.position=c(0,1))
+
+#This will make Figure 7(a)
+ggplot(Midn[Midn$nu==.25,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alpha=I(.75))+geom_point(aes(E.Median,R.Median),color="grey50",alpha=I(.75))+
+	coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+	scale_x_continuous(expression(paste(d[E],"-based estimators")),limits=c(0,xmax25))+
+	scale_y_continuous(expression(paste(d[R],"-based estimators")),limits=c(0,xmax25))+
+	geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray70")
+#ggsave("EuclidRiemannNu25.pdf",width=9,height=4)
+
+#This will make Figure 7(b)
+ggplot(Midn[Midn$nu==.75,],aes(E.Mean,R.Mean))+facet_grid(.~Dist)+geom_point(alpha=I(.75))+geom_point(aes(E.Median,R.Median),color="grey50",alpha=I(.75))+
+	coord_equal(ratio=1)+theme(axis.text.x=element_text(size=14,colour=1),axis.text.y=element_text(size=14,color=1))+
+	scale_x_continuous(expression(paste(d[E],"-based estimators")),limits=c(0,xmax75))+
+	scale_y_continuous(expression(paste(d[R],"-based estimators")),limits=c(0,xmax75))+
+	geom_abline(intercept=0,slope=c(1,0,100000000),colour="gray70")
+#ggsave("EuclidRiemannNu75.pdf",width=9,height=4)
+
