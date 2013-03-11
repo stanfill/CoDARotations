@@ -1,4 +1,5 @@
-#Load the necessary libraries
+#Load the necessary libraries and create the 'tests' function used to create 
+#Table 2 of the Supplementary Materials
 library(rotations)
 library(reshape2)
 library(plyr)
@@ -83,7 +84,7 @@ plot(Rs,center=id.SO3,col=3)
 ######################
 
 #Read in the data and manipulate it to use ggplot2 easily
-Res<-read.csv("FullFinalResults.csv")[,-c(1)]
+Res<-read.csv("FullFinalResults.csv")[,-1]
 alldf<-read.csv("Nu75TailBehavior.csv")[,-1]
 
 ResFrame<-melt(Res,id=c("nu","n","Dist","Sample"),measure.var=c("HL1Error","ML2Error","ArithError","MedError"))
@@ -194,6 +195,9 @@ Res$Rieman<-Res$ML2Error-Res$HL1Error
 Res$HL1Arith<-Res$HL1Error-Res$ArithError
 Res$MedML2<-Res$MedError-Res$ML2Error
 
+ResforTab<-Res[Res$n%in%c(10,100) & Res$nu%in%c(0.25,0.75) & Res$Dist%in%c("Cayley","Fisher"),]
+Omits<-which(ResforTab$Means>.22 & ResforTab$ML2Error>=1)
+ResforTabOmit<-ResforTab[-Omits,]
 results<-matrix(NA,24,10)
 dist<-c("Cayley","Fisher")
 B<-c(50,100,1000)
@@ -205,14 +209,18 @@ for(i in 1:2){
 	for(j in 1:2){
 		for(k in 1:2){
 			for(l in 1:3){
-				ResSub<-Res[Res$nu==nu[j] & Res$n==n[k] & Res$Dist==dist[i],12:17]
+				ResSub<-ResforTabOmit[ResforTabOmit$nu==nu[j] & ResforTabOmit$n==n[k] & ResforTabOmit$Dist==dist[i],12:17]
+				convN<-nrow(ResSub)
 				if(B[l]!=1000){
 					for(m in 1:100){
-						samp<-sample(1:1000,B[l],replace=F)
+						samp<-sample(1:convN,B[l],replace=F)
 						ps<-ps+tests(ResSub[samp,])/100
 					}
 				}else{
-					ps<-tests(ResSub)
+					addTo<-1000-convN
+					addSamp<-sample(1:convN,addTo,replace=F)
+					ResSubtemp<-rbind(ResSub,ResSub[addSamp,])
+					ps<-tests(ResSubtemp)
 				}
 				ps<-round(ps,5)
 				results[rowind,]<-c(dist[i],nu[j],n[k],B[l],ps)
@@ -222,10 +230,14 @@ for(i in 1:2){
 		}
 	}
 }
-
 results<-data.frame(results)
-colnames(results)<-c("Dist","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
-xtable(results,digits=3)
+colnames(results)<-c("Distribution","nu","n","B","Medians","Means","Euclid","Reiman","HL1Arith","MedML2")
+
+for(k in 5:10)
+	results[,k]<-as.numeric(as.character(results[,k]))
+
+results[5:10]<-round(results[5:10],4)
+xtable(results,digits=4)
 
 #This will make Table 3 of the Supplementary Materials
 CaySumL1<-ddply(cResFrame[cResFrame$Dist=="Cayley",],.(nu,n),summarize,rbar=mean(E.Median-R.Median),sdrbar=sd(E.Median-R.Median)/sqrt(1000),perc=sum(R.Median<E.Median)/1000)
