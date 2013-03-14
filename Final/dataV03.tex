@@ -47,7 +47,7 @@ scan& & $x_{11}$ & $x_{12}$& $x_{13}$& $x_{21}$& $x_{22}$& $x_{23}$& $x_{31}$& $
 \end{center}
 \end{table}
 
-We visualize Table~\ref{tab:rotations} and the estimates resulting from applying $\ProjMedian$ and $\ProjMean$ at this location in Figure \ref{fig:pcp} using a parallel coordinate plot: for every scan each of the nine coefficients $x_{ij}$ ($1 \le i,j \le 3$)) is plotted separately. Coefficients that correspond to the same scan are connected by a line.   Note that the coefficient values are jittered using a small perturbation in form of a rotation matrix to avoid over-plotting and to illustrate cluster sizes. The light- and dark green colored line represent the $\ProjMedian$ and $\ProjMean$ estimates of the main direction based on the 14 scans.   This example  illustrates that the median estimate, $\ProjMedian$,  can more reliably estimate the main direction in the presence of potential anomalies on the spatial boundaries of grains.
+We visualize Table~\ref{tab:rotations} and the estimates resulting from applying $\ProjMedian$ and $\ProjMean$ at this location in Figure \ref{fig:pcp} using a parallel coordinate plot: for every scan each of the nine coefficients $x_{ij}$ ($1 \le i,j \le 3$)) is plotted separately. Coefficients that correspond to the same scan are connected by a line.   Note that the coefficient values are jittered using a small perturbation in form of a rotation matrix to avoid over-plotting and to illustrate cluster sizes. The light- and dark green colored line represent the $\ProjMedian$ and $\ProjMean$ estimates of the main direction based on the 14 scans.   This example  illustrates that the median estimate, $\ProjMedian$,  can more reliably estimate the main direction in the presence of potential anomalies on the spatial boundaries of grains\hh{, as this estimate is located within the largest cluster of rotations, while the projected mean is pulled to a compromise between the clusters.}
 
 
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
@@ -61,8 +61,10 @@ We visualize Table~\ref{tab:rotations} and the estimates resulting from applying
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
-   \includegraphics[width=.7\textwidth]{images/pcp.pdf} 
-   \caption{ \label{fig:pcp}Parallel coordinate plot of all nine coefficients of the rotation matrices in a single location. }
+   \subfloat[Parallel coordinate plot. ]{\includegraphics[height=.325\textwidth]{images/pcp.pdf}}
+   \subfloat[Sphere plot. ]{\includegraphics[height=.325\textwidth]{images/eye-698-2.pdf}}
+   
+   \caption{ \label{fig:pcp} Two views of all fourteen rotation matrices of table \ref{tab:rotations}, the location with the largest angle difference between projected mean and median estimator.}
 \end{figure}
 
 %=======
