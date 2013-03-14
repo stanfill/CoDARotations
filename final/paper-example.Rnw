@@ -1,0 +1,576 @@
+\documentclass{article}
+\title{Nickel Data - 2nd Analysis}
+\begin{document}
+\maketitle
+<<setup, results='hide', echo=FALSE>>=
+library(knitr)
+opts_chunk$set(fig.path='images/', cache.path='cache/', fig.align='center',  fig.width=7, fig.height=5, cache=TRUE)
+@
+
+<<loaddata, echo=FALSE>>=
+setwd("/Users/heike/Documents/Data/Melissa/")
+load("datasetnickel.RData")
+# loads xpos, ypos, dat and data
+suppressMessages(require(ggplot2))
+@
+
+\begin{figure}[htbp]
+<<fig-pos, fig.width=5,  out.width='0.6\\linewidth', echo=FALSE>>=
+qplot(xpos, ypos, asp.ratio=1)
+@
+\caption{Overview of all 3449 $x$ and $y$ positions on the studied Nickel surface. At each location results from 14 scans are available. }
+\end{figure}
+
+The data comes in form of a three dimensional matrix. We re-format to have position and location information in a data frame:
+<<dataprep, echo=FALSE>>=
+require(plyr)
+dat.out <- adply(data, .margins= c(1,3), function(x) {
+  as.vector(x)
+})
+names(dat.out)[c(1,2)] <- c("rep", "location")
+dat.out$xpos <- xpos[dat.out$location]
+dat.out$ypos <- ypos[dat.out$location]
+## convert data into a data frame including location and position information
+head(dat.out)
+@
+
+Some of the information is missing, some observations are not consistent with rotation matrices:
+<<checkdata, echo=FALSE>>=
+## are the matrices actually rotations?
+library(rotations)
+checks <- adply(dat.out, .margins=1, function(x) {
+  is.SO3(unlist(x[3:11]))
+})
+dat.out$check <- checks$V1
+@
+<<checkdata2>>=
+## how many of the observations are actually rotations?
+summary(dat.out$check)
+## most of fails come from missing observations
+summary(is.na(subset(dat.out, check==FALSE)$V1))
+@
+
+We compute all four estimates in each location. If there is only one valid rotation available, we use that.
+<<databylocation,  hide=TRUE, echo=FALSE>>=
+suppressMessages(require(rotations))
+suppressMessages(require(plyr))
+
+## compute all four estimators in each location
+dat.ests <- dlply(dat.out, .(location), function(x) {
+  res <- na.omit(x)
+  res <- subset(res, check==TRUE)
+  
+  n <- nrow(res) 
+  SE2 <- SR2 <- SE1 <- SR1 <- NULL
+  if (n == 1) {
+    R <- as.SO3(matrix(unlist(res[1,3:11]), 3, 3))
+    SE2 <- SR2 <- SE1 <- SR1 <- R
+  } else if (n > 0) {
+    rots <- as.SO3(as.matrix(res[,3:11]))
+    SE2 <- mean(rots)
+    SR2 <- mean(rots, type='intrinsic')
+    SE1 <- median(rots)
+    SR1 <- median(rots, type='intrinsic')
+  }
+  location <- as.numeric(as.character(unique(x$location)))
+  return(list(location=location, n=n, SE2=SE2, SR2=SR2, SE1=SE1, SR1=SR1))
+})
+
+## find distances between estimators and angles to identity for each
+loc.stats <- ldply(dat.ests, function(x) {  
+  location <- as.numeric(as.character(unique(x$location)))
+  if (x$n > 0)
+  data.frame(location=x$location, n=x$n, 
+             dE1=angle(x$SE1), dE2=angle(x$SE2),
+             dR1=angle(x$SR1), dR2=angle(x$SR2),
+             dE=dist(x$SE1, x$SE2, method="intrinsic", p=1),
+             dR=dist(x$SR1, x$SR2, method="intrinsic", p=1),
+             d1=dist(x$SE1, x$SR1, method="intrinsic", p=1),
+             d2=dist(x$SE2, x$SR2, method="intrinsic", p=1)
+             )
+})
+
+loc.stats$xpos <- xpos[loc.stats$location]
+loc.stats$ypos <- ypos[loc.stats$location]
+loc.stats <- adply(loc.stats, .margin=1, transform, sd=sd(c(dE1, dE2, dR1, dR2)))
+@
+
+Figure \ref{grain-map} shows a grain map of the studied surface. Main directions are computed based on a projected mean estimate, colors show angles of main rotations with respect to the identity. Very distinct grains become visible, interspersed by areas of higher variability.
+\begin{figure}
+<<plot1, fig.width=7, fig.height=5, out.width='\\linewidth', echo=FALSE>>=  
+suppressMessages(require(ggplot2))
+idx <- which.max(loc.stats$dEdegree)
+
+d <- ggplot(loc.stats, aes(xpos, ypos, color=dE1))
+d2 <- d + geom_point(size=2.25) + scale_colour_gradient(expression(d[R](tilde(S)[E], I["3x3"])), low="grey99", high="grey10", limits=c(0, pi), breaks=c( pi/4, pi/2, 3*pi/4), labels=expression( pi/4, pi/2, 3*pi/4)) + theme_bw() + xlab("") + ylab("") + coord_equal() + scale_x_continuous(limits=c(0, 12.5), breaks=seq(0, 12.5, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m, 12.5*mu*m)) + scale_y_continuous(limits=c(0, 10), breaks=seq(0, 10, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m)) + geom_point(shape="o", colour="yellow", size=5, data=loc.stats[idx,])  + theme(plot.margin=unit(rep(0,4), "lines"))
+                                                                                                                                                                                                                                                                                                d2
+ggsave(file="grain-map.pdf", width=5.75, height=4.25)
+
+
+label <- "in degrees"
+  mains <- bquote(.(parse(text=paste("d[R](tilde(S)[E], hat(S)[E]", quote("in degrees"), sep="\n"))) )
+  mains <- expression(paste(d[R](tilde(S)[E], hat(S)[E]), "  (in ",degree,")  "))
+loc.stats$dEdegree <- loc.stats$dE*180/pi
+d <- ggplot(loc.stats, aes(xpos, ypos, color=dEdegree))
+d + geom_point(size=2.2) + scale_colour_gradient(mains, low="white", high="grey10", trans = "sqrt", breaks=c( 0, 0.5, 5, 20))+ theme_bw() + xlab("") + ylab("") + coord_equal() + scale_x_continuous(limits=c(0, 12.5), breaks=seq(0, 12.5, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m, 12.5*mu*m)) + scale_y_continuous(limits=c(0, 10), breaks=seq(0, 10, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m))  + geom_point(shape="o", colour="yellow", size=5, data=loc.stats[idx,]) + theme(plot.margin=unit(rep(0,4), "lines"))
+                             
+
+
+ggsave(file="grain-diff.pdf", width=6.75, height=4.25)
+
+@
+\label{grain-map}
+\caption{Grain map. Angle in each location is based on a projected mean estimate of the main direction. Grain maps based on the other three estimators are virtually indistinguishable (visually).}
+\end{figure}
+
+
+
+<<ggpcp>>=
+idx <- which.max(loc.stats$dEdegree)
+
+datdf <- subset(dat.out, location %in% loc.stats[idx,]$location)
+
+subdf <- as.matrix(subset(datdf, check)[,3:11])
+
+pmed <- median(as.SO3(subdf), type="projected")
+gmed <- median(as.SO3(subdf), type="intrinsic")
+pmean <- mean(as.SO3(subdf), type="projected")
+gmean <- mean(as.SO3(subdf), type="intrinsic")
+ests <- data.frame(rbind(as.vector(pmean), as.vector(pmed), as.vector(gmean), as.vector(gmed)))
+ests$ID <- 1:4
+require(reshape2)
+em <- melt(ests, id.var="ID")
+em$variable <- as.numeric(gsub("X", "", as.character(em$variable)))
+labels <- c(expression(hat(S)[E]), expression(tilde(S)[E]), expression(hat(S)[R]), expression(tilde(S)[R]))
+
+require(RColorBrewer)
+cols <- brewer.pal(4, "Paired")
+n <- nrow(datdf)
+# simulate from Cayley for jittering
+cay <- rcayley(n, kappa=4000)
+suppressWarnings(print(plot.SO3(genR(cay), center=id, col=1, show_estimates=FALSE, toRange=FALSE) +ggtitle("Cayley")))
+
+jitdf <- genR(cay)
+for (i in 1:nrow(datdf)) {
+  R <- matrix(unlist(datdf[i,3:11]),3,3)
+  S <- matrix(unlist(jitdf[i,]),3,3)
+  jitdf[i,] <- unlist(R %*% S)
+}
+class(jitdf) <- "matrix"
+
+jitdf <- data.frame(jitdf)
+names(jitdf) <- expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])
+ggpcp(jitdf) + geom_line() + ylim(c(-1,1)) + 
+  scale_x_discrete("", labels = expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])) +
+  geom_line(aes(x=variable, y=value, colour=factor(ID), group=ID), data=subset(em, ID %in% c(1,2)), size=1, inherit.aes=F) + scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2]) + theme_bw()
+  
+ggsave("pcp.pdf", width=8, height=4)
+
+mid <- median(as.SO3(subdf), type="projected") 
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=1, show_estimates=TRUE) + theme(legend.position="none"))) 
+ggsave(file="eye-1031-1.pdf", height=5, width=5)
+suppressWarnings(print(plot.SO3(as.matrix(jitdf), center=mid, col=2, show_estimates=TRUE) + theme(legend.position="none"))) 
+ggsave(file="eye-1031-2.pdf", height=5, width=5)
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=3, show_estimates=TRUE)+ theme(legend.position="none"))) 
+ggsave(file="eye-1031-3.pdf", height=5, width=5)
+
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=3, show_estimates=TRUE))) 
+
+@
+
+
+
+Figure \ref{missing-values} shows two aspects of missing rotations. On the left, a scatterplot of locations is colored according to number of missing rotations. Lighter colors indicate higher number of missing observations. Locations without any color indicate the absence of any valid data. There are distinct spatial structures visible. On the right locations with at least three missing values are colored yellow and drawn on top of the grain map of figure \ref{grain-map}. Clearly, we cannot assume missingness by random. Missingness seems to be very much related to grain boundaries. 
+\begin{figure}
+\begin{minipage}{0.45\linewidth}
+<<missing1, out.width='1.3\\linewidth', echo=FALSE>>=
+## missing values - light colours indicate higher number of missing values
+qplot(xpos, ypos, data=loc.stats, colour=14-n, size=I(3), asp=1) + scale_colour_continuous("# Missing", breaks=c(0,3,6,9,12))
+@
+\end{minipage}
+\begin{minipage}{0.45\linewidth}
+<<missing2, out.width='1.3\\linewidth', echo=FALSE>>=
+## location of missing values is along boundaries
+qplot(xpos, ypos, data=loc.stats, colour=dE1, size=I(3), asp=1) + geom_point(colour="yellow", shape="x", size=I(3), data=subset(loc.stats, n < 10))
+@
+\end{minipage}
+\label{missing-values}
+\caption{Grain maps: number of missing values (left). Lighter colors indicate higher number of missing or invalid observations. On the right, a grain map based on the projected median is overlaid by  crosses in locations with more than four missing observations. Both maps show strong spatial structures, particularly along  boundaries between grains.}
+\end{figure}
+
+Figure \ref{estimates} shows an overview of the difference between projected mean and median estimates of main direction. The scatterplot on the left shows raw values, the histogram on the right shows paired differences at each location. The vertical line indicates the 95\% percentile in the difference distribution used for the next section.
+\begin{figure}
+\begin{minipage}{0.45\linewidth}
+<<plot2, out.width='1.3\\linewidth', echo=FALSE>>=  
+suppressMessages(require(ggplot2))
+qplot(dE1, dE2, data=loc.stats, asp=1)
+@
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.4\linewidth}
+<<plot2b, out.width='\\linewidth', echo=FALSE>>=  
+suppressMessages(qplot(dE, data=loc.stats, binwidth=diff(range(loc.stats$dE))/30) + geom_vline(xintercept=quantile(loc.stats$dE, 0.95)))
+@
+\end{minipage}
+\label{estimates}
+\caption{Comparison of projected mean and median results. On the left a scatterplot of angles of projected mean and median estimates. On the right, distance (in radians) between projected mean and median are shown in a histogram.}
+\end{figure}
+
+Figure \ref{differences} shows a grain map overlaid by yellow markers at locations of the top 5\% differences in estimates. The circle corresponds to differences between projected mean and median, the crosses show differences between geodesic and projected means. Again, most differences fall along grain boundaries.
+\begin{figure}
+<<high-variability, echo=FALSE, out.width='\\linewidth'>>=
+# ## lighter colors indicate highest differences between estimators -
+# ## usually on boundary lines - 
+# qplot(xpos, ypos, data=loc.stats, colour=d2, size=I(3))
+# qplot(xpos, ypos, data=loc.stats, colour=dE, size=I(3))
+
+qplot(xpos, ypos, data=loc.stats, colour=dE1, size=I(3), asp=1) + geom_point(size=4, shape="o", colour="yellow", data=subset(loc.stats, dE>quantile(dE, 0.95))) + geom_point(size=4, shape="x", colour="yellow", data=subset(loc.stats, d2>quantile(d2, 0.95)))
+@
+\label{differences}
+\caption{A grain map is overlaid by yellow circles at locations with the top 5\% differences between projected mean and median estimates, yellow crosses highlight locations of the top 5\% differences between projected and geodesic means. Differences between estimates fall along grain boundaries.}
+\end{figure}
+
+
+\begin{figure}
+\begin{minipage}{.45\linewidth}
+<<sd-d2, echo=FALSE, out.width='1.3\\linewidth'>>=
+qplot(sd, d2, data=loc.stats, asp=1)
+@
+\end{minipage}
+\begin{minipage}{.45\linewidth}
+<<sd-dR, echo=FALSE, out.width='1.3\\linewidth'>>=
+qplot(sd, dR, data=loc.stats, asp=1)
+@
+\label{variability}
+\end{minipage}
+\caption{Overview of the relationship between different measures of variability. d2 is difference between projected and geodesic mean estimates, dR is the difference between geodesic mean and median of estimates.}
+\end{figure}
+
+Figure \ref{zoom} shows a zoom into the grain map. Locations with large differences between mean and median estimates are drawn by white labels on top. We focus in particular on locations 50, 111, 172, 233, 294, which are along the boundary between two distinct grains.
+\begin{figure}
+<<map-high, echo=FALSE, out.width='\\linewidth'>>=
+# identify locations with relatively high variability
+# highvar <- subset(loc.stats,  (xpos < 8) & (xpos > 2) & (ypos > 3) & (ypos < 8.5))
+highvar <- subset(loc.stats,  (xpos < 12) & (xpos > 6) & (ypos > 0) & (ypos < 6))
+# highvar <- loc.stats
+# zoom into high variability area
+qplot(xpos, ypos, data=highvar, colour=dE1, size=I(7.5)) + #geom_point(colour="white", alpha=1, data=subset(highvar, d2 > quantile(d2, 0.95))) + 
+  geom_text(aes(label=location), colour="white", size=I(4), data=subset(highvar, dR > quantile(dR, 0.95)))
+@
+\label{zoom}
+\caption{Zoom into the grain map with overlaid location information for highly variable sites.}
+\end{figure}
+
+Figure \ref{pcp172} shows a parallel coordinate plot of the nine coefficients of the fourteen rotation matrices in location 172. Only two lines are visible, indicating two very tight  clusters in the data.
+\begin{figure}
+<<pcp1, echo=FALSE, out.width='\\linewidth'>>=
+require(reshape2)
+ggpcp <- function(data, vars=names(data), ...) {
+  scaled <- data[, vars]
+  data <- ggplot2:::cunion(scaled, data)
+  
+  data$ROWID <- 1:nrow(data)
+  molten <- melt(data, m=vars)
+
+  ggplot(molten, aes_string(x = "variable", y = "value", group = "ROWID"),
+    ...)
+}
+i <- 172
+print(ggpcp(subset(dat.out, check & (location==i))[,3:11]) + ggtitle(sprintf("location %d", i))
+      + geom_line() + ylim(c(-1,1)))
+@
+\label{pcp172}
+\caption{Parallel Coordinate Plot of coefficients of rotation matrices in location 172. }
+\end{figure}
+
+Figure \ref{eye172} is an eyeball plot of column 1 in location 172. On the left, the whole sphere is shown, on the right the range of the data determines the axes of the chart. We can clearly see two distinct clusters. The median estimates are in the center of the larger of the two clusters, while the mean estimates are drawn out of it towards the smaller group.
+
+\begin{figure}
+\hspace{-1cm}
+\begin{minipage}{0.45\linewidth}
+<<pcp21, echo=FALSE, out.width='1.5\\linewidth'>>=
+i <- 172
+subdf <- as.matrix(subset(dat.out, check & (location==i))[,3:11])
+print(suppressWarnings(plot.SO3(subdf, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=1, show_estimates=TRUE) + ggtitle(i)) + theme(legend.position="none"))
+
+@
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.45\linewidth}
+<<pcp22, echo=FALSE, out.width='\\linewidth'>>=
+i <- 172
+subdf <- as.matrix(subset(dat.out, check & (location==i))[,3:11])
+suppressWarnings(print(plot.SO3(subdf, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=1, show_estimates=TRUE, toRange=TRUE) +  ggtitle(i) + theme(legend.position="none")))
+@
+\end{minipage}
+\label{fig-eyeball}
+\caption{Eyeball plot of the first column corresponding to rotation matrices in location 172. On the left the whole sphere is shown. The right shows a zoom-in to the range of the data. Clearly,  two clusters of rotations show up. The Median estimates are in the center of the larger of the two clusters, while the mean -based estimates are drawn from that center towards the other group.}
+\end{figure}
+
+
+\begin{figure}
+<<pcp150, echo=FALSE, out.width='\\linewidth'>>=
+ggpcp <- function(data, vars=names(data), ...) {
+  scaled <- data[, vars]
+  data <- ggplot2:::cunion(scaled, data)
+  
+  data$ROWID <- 1:nrow(data)
+  require(reshape2)
+  molten <- melt(data, m=vars)
+
+  ggplot(molten, aes_string(x = "variable", y = "value", group = "ROWID"),
+    ...)
+}
+i <- 50
+print(ggpcp(subset(dat.out, check & (location==i))[,3:11]) + ggtitle(sprintf("location %d", i))
+      + geom_line() + ylim(c(-1,1)))
+@
+\label{fig-pcp}
+\caption{Parallel Coordinate Plot of coefficients of rotation matrices in location 50. }
+\end{figure}
+
+\begin{figure}
+\hspace{-1cm}
+\begin{minipage}{0.45\linewidth}
+<<pcp2150, echo=FALSE, out.width='1.5\\linewidth'>>=
+i <- 50
+subdf <- as.matrix(subset(dat.out, check & (location==i))[,3:11])
+print(suppressWarnings(plot.SO3(subdf, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=1, show_estimates=TRUE) + ggtitle(i)) + theme(legend.position="none"))
+
+@
+\end{minipage}
+\hspace{1cm}
+\begin{minipage}{0.45\linewidth}
+<<pcp2250b, echo=FALSE, out.width='\\linewidth'>>=
+i <- 50
+subdf <- as.matrix(subset(dat.out, check & (location==i))[,3:11])
+suppressWarnings(print(plot.SO3(subdf, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=1, show_estimates=TRUE, toRange=TRUE) +  ggtitle(i) + theme(legend.position="none")))
+@
+\end{minipage}
+\label{fig-eyeball}
+\caption{Eyeball plot of the first column corresponding to rotation matrices in location 50. On the left the whole sphere is shown. The right shows a zoom-in to the range of the data. Clearly,  two clusters of rotations show up. The Median estimates are in the center of the larger of the two clusters, while the mean -based estimates are drawn from that center towards the other group.}
+\end{figure}
+
+A further analysis of the two clusters in location 172 visible in figures \ref{pcp172} and \ref{fig-eyeball} shows that the smaller cluster of rotations in location 172 is close to the right hand side grain, whereas the larger group does not belong to either the grain on the left nor the right and seems to sit right in the grain boundary. The same is true for locations close-by: 50, 111, 233, and 294 have very similar patterns.
+
+<<clusters>>=
+#idx <- unique(subset(dat.out, (xpos > 7.5) & (ypos < 5))$location)
+#idx <- head(idx,250)
+idx <- unique(loc.stats$location)
+n <- length(idx)
+x <- rep(NA, length=n*(n-1)/2)
+k <- 1
+for (i in 1:(n-1)) {
+  for (j in (i+1):n) {
+    if ((dat.ests[[idx[i]]]$n > 0) & (dat.ests[[idx[j]]]$n > 0))
+      x[k] <- dist.SO3(dat.ests[[idx[i]]]$SR1, dat.ests[[idx[j]]]$SR1, method="intrinsic")
+    k <- k + 1
+  }
+}  
+# save(x, file="dists.rda")
+# load("dists.rda")
+qplot(xpos, ypos, data=loc.stats, colour=dE1, size=I(3), asp=1) + geom_point(colour="yellow", shape="o", data=subset(loc.stats, location %in% idx))
+
+ds <- dist(cbind(idx, idx))
+ds[1:length(x)] <- x
+hc <- hclust(ds, "ward")
+plot(hc)
+X <- data.frame(location=idx)
+X$cl <- cutree(hc, k=25)
+loc.stats2 <- merge(loc.stats, X, by="location")
+p <- qplot(xpos, ypos, data=loc.stats,  size=I(3), asp=1) 
+p + geom_point(aes(colour=factor(cl)), data=subset(loc.stats2, location %in% idx))+theme(legend.position="none")
+
+hcangle <- hclust(dist(loc.stats[,c("dE1", "dE2", "dR1", "dR2")]), "ward")
+plot(hcangle)
+loc.stats$clangle20 <- cutree(hcangle, k=25)
+
+with(loc.stats2, table(cl, clangle20))
+p + geom_point(aes(colour=factor(clangle20)), data=subset(loc.stats2, location %in% idx))+theme(legend.position="none")
+
+ds2 <- dist(loc.stats[,c("xpos", "ypos")])
+ds3 <- ds2*x
+ds2 <- (ds2/5 + 1)*x  ## if rotations are close and they are close  inlocation, group 
+hc2 <- hclust(ds2, "ward")
+plot(hc2)
+loc.stats2$cl2 <- cutree(hc2, k=10)
+print(p + geom_point(aes(colour=factor(cl2)), data=subset(loc.stats2, location %in% idx))+theme(legend.position="none"))
+
+for (i in 1:25) {
+  print(i)
+  print(p + geom_point(colour="yellow", data=subset(loc.stats2, cl2==i))+theme(legend.position="none"))
+  scan()
+  
+}
+@
+
+\end{document}
+<<plots>>=
+# paper example
+
+subdf <- as.matrix(subset(dat.out, check & (location %in% i))[,3:11])
+    print(plot.SO3(subdf, show_estimate=FALSE, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=2, toRange=TRUE) + ggtitle(i))
+
+idx <- which(loc.stats$dR > quantile(loc.stats$dR, 0.95))
+
+
+
+for (i in idx) {
+  subdf <- as.matrix(subset(dat.out, check & (location==i))[,3:11])
+  if (nrow(subdf) > 0) {
+#   print(ggpcp(subset(dat.out, check & (location==i))[,3:11]) + ggtitle(i) + geom_line() + ylim(c(-1,1))) ## two) groups ## good example - mean affected by group, median not
+    print(plot.SO3(subdf, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=2, show_estimates=TRUE, toRange=TRUE) + ggtitle(i))
+    scan()
+  }
+}
+loc.stats$diff <- loc.stats$dE1*180/pi
+map <- hclust(dist(loc.stats[,c("diff", "xpos", "ypos")]))
+loc.stats$grain10 <- cutree(map, 20)
+qplot(xpos, ypos, data=loc.stats, colour=dE1, size=I(3))
+qplot(xpos, ypos, data=loc.stats, colour=factor(grain10), size=I(3))
+#qplot(xpos, ypos, data=loc.stats, colour=dR, size=I(3))
+#qplot(xpos, ypos, data=loc.stats, colour=d1, size=I(3)) 
+#qplot(xpos, ypos, data=loc.stats, colour=d1, size=I(3)) + scale_colour_gradient(limits=c(0,0.001))
+
+subset(loc.stats, grain10==10)$location
+subdf <- as.matrix(subset(dat.out, check & (location %in% subset(loc.stats, grain10==10)$location) & 
+  (ypos < 7.5) & (ypos >=2.5 ))[,3:11])
+
+i <- 1
+qplot(xpos, ypos, data=loc.stats, colour=grain10==i, size=I(3))
+subdf <- as.matrix(subset(dat.out, check & (location %in% subset(loc.stats, grain10==i)$location))[,3:11])
+i <- i + 1
+print(plot.SO3(subdf, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=2, show_estimates=TRUE) + ggtitle(i))
+
+print(plot.SO3(subdf, center=median.SO3(as.SO3(subdf), type="intrinsic"), col=2, show_estimates=TRUE, toRange=TRUE) + ggtitle(i))
+
+## variability of errors is higher along boundaries
+qplot(xpos, ypos, data=loc.stats, colour=sqrt(sqrt(sd)), size=I(3))
+#qplot(sqrt(sqrt(sd)), data=loc.stats)
+
+qplot(xpos, ypos, data=loc.stats, colour=dE1, size=I(5)) + geom_point(colour="red", alpha=0.4, data=subset(loc.stats, sd > .3^4))
+# identify locations with relatively high variability
+idx <- which(loc.stats$sd > .3^4)
+highvar <- subset(loc.stats,  (xpos < 7) & (xpos > 3) & (ypos > 4) & (ypos < 8.5))
+# zoom into high variability area
+qplot(xpos, ypos, data=highvar, colour=dE1, size=I(5)) + geom_point(colour="red", alpha=1, data=subset(highvar, dE1 > .3^4)) + geom_text(aes(label=location), colour="white", data=subset(highvar, sd > .3^4))
+
+############
+# investigate different subsets of rotations
+# reformat the dataset
+
+df <- data.frame(rbind(matrix(SE1[1:3,1:3], ncol=9, byrow=FALSE), matrix(SE2[1:3,1:3], ncol=9),
+                       matrix(SR1[1:3,1:3], ncol=9), matrix(SR2[1:3,1:3], ncol=9)))
+names(df) <- names(dat.out)[3:11]
+
+df2 <- subset(dat.out, location==50)[,3:11]
+df2 <- rbind(df)
+df2$Estimate <- c(rep(NA, nrow(df2)-4), "SE1", "SE2", "SR1", "SR2")
+ggpcp(df2, vars=1:9) + geom_line(aes(colour=Estimate)) + scale_colour_brewer(palette="Paired", na.value = "grey50") 
+# 
+# parallel coordinate plot of nine dimensions of rotation matrix
+ggpcp(subset(dat.out, location==50)[,3:11]) + geom_line() ## 3 outliers
+ggpcp(subset(dat.out, location==1965)[,3:11]) + geom_line() ## 3 outliers
+ggpcp(subset(dat.out, location==2811)[,3:11]) + geom_line() ## 2-3 weird points
+ggpcp(subset(dat.out, location==3414)[,3:11]) + geom_line() ## 2 weird points
+ggpcp(subset(dat.out, location==2026)[,3:11]) + geom_line() ## two groups ## good example - mean affected by group, median not
+ggpcp(subset(dat.out, location==2206)[,3:11]) + geom_line() ## along the triangle
+ggpcp(subset(dat.out, location==2628)[,3:11]) + geom_line()
+ggpcp(subset(dat.out, location==2629)[,3:11]) + geom_line() ## mix
+ggpcp(subset(dat.out, location==2683)[,3:11]) + geom_line() ## 2 outliers
+ggpcp(subset(dat.out, location==2684)[,3:11]) + geom_line() ## 2 outliers
+ggpcp(subset(dat.out, location==2686)[,3:11]) + geom_line() ## 3 outliers
+ggpcp(subset(dat.out, location==2687)[,3:11]) + geom_line()
+ggpcp(subset(dat.out, location==2688)[,3:11]) + geom_line()
+ggpcp(subset(dat.out, location==2206)[,3:11]) + geom_line() 
+ggpcp(subset(dat.out, location==1727)[,3:11]) + geom_line() 
+ggpcp(subset(dat.out, check & location==1369)[,3:11]) + geom_line() 
+
+@
+<<mystuff>>=
+library(rotations)
+datdf <- subset(dat.out, xpos > 9.6 & xpos <  10.4& ypos <=.8)
+datdf <- subset(dat.out, xpos >= 9.6 & xpos <=  10.4& ypos <=1)
+datdf <- subset(dat.out, xpos >= 9.6 & xpos <=  10.4& ypos <=1.2 & ypos >= 0.5)
+# datdf <- subset(dat.out, xpos > 9 & xpos <  9.6& ypos > 3 & ypos < 3.75) # nice cluster of two directions, means right between anything, medians in one cluster 
+qplot(xpos, ypos, colour=dR1, size=I(20), data=subset(loc.stats, location %in% unique(datdf$location)))+ geom_text(aes(label=location), colour="white")
+
+datdf <- subset(dat.out, location %in% c(690))
+
+datdf <- subset(dat.out, location %in% c(15))
+subdf <- as.matrix(subset(datdf, check)[,3:11])
+mid <- median(as.SO3(subdf), type="projected") 
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=1, show_estimates=TRUE) + theme(legend.position="none"))) 
+ggsave(file="eye-1031-1.pdf", height=5, width=5)
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=2, show_estimates=TRUE) + theme(legend.position="none"))) 
+ggsave(file="eye-1031-2.pdf", height=5, width=5)
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=3, show_estimates=TRUE)+ theme(legend.position="none"))) 
+ggsave(file="eye-1031-3.pdf", height=5, width=5)
+
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=3, show_estimates=TRUE))) 
+
+i <- 698
+datdf <- subset(dat.out, location %in% i)
+subdf <- as.matrix(subset(datdf, check)[,3:11])
+
+pmed <- median(as.SO3(subdf), type="projected")
+gmed <- median(as.SO3(subdf), type="intrinsic")
+pmean <- mean(as.SO3(subdf), type="projected")
+gmean <- mean(as.SO3(subdf), type="intrinsic")
+ests <- data.frame(rbind(as.vector(pmean), as.vector(pmed), as.vector(gmean), as.vector(gmed)))
+ests$ID <- 1:4
+em <- melt(ests, id.var="ID")
+em$variable <- as.numeric(gsub("X", "", as.character(em$variable)))
+labels <- c(expression(hat(S)[E]), expression(tilde(S)[E]), expression(hat(S)[R]), expression(tilde(S)[R]))
+
+cols <- brewer.pal(4, "Paired")
+n <- 14
+# simulate from Cayley
+cay <- rcayley(n, kappa=4000)
+suppressWarnings(print(plot.SO3(genR(cay), center=id, col=1, show_estimates=FALSE, toRange=FALSE) +ggtitle("Cayley")))
+
+jitdf <- genR(cay)
+for (i in 1:nrow(datdf)) {
+  R <- matrix(unlist(datdf[i,3:11]),3,3)
+  S <- matrix(unlist(jitdf[i,]),3,3)
+  jitdf[i,] <- unlist(R %*% S)
+}
+class(jitdf) <- "matrix"
+
+jitdf <- data.frame(jitdf)
+names(jitdf) <- expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])
+ggpcp(datdf[,3:11]) + geom_line() + ylim(c(-1,1))
+ggpcp(datdf[,3:11]) + geom_line() + ylim(c(-1,1)) + 
+  scale_x_discrete("", labels = expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])) +
+  geom_line(aes(x=variable, y=value, colour=factor(ID), group=ID), data=subset(em, ID %in% c(1,2)), size=1, inherit.aes=F) + scale_colour_manual("Estimates", values=cols[3:4], labels=labels[1:2]) + theme_bw()
+  
+ggsave("pcp.pdf", width=8, height=4)
+
+print(plot.SO3(jitdf, center=mid, col=1) + theme(legend.position="none"))
+
+
+
+suppressWarnings(print(plot.SO3(jitdf, center=mid, col=1, show_estimates=TRUE) + theme(legend.position="none"))) 
+
+@
+\end{document}
+
+<<another-try>>=
+d <- ggplot(loc.stats, aes(xpos, ypos))
+
+d <- ggplot(loc.stats, aes(xpos, ypos, color=dE1))
+d2 <- d + geom_point(size=2.25) + scale_colour_gradient(expression(d[R](tilde(S)[E], I["3x3"])), low="grey99", high="grey10", limits=c(0, pi), breaks=c( pi/4, pi/2, 3*pi/4), labels=expression( pi/4, pi/2, 3*pi/4)) + theme_bw() + xlab("") + ylab("") + coord_equal() 
+d2
+ggsave(file="grain-map.pdf", width=5.75, height=4.25)
+
+label <- "in degrees"
+  mains <- bquote(.(parse(text=paste("d[R](tilde(S)[E], hat(S)[E]", quote("in degrees"), sep="\n"))) )
+  mains <- expression(paste(d[R](tilde(S)[E], hat(S)[E]), "  (in ",degree,")  "))
+loc.stats$dEdegree <- loc.stats$dE*180/pi
+d <- ggplot(loc.stats, aes(xpos, ypos, color=dEdegree))
+d + geom_point(size=2.2) + scale_colour_gradient(mains, low="white", high="grey10", trans = "sqrt", breaks=c( 0, 0.5, 5, 20))+ theme_bw() + xlab("") + ylab("") + coord_equal() 
+
+
+ggsave(file="grain-diff.pdf", width=5.75, height=4.25)
+
+@
