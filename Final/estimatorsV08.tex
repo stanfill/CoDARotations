@@ -57,7 +57,7 @@ which we call the weighted mean with respect to $\widehat{\bm S}$. \red{Note tha
 SO(3)}\tr(\bm{S}^{\top}\bar{\bm{R}}_W)$ as the $\mathcal{M}(3)$ projection of $\bar{\bm R}_W$; see (\ref{est:pam}).
 \item If $\varepsilon>||\widehat{\bm S}-\widehat{\bm S}_{\text{new}}||_F$ return $\ProjMedian=\widehat{\bm S}_{\text{new}}$; otherwise set $\widehat{\bm S}=\widehat{\bm S}_{\text{new}}$ and return to step 2.
 \end{enumerate}
-\red{The intuition behind this algorithm is as follows.  Given a current estimate of the center we can update that estimate by computing the weighted average of the data with weights are equal to the inverse of each observations distance from the estimated center.  In this way, observations further from the current estimate of center get less weight than those closer to the center.  This process results in $\bar{\bm R}_W$, which is not in $SO(3)$ therefore we find the rotation closest to it which is $\widehat{\bm S}$.  Repeat this process until the current and new estimate are sufficiently close.}
+\red{The intuition behind this algorithm follows from the concept of the median representing the center of the data.  Given a current estimate of the median, or center, one can update that estimate by computing the weighted average of the data with weights equal to the inverse of each observation's distance from the estimated center.  Computing the mean in this way puts more weight on the observations close to the center than those further away.  This process results in $\bar{\bm R}_W$, which is not a rotation therefore it is projected into $SO(3)$, denoted $\widehat{\bm S}$.  This process is repeated until the updated estimate is sufficiently close to the previous one.}
 
 \subsection{The geometric mean}
 \label{section:ltwo}
