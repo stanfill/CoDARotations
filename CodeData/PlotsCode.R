@@ -122,11 +122,12 @@ qplot(r,Value,data=denData2[denData2$Variance==.5,],linetype=Density,geom="line"
   opts(axis.text.x=theme_text(size=12))+opts(axis.text.y=theme_text(size=12))
 #dev.off()
 
-#pdf("Var75Density.pdf",height=5,width=5)
+
 qplot(r,Value,data=denData2[denData2$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.4),ylab="f(r)")+
-  scale_linetype_manual(values=c(1,12,3))+opts(legend.position="none")+geom_abline(intercept=0,slope=c(0,100000))+
+  scale_linetype_manual(values=c(1,12,3))+geom_abline(intercept=0,slope=c(0,100000))+
+	theme(legend.title=element_text(size=16,face="bold"),legend.text=element_text(size=16,face="bold"),legend.key.width=unit(3,"line"))+
   opts(axis.text.x=theme_text(size=12))+opts(axis.text.y=theme_text(size=12))
-#dev.off()
+ggsave("Var75Lebesgue.pdf",height=5,width=8)
 
 
 ##################################################
