@@ -60,24 +60,31 @@ qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",
 
 #This will produce a plot similar to Figure 3(a) and Figures 2(a)-(c) in Supplementary Matrials
 Rs<-ruars(100,rcayley,nu=0.25)
-plot(Rs,center=id.SO3,col=1)
-plot(Rs,center=id.SO3,col=2)
-plot(Rs,center=id.SO3,col=3)
+plot(Rs,center=id.SO3, col=1) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
+ggsave("eye-cayley.pdf",  height=5, width=5)
+plot(Rs,center=id.SO3, col=2) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
+plot(Rs,center=id.SO3, col=3) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
+
+
+
+
 
 
 #This will produce a plot similar to Figure 3(b) and Figures 3(a)-(c) in Supplementary Matrials
 Rs<-ruars(100,rfisher,nu=0.25)
-plot(Rs,center=id.SO3,col=1)
-plot(Rs,center=id.SO3,col=2)
-plot(Rs,center=id.SO3,col=3)
+plot(Rs,center=id.SO3, col=1) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
+ggsave("eye-fisher.pdf",  height=5, width=5)
+plot(Rs,center=id.SO3, col=2) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
+plot(Rs,center=id.SO3, col=3) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
 
 
 
 #This will produce a plot similar to Figure 3(c) and Figures 4(a)-(c) in Supplementary Matrials
 Rs<-ruars(100,rvmises,nu=0.25)
-plot(Rs,center=id.SO3,col=1)
-plot(Rs,center=id.SO3,col=2)
-plot(Rs,center=id.SO3,col=3)
+plot(Rs,center=id.SO3, col=1) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
+ggsave("eye-vmises.pdf",  height=5, width=5)
+plot(Rs,center=id.SO3, col=2) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
+plot(Rs,center=id.SO3, col=3) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
 
 ######################
 ##In this section the plots in the Section 5 (Simulation Results)
