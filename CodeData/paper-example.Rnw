@@ -167,11 +167,11 @@ ggpcp(jitdf) + geom_line() + ylim(c(-1,1)) +
 ggsave("pcp.pdf", width=8, height=4)
 
 mid <- median(as.SO3(subdf), type="projected") 
-suppressWarnings(print(plot.SO3(subdf, center=mid, col=1, show_estimates=TRUE) + theme(legend.position="none"))) 
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=1, show_estimates=c("proj.mean", "proj.median")) + theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])))
 ggsave(file="eye-1031-1.pdf", height=5, width=5)
-suppressWarnings(print(plot.SO3(as.matrix(jitdf), center=mid, col=2, show_estimates=TRUE) + theme(legend.position="none"))) 
+suppressWarnings(print(plot.SO3(as.matrix(jitdf), center=mid, col=2, show_estimates=c("proj.mean", "proj.median")) + theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])))
 ggsave(file="eye-1031-2.pdf", height=5, width=5)
-suppressWarnings(print(plot.SO3(subdf, center=mid, col=3, show_estimates=TRUE)+ theme(legend.position="none"))) 
+suppressWarnings(print(plot.SO3(subdf, center=mid, col=3, show_estimates=c("proj.mean", "proj.median"))+ theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2]))) 
 ggsave(file="eye-1031-3.pdf", height=5, width=5)
 
 suppressWarnings(print(plot.SO3(subdf, center=mid, col=3, show_estimates=TRUE))) 
