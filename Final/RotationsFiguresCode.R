@@ -15,6 +15,32 @@ tests<-function(x){
 	return(pval)
 }
 
+
+######################
+##In this section we demonstrate how to perform a 
+##simulation study similar to the one performed in
+##the manuscript. Repeat this for a variety of sample sizes (n)
+##and circular variances (nu)
+######################
+
+#Generate a random sample from the UARS distribution of interest
+n<-10
+nu<-0.25
+Rs<-ruars(n,rcayley,S=id.SO3,nu=nu)   	 #Cayley-UARS distribution
+#Rs<-ruars(n,rfisher,S=id.SO3,nu=nu)		 #Fisher-UARS distribution
+#Rs<-ruars(n,rvmises,S=id.SO3,nu=nu)		 #circular von Mises-UARS distribution
+
+ShatE<-mean(Rs,type='projected')     	#Projected Mean
+ShatR<-mean(Rs,type='intrinsic')			#Intrinsic Mean
+StildeE<-median(Rs,type='projected')	#Projected Median
+StildeR<-median(Rs,type='intrinsic')	#Intrinsic Median
+
+#Find the geodesic distance between the true mean (id.SO3) and each estimate
+errorShatE<-dist(ShatE,id.SO3,method='intrinsic')
+errorShatR<-dist(ShatR,id.SO3,method='intrinsic')
+errorStildeE<-dist(StildeE,id.SO3,method='intrinsic')
+errorStildeR<-dist(StildeR,id.SO3,method='intrinsic')
+
 ######################
 ##In this section the plots in the Section 4 (Simulation Study) 
 ## and some of the Supplementary Materials plots are made
