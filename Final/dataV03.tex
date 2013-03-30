@@ -10,15 +10,20 @@ Figure~\ref{fig:grain-map}a illustrates the implementation of $\ProjMedian$: eac
 \begin{figure}[h!] %  figure placement: here, top, bottom, or page
    \centering
 %   \vspace{-.45in}
-   \subfloat[\hh{Shading reflects angle between  $\ProjMedian$ and $\bm I_{3\times 3}$}][c]{\includegraphics[width=.49\textwidth]{images/grain-map.pdf}} \hfill
-   \subfloat[\hh{Location shaded by angle (in degrees) between  $\ProjMedian$ and $\ProjMean$. Distances of 0.5$^\circ$ or more are generally considered to suggest different main orientations. Note that the mapping of distance to color shading is on a square-root scale.}][c]{\includegraphics[width=.49\textwidth]{images/grain-diff.pdf}}
+   \subfloat[\hh{Shading reflects angle between  $\ProjMedian$ and $\bm I_{3\times 3}$}]{\includegraphics[width=.4\textwidth]{images/grain-map-wo.pdf}\includegraphics[width=.06\textwidth]{images/grain-map-legend.pdf}} \hfill
+   \subfloat[\hh{Location shaded by angle (in degrees) between  $\ProjMedian$ and $\ProjMean$. Distances of 0.5$^\circ$ or more are generally considered to suggest different main orientations. Note that the mapping of distance to color shading is on a square-root scale.}]{\includegraphics[width=.4\textwidth]{images/grain-diff-wo.pdf}\includegraphics[width=.08\textwidth]{images/grain-diff-legend.pdf}}
 %    \vspace{-.175in} 
    \caption{ \label{fig:grain-map}  Display of all locations of the investigated nickel surface. Each dot corresponds to one location and shading reflects  angles. The location of the the largest difference between estimators $\ProjMedian$ and $\ProjMean$ is circled. \hh{need to still adjust the pictures to the same size}}
 \end{figure}
 %
 Note that the literature, e.g. \cite{bingham10b}, suggests that distances of $0.5^\circ$ degrees are indicative of different grains. In our example, about 10\% of the locations result in a difference between $\ProjMean$ and $\ProjMedian$ estimates of at least that size. Differences tend to be largest along boundaries between the spatial structures in Figure~\ref{fig:grain-map}b  (i.e.~identifying boundaries), \hh{resulting in different allocation of locations to grains due to differences between estimation methods.}
 
-Table~\ref{tab:rotations} provides an explanation for the observed differences between $\ProjMedian$ and $\ProjMean$ along the spatial structure in Figure~\ref{fig:grain-map}. The table contains the observed orientation (collection of all nine coefficients $x_{ij}$, $1 \le i,j \le 3$, of the $3\times 3$ rotation matrix) for each of the 14 repeated scans at the location with the largest observed difference between $\ProjMedian$ and $\ProjMean$, namely 22.3$^\circ$.   The scans have been re-ordered to better illustrate  the clusters of orientations observed at this particular location. The clusters suggest that, for this location on a ``grain boundary,'' a subset of the scans likely picked up the orientation of a neighboring cubic crystal  belonging to a different grain. A median-type estimator naturally does better for such data with ``outliers'' than a mean-type estimator.  
+\hh{As an example, Table~\ref{tab:rotations} contains the observed orientation (collection of all nine coefficients $x_{ij}$, $1 \le i,j \le 3$, of the $3\times 3$ rotation matrix) for each of the 14 repeated scans at the location with the largest observed difference between $\ProjMedian$ and $\ProjMean$, namely 22.3$^\circ$ (circled in figure~\ref{fig:grain-map}). }
+ 
+%Table~\ref{tab:rotations} provides an explanation for the observed differences between $\ProjMedian$ and $\ProjMean$ along the spatial structure in Figure~\ref{fig:grain-map}. 
+
+The scans have been re-ordered to better illustrate  the clustering of the rotations observed at this particular location. 
+   The clusters suggest that, for this location on a ``grain boundary,'' a subset of the scans likely picked up the orientation of a neighboring cubic crystal  belonging to a different grain. A median-type estimator naturally does better for such data with ``outliers'' than a mean-type estimator.  
 \begin{table}[h!]
 \caption{\label{tab:rotations} List of all rotations in the location with the largest difference between mean and median estimators. We observe one main cluster and one smaller cluster with three additional rotations in the proximity. }
 \begin{center}
