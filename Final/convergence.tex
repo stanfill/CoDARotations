@@ -1,0 +1,21 @@
+\documentclass[12pt]{article}
+\usepackage{fullpage,amsmath,amsfonts,bm}
+\begin{document}
+\section{Try 1}
+
+
+
+\section{Try 2}
+This theorem is a gradient descent algorithm because the function to be minimized is $\sum_{i=1}^n||\bm o_i-\bm S||_F$ where $||\bm o_i-\bm S||_F=\sqrt{\text{tr}[(\bm o_i-\bm S)^\top(\bm o_i-\bm S)]}$.  Routine algebra shows the corresponding gradient is given by
+\[
+\sum_{i=1}^n\frac{-\bm o_i}{||\bm o_i-\bm S||_F}.
+\]
+Therefore the method of steepest descent suggests if $\widetilde{\bm S}^{(i)}$ is the current estimate of the projected median then the updated estimate is given by
+\[
+\widetilde{\bm S}^{(i+1)}=\widetilde{\bm S}^{(i)}-\lambda\sum_{i=1}^n\frac{\bm o_i}{||\bm o_i -\widetilde{\bm{S}}^{(i)}||_F}
+\]
+for $\lambda>0$ a small number.  The value of $\lambda$ at step $i$ chosen in WEISZFELD REFERENCE was $\sum_{i=1}^n||\bm o_i-\bm S||_F$.  
+
+Thus this algorithm is the repeated use of the Weiszfeld algorithm applied to the data in the embedding space of all $3\times 3$ rotations where each step ends in the projection of the next step into the appropriate $SO(3)$ space.
+
+\end{document}
