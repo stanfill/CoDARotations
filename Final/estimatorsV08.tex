@@ -59,6 +59,20 @@ SO(3)}\tr(\bm{S}^{\top}\bar{\bm{R}}_W)$ as the $\mathcal{M}(3)$ projection of $\
 \end{enumerate}
 \red{Steps 2 and 3 of this algorithm are exactly the Weiszfeld algorithm for data in $\R^d$, which has been proven to converge to the $d$-dimensional median under weak conditions (see \cite{weiszfeld37} for details).  Due to the geometry of $SO(3)$, however, $\bar{\bm R}_W$ lies in the larger space $\mathcal{M}(3)$ and must be projected into $SO(3)$ which is accomplished in step 4.  A proof of the convergence of this algorithm will follow the arguments in Section 5 of \citet{fletcher09} and is an example of future work for the authors.}
 
+It has been shown that the Weiszfeld algorithm will converge to the matrix $\widetilde{\bm S}_M=\argmin_{S\in\mathcal{M}(3)}\sum_{i=1}^n||\bm R_i-\bm S||_F$.  To confirm the proposed algorithm converges to the projected median as claimed, suppose there exists a different rotation  $\ProjMedian^*$ such that $\ProjMedian\neq\ProjMedian^*$ and $\ProjMedian^*$ is the projection of  $\widetilde{\bm S}_M$ into $SO(3)$, i.e., the rotation to which this algorithm converges.  Then $\sum_{i=1}^n||\bm R_i-\ProjMedian||_F<\sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F$.  By the triangle inequality
+\begin{align*}
+\sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F
+&=\sum_{i=1}^n||\bm R_i-\widetilde{\bm S}_M+\widetilde{\bm S}_M-\ProjMedian^*||_F\\
+&\leq\sum_{i=1}^n||\bm R_i-\widetilde{\bm S}_M||_F+n||\widetilde{\bm S}_M-\ProjMedian^*||_F\\
+\implies \frac{1}{n}\sum_{i=1}^n\left(||\bm R_i-\ProjMedian^*||_F-||\bm R_i-\widetilde{\bm S}_M||_F\right)&\leq||\widetilde{\bm S}_M-\ProjMedian^*||_F
+\end{align*}
+Similarly,
+\begin{align}\label{eq:contra}
+\frac{1}{n}\sum_{i=1}^n\left(||\bm R_i-\ProjMedian||_F-||\bm R_i-\widetilde{\bm S}_M||_F\right)&\leq||\widetilde{\bm S}_M-\ProjMedian||_F\nonumber\\
+\implies \frac{1}{n}\sum_{i=1}^n\left(||\bm R_i-\ProjMedian^*||_F-||\bm R_i-\ProjMedian||_F\right)&\leq||\widetilde{\bm S}_M-\ProjMedian^*||_F-||\widetilde{\bm S}_M-\ProjMedian||_F
+\end{align}
+By assumption, $0<\sum_{i=1}^n\left(||\bm R_i-\ProjMedian^*||_F-||\bm R_i-\ProjMedian||_F\right)$ and $||\widetilde{\bm S}_M-\ProjMedian^*||_F-||\widetilde{\bm S}_M-\ProjMedian^*||_F<0$ because $\ProjMedian^*$ is the unique element in $SO(3)$ that is closest to $\widetilde{\bm S}_M$.  This is contradiction which implies $\ProjMedian=\ProjMedian^*$, which in turn implies the algorithm converges to the projected median.
+
 \subsection{The geometric mean}
 \label{section:ltwo}
 As sketched in Section~\ref{subsec:geometry}, the Lie group property of $SO(3)$ provides us with a convenient transform from $SO(3)$
