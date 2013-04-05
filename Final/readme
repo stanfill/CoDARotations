@@ -1,0 +1,7 @@
+Code and data for 'Point Estimation of Random Rotations in SO(3)' by Bryan Stanfill, Ulrike Genschel and Heike Hofmann
+
+'RotationsFiguresCode.R' contains all the code necessary to reproduce the simulation results, figures and tables in the manuscript.  The table values will vary but the conclusions drawn will be the same.  
+
+'datasetnickel.Rdata' contains the nickel data analyzed in this manuscript.
+
+'paper-example.Rnw' contains all the code necessary to reproduce the table and figures in reference to the nickel data provided.
