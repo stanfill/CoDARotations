@@ -35,6 +35,7 @@
 \newcommand{\ProjMedian}{{\widetilde{\bm S}_E}}
 \newcommand{\GeomMean}{{\widehat{\bm S}_R}}
 \newcommand{\GeomMedian}{{\widetilde{\bm S}_R}}
+\newcommand{\MMedian}{{\widetilde{\bm M}}}
 \newcommand{\Rdist}{{d_R}}
 \newcommand{\Edist}{{d_E}}
 
@@ -60,16 +61,16 @@
 \appendix
 \spacingset{1.45} % DON'T change the spacing!
 \begin{center}
-\Large \textbf{Online Supplementary Material for Point Estimation of the Central Orientation of Random Rotations}
+\Large \textbf{Online Supplementary Material for ``Point Estimation of the Central Orientation of Random Rotations"}
 \large{Bryan Stanfill, Ulrike Genschel and Heike Hofmann}
 \end{center}
-\section{Riemannian versus Euclidean Distance in $SO(3)$}
+\section{Proofs of Claims}
+\subsection{Relationship Between Riemannian and Euclidean Distance in $SO(3)$}
 \label{sec:appendix2}
-\textit{Result.} For rotation matrices $\bm R_i\in SO(3)$ for $i=1,2,\ldots$ and distances $d_E$ and $d_R$ as defined in the main manuscript in equations (3) and (4), respectively,  it holds that 
+\textit{Claim 1.} For rotation matrices $\bm R_i\in SO(3)$, $i=1,2,\ldots,n$ and distances $d_E$ and $d_R$ as defined in the main manuscript in equations (3) and (4), respectively,  it holds that 
 \begin{equation}
 \label{EvR}
-\Edist(\bm R_1,\bm R_2)=2^{3/2}\sin\left(\frac{\Rdist(\bm{R}_1,\bm{R}_2)}{2}\right)
-.
+\Edist(\bm R_1,\bm R_2)=2^{3/2}\sin\left(\frac{\Rdist(\bm{R}_1,\bm{R}_2)}{2}\right).
 \end{equation}
 %\begin{figure}[h!]
 %\begin{center}
@@ -137,6 +138,27 @@
 &=\left[2^{3/2}\sin\left(\frac{\Rdist(\bm R_1,\bm R_2)}{2}\right)\right]^2.
 \end{align*}
 Taking square root on both sides gives \eqref{EvR}.
+
+\subsection{Proof of Claim in $\ProjMedian$ Algorithm}
+
+\textit{Claim 2.}  For a sample $n$ of rotation matrices, $\bm R_i\in SO(3)$ $i=1,2,\dots,n$, define $\MMedian$ to be the median in $\mathcal{M}(3)$, i.e. $\widetilde{\bm M}=\argmin_{M\in\mathcal{M}(3)}\sum_{i=1}^n||\bm R_i-\bm M||_F$.  Then 
+\[
+\ProjMedian=\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F=\argmin_{\bm S\in SO(3)}\sum_{i=1}^n||\bm R_i-\bm S||_F.
+\]
+
+\noindent\textit{Proof:}  Suppose $\ProjMedian^*\neq\ProjMedian$ and $\ProjMedian^*$ is the projection of $\MMedian$ into $SO(3)$, i.e. $\ProjMedian^*=\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F$.  For any $i$,
+\[
+||\bm R_i-\ProjMedian||_F=||\bm R_i-\MMedian+\MMedian-\ProjMedian||_F\leq||\bm R_i-\MMedian||_F+||\MMedian-\ProjMedian||_F.
+\]
+Also, by definition of $\ProjMedian$, $\sum_{i=1}^n||\bm R_i-\ProjMedian||_F<\sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F$.  Therefore,
+
+\begin{align}\label{eq:contradiction}
+0&<\sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F-\sum_{i=1}^n||\bm R_i-\ProjMedian||_F\nonumber\\
+&\leq\sum_{i=1}^n\left(||\bm R_i-\MMedian||_F+||\MMedian-\ProjMedian^*||_F-||\bm R_i-\MMedian||_F-||\MMedian-\ProjMedian||_F\right)\nonumber\\
+&=||\MMedian-\ProjMedian^*||_F-||\MMedian-\ProjMedian||_F\nonumber\\
+\implies0&<||\MMedian-\ProjMedian^*||_F-||\MMedian-\ProjMedian||_F
+\end{align}
+In turn \eqref{eq:contradiction} implies $||\MMedian-\ProjMedian||_F<||\MMedian-\ProjMedian^*||_F$, which is a contradiction by the definition of $\ProjMedian^*$.  The result follows.
 
 \section{Sampling Processes}
 In the following subsection we will briefly illustrate how a sample of random rotations from each of the three rotational distributions (circular-von Mises-based, Cayley and matrix-Fisher) is obtained for the purpose of the simulation study.
