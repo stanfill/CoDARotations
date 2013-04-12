@@ -94,27 +94,29 @@
 \end{align*}
 Taking square root on both sides gives \eqref{EvR}.
 
-\subsection{\red{Convergence of $\ProjMedian$ Algorithm}}
-\red{
+\subsection{Convergence of $\ProjMedian$ Algorithm}
 \textit{Claim 2.}  For a sample $n$ of rotation matrices, $\bm R_i\in SO(3)$ $i=1,2,\dots,n$, define $\MMedian$ to be the median in $\mathcal{M}(3)$, i.e. $\widetilde{\bm M}=\argmin_{M\in\mathcal{M}(3)}\sum_{i=1}^n||\bm R_i-\bm M||_F$.  Then 
 \[
-\ProjMedian=\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F=\argmin_{\bm S\in SO(3)}\sum_{i=1}^n||\bm R_i-\bm S||_F.
+\ProjMedian:=\argmin_{\bm S\in SO(3)}\sum_{i=1}^n||\bm R_i-\bm S||_F \stackrel{!}{=}\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F =: \ProjMedian^*.
 \]
 
-\noindent\textit{Proof:}  Suppose $\ProjMedian^*\neq\ProjMedian$ and $\ProjMedian^*$ is the projection of $\MMedian$ into $SO(3)$, i.e. $\ProjMedian^*=\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F$.  For any $i$,
+\noindent\textit{Proof:}  %define the projection of $\MMedian$ into $SO(3)$ as $\ProjMedian^*$, i.e. $\ProjMedian^*=\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F$ and suppose that  $\ProjMedian^*\neq\ProjMedian$.
+
+From the delta inequality of a distance measure we know that the following holds:
 \[
 ||\bm R_i-\ProjMedian||_F=||\bm R_i-\MMedian+\MMedian-\ProjMedian||_F\leq||\bm R_i-\MMedian||_F+||\MMedian-\ProjMedian||_F.
 \]
-Also, by definition of $\ProjMedian$, $\sum_{i=1}^n||\bm R_i-\ProjMedian||_F<\sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F$.  Therefore,
+Also, by definition of $\ProjMedian$, $\sum_{i=1}^n||\bm R_i-\ProjMedian||_F \le \sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F$.  Therefore,
 
 \begin{align}\label{eq:contradiction}
-0&<\sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F-\sum_{i=1}^n||\bm R_i-\ProjMedian||_F\nonumber\\
+0& \le \sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F-\sum_{i=1}^n||\bm R_i-\ProjMedian||_F\nonumber\\
 &\leq\sum_{i=1}^n\left(||\bm R_i-\MMedian||_F+||\MMedian-\ProjMedian^*||_F-||\bm R_i-\MMedian||_F-||\MMedian-\ProjMedian||_F\right)\nonumber\\
-&=||\MMedian-\ProjMedian^*||_F-||\MMedian-\ProjMedian||_F\nonumber\\
-\implies0&<||\MMedian-\ProjMedian^*||_F-||\MMedian-\ProjMedian||_F
+&= n||\MMedian-\ProjMedian^*||_F-n||\MMedian-\ProjMedian||_F\nonumber \le 0 \text{ by definition of } \ProjMedian^*\\
+\implies&||\MMedian-\ProjMedian^*||_F = ||\MMedian-\ProjMedian||_F
 \end{align}
-In turn \eqref{eq:contradiction} implies $||\MMedian-\ProjMedian||_F<||\MMedian-\ProjMedian^*||_F$, which is a contradiction by the definition of $\ProjMedian^*$.  The result follows.
-}
+%In turn \eqref{eq:contradiction} implies $||\MMedian-\ProjMedian||_F<||\MMedian-\ProjMedian^*||_F$, which is a contradiction by the definition of $\ProjMedian^*$.  
+The result follows. \hh{but only if the projection of $\MMedian$ onto SO(3) is unique - which is only true, if $\MMedian$ is not  in the center of the sphere.}
+
 
 \section{Sampling Processes}
 In the following subsection we will briefly illustrate how a sample of random rotations from each of the three rotational distributions (circular-von Mises-based, Cayley and matrix-Fisher) is obtained for the purpose of the simulation study.
