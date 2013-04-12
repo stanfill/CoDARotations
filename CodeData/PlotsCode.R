@@ -191,10 +191,12 @@ mx$n<-as.factor(mx$n)
 mx75<-mx[(mx$nu==0.75&mx$Dist=="circular-von Mises"),]
 mx75$Estimator<-factor(mx75$Estimator,levels=c("E.Mean","R.Mean","E.Median","R.Median"))
 
+mx75$variable<-factor(mx75$variable,labels=c("Mean Error","RMSE"))
+
 qplot(n,value,data=mx75,facets=.~variable,geom="path",group=Estimator,linetype=Estimator,lwd=I(1))+
   scale_linetype_manual(values=c(3,4,2,1),labels=my.labels)+coord_equal(ratio=4)+
   theme(legend.text=element_text(size=12),legend.key.width=unit(3,"line"),legend.title=element_text(size=12))+
-  geom_hline(yintercept=0,colour="gray50")+
+  geom_hline(yintercept=0,colour="gray50")+ylab("")+
   theme(axis.text.x=element_text(size=12,color=1),axis.text.y=element_text(size=12,color=1))
 #ggsave("vonMisesnu75MeanRMSE.pdf",height=4,width=8)
 

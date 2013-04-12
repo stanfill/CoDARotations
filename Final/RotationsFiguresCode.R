@@ -153,6 +153,7 @@ cResFrame<-dcast(ResFrame,n+nu+Sample+Dist~Estimator,value.var="Error")
 Midn<-cResFrame[cResFrame$n==100,]
 xmax25<-max(Midn[Midn$nu==.25,5:8])
 xmax75<-max(Midn[Midn$nu==.75,c(5,7:8)])
+mx75$variable<-factor(mx75$variable,labels=c("Mean Error","RMSE"))
 Largenu<-ResFrame[ResFrame$nu==.75,]
 Largenu50<-Largenu[Largenu$n==50,]
 badeggs<-Largenu50[Largenu50$Error>2,]$Sample
@@ -176,7 +177,7 @@ qplot(Estimator,Error,geom="boxplot",data=Largen,xlab="",ylab=expression(d[R](bo
 qplot(n,value,data=mx75,facets=.~variable,geom="path",group=Estimator,linetype=Estimator,lwd=I(1))+
 	scale_linetype_manual(values=c(3,4,2,1),labels=my.labels)+coord_equal(ratio=4)+
 	theme(legend.text=element_text(size=12),legend.key.width=unit(3,"line"),legend.title=element_text(size=12))+
-	geom_hline(yintercept=0,colour="gray50")+
+	geom_hline(yintercept=0,colour="gray50")+ylab("")+
 	theme(axis.text.x=element_text(size=12,color=1),axis.text.y=element_text(size=12,color=1))
 
 #This will make Figure 6
