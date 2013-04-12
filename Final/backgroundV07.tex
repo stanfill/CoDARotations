@@ -8,7 +8,7 @@ $3\times 3$ matrix (i.e., $\bm{R}^\top \bm{R}=\bm{I}_{3\times3}$) with
 determinant one.  As $SO(3)$ is a Lie group, its elements live on a differentiable
 manifold.  This fact is helpful in understanding the two different geometric approaches 
 for estimating the central location $\bm{S} \in SO(3)$ from a sample of orientation data, referred to here 
-as the \textit{intrinsic}  and  the \textit{embedding} estimation approaches (see also \citet{jupp89} and \citet{mardia00} for analogs with directional data).
+as the \textit{intrinsic}  and  the \textit{embedding} estimation approaches (see also \citealt{jupp89} and \citealt{mardia00} for analogs with directional data).
 
 The rotation group $SO(3)$ is not closed under routine addition or scalar multiplication (i.e., operations natural to statisticians). Hence, statistical estimation approaches often \textit{embed} the rotation group into the higher-dimensional linear space consisting of all $3~\times~3$ real matrices, denoted as $\M(3)$.  Doing so enables the use of the familiar Euclidean geometry (and ``averaging'' notions) to define standard distance measures  and loss criteria for obtaining location estimators (see Section~\ref{subsec:metrics} and the estimators given in Sections \ref{subsec:pam} and \ref{subsec:med}).  This embedding technique has been largely  applied by statisticians, typically resulting in the projected arithmetic mean of Section~\ref{subsec:pam}.
 See, for example, \cite{downs72, khatri77} and \cite{jupp79, jupp89}. The Bayesian estimator used in \cite{bingham10} is another concrete example of this
