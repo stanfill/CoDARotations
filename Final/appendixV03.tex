@@ -99,19 +99,17 @@ Taking square root on both sides gives \eqref{EvR}.
 \[
 \ProjMedian:=\argmin_{\bm S\in SO(3)}\sum_{i=1}^n||\bm R_i-\bm S||_F \stackrel{!}{=}\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F =: \ProjMedian^*.
 \]
-
 \noindent\textit{Proof:}  %define the projection of $\MMedian$ into $SO(3)$ as $\ProjMedian^*$, i.e. $\ProjMedian^*=\argmin_{\bm S\in SO(3)}||\MMedian-\bm S||_F$ and suppose that  $\ProjMedian^*\neq\ProjMedian$.
 
-From the delta inequality of a distance measure we know that the following holds:
+\noindent From the delta inequality of a distance measure we know that the following holds:
 \[
 ||\bm R_i-\ProjMedian||_F=||\bm R_i-\MMedian+\MMedian-\ProjMedian||_F\leq||\bm R_i-\MMedian||_F+||\MMedian-\ProjMedian||_F.
 \]
 Also, by definition of $\ProjMedian$, $\sum_{i=1}^n||\bm R_i-\ProjMedian||_F \le \sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F$.  Therefore,
-
 \begin{align}\label{eq:contradiction}
-0& \le \sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F-\sum_{i=1}^n||\bm R_i-\ProjMedian||_F\nonumber\\
-&\leq\sum_{i=1}^n\left(||\bm R_i-\MMedian||_F+||\MMedian-\ProjMedian^*||_F-||\bm R_i-\MMedian||_F-||\MMedian-\ProjMedian||_F\right)\nonumber\\
-&= n||\MMedian-\ProjMedian^*||_F-n||\MMedian-\ProjMedian||_F\nonumber \le 0 \text{ by definition of } \ProjMedian^*\\
+0 \le& \sum_{i=1}^n||\bm R_i-\ProjMedian^*||_F-\sum_{i=1}^n||\bm R_i-\ProjMedian||_F\nonumber\\
+\leq&\sum_{i=1}^n\left(||\bm R_i-\MMedian||_F+||\MMedian-\ProjMedian^*||_F-||\bm R_i-\MMedian||_F-||\MMedian-\ProjMedian||_F\right)\nonumber\\
+=& n||\MMedian-\ProjMedian^*||_F-n||\MMedian-\ProjMedian||_F\nonumber \le 0 \tag{ by definition of $\ProjMedian^*$}\\
 \implies&||\MMedian-\ProjMedian^*||_F = ||\MMedian-\ProjMedian||_F
 \end{align}
 %In turn \eqref{eq:contradiction} implies $||\MMedian-\ProjMedian||_F<||\MMedian-\ProjMedian^*||_F$, which is a contradiction by the definition of $\ProjMedian^*$.  
