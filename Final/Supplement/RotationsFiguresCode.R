@@ -62,13 +62,13 @@ colnames(denData)<-c("r","Variance","Density","Value")
 levels(denData$Density)<-c("matrix Fisher","circ-von Mises","Cayley")
 denData$Density<-factor(denData$Density,levels=levels(denData$Density)[c(3,1,2)])
 
-#This is Figure 1(a) of the manuscript
+#This is Figure 2(a) of the manuscript
 qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,25),ylab="f(r)")+geom_abline(intercept=0,slope=0,colour="gray50")+
 	theme(legend.position='NONE')+scale_linetype_manual(values=c(1,12,3))+
 	theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))+geom_vline(xintercept=0)
 
 
-#This is Figure 1(b) of the manuscript
+#This is Figure 2(b) of the manuscript
 Boxx<-c(1.75,1.75,2.5,2.5,1.75)
 Boxy<-c(0,.25,.25,0,0)
 qplot(r,Value,data=denData[denData$Variance==.75,],geom="blank",ylim=c(0,2.25),ylab="f(r)")+
@@ -76,7 +76,7 @@ qplot(r,Value,data=denData[denData$Variance==.75,],geom="blank",ylim=c(0,2.25),y
 	geom_line(aes(x=r,y=Value,linetype=Density),lwd=I(1.25))+geom_abline(intercept=0,slope=c(0,100000),colour="gray50")+
 	theme(axis.text.x=element_text(size=14,colour=1))+theme(axis.text.y=element_text(size=14,colour=1))
 
-#This is Figure 1(c) of the manuscript
+#This is Figure 2(c) of the manuscript
 qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",lwd=I(1.25),ylim=c(0,.25),xlim=c(1.75,2.5),ylab="f(r)")+
 	scale_linetype_manual(values=c(1,12,3))+theme(legend.position=c(1,1),legend.justification=c(1,1),legend.background=element_rect(fill="white",linetype=0))+
 	theme(legend.title=element_text(size=16,face="bold"),legend.text=element_text(size=16,face="bold"),legend.key.width=unit(3,"line"))+
@@ -87,19 +87,13 @@ qplot(r,Value,data=denData[denData$Variance==.75,],linetype=Density,geom="line",
 #This will produce a plot similar to Figure 3(a) and Figures 2(a)-(c) in Supplementary Matrials
 Rs<-ruars(100,rcayley,nu=0.25)
 plot(Rs,center=id.SO3, col=1) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
-ggsave("eye-cayley.pdf",  height=5, width=5)
 plot(Rs,center=id.SO3, col=2) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
 plot(Rs,center=id.SO3, col=3) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
-
-
-
-
 
 
 #This will produce a plot similar to Figure 3(b) and Figures 3(a)-(c) in Supplementary Matrials
 Rs<-ruars(100,rfisher,nu=0.25)
 plot(Rs,center=id.SO3, col=1) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
-ggsave("eye-fisher.pdf",  height=5, width=5)
 plot(Rs,center=id.SO3, col=2) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
 plot(Rs,center=id.SO3, col=3) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
 
@@ -108,7 +102,6 @@ plot(Rs,center=id.SO3, col=3) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1)
 #This will produce a plot similar to Figure 3(c) and Figures 4(a)-(c) in Supplementary Matrials
 Rs<-ruars(100,rvmises,nu=0.25)
 plot(Rs,center=id.SO3, col=1) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
-ggsave("eye-vmises.pdf",  height=5, width=5)
 plot(Rs,center=id.SO3, col=2) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
 plot(Rs,center=id.SO3, col=3) + aes(size=Z, alpha=Z) + scale_size(limits=c(-1,1), range=c(0.5,2.5)) + theme(legend.position="none")
 
@@ -221,7 +214,7 @@ n100nu5Tab<-cbind(n100ses[c(2,3,1,4)+12,c(1,3:6)],n100ses[c(2,3,1,4)+16,4:6],n10
 n100nu75Tab<-cbind(n100ses[c(2,3,1,4)+24,c(1,3:6)],n100ses[c(2,3,1,4)+28,4:6],n100ses[c(2,3,1,4)+32,4:6])
 xtable(rbind(n100nu25Tab,n100nu5Tab,n100nu75Tab),digits=4)
 
-#This will make Table 2
+#This will make Table 2 of the Supplementary Materials
 Res$Medians<-Res$HL1Error-Res$MedError
 Res$Means<-Res$ML2Error-Res$ArithError
 Res$Euclid<-Res$ArithError-Res$MedError
@@ -286,3 +279,131 @@ FisSumL2<-ddply(cResFrame[cResFrame$Dist=="matrix Fisher",],.(nu,n),summarize,rb
 MisSumL2<-ddply(cResFrame[cResFrame$Dist=="circular-von Mises",],.(nu,n),summarize,rbar=mean(E.Mean-R.Mean),sdrbar=sd(E.Mean-R.Mean)/sqrt(1000),perc=sum(R.Mean<E.Mean)/1000)
 SumL2<-cbind(CaySumL2[,2:5],FisSumL2[,3:5],MisSumL2[,3:5])
 xtable(SumL2,digits=4)
+
+
+
+######################
+##In this section we demonstrate how to reproduce the results in the Data
+##Application section of the paper.  To gain access to the data, please email
+##Dr. Melissa Bingham, based in University of Wisconsin - La Crosse as of this
+##writing.  In the near future this data will be included in the rotations
+##package.
+######################
+
+load("datasetnickel.RData")
+require(plyr)
+dat.out <- adply(data, .margins= c(1,3), function(x) {
+	as.vector(x)
+})
+names(dat.out)[c(1,2)] <- c("rep", "location")
+dat.out$xpos <- xpos[dat.out$location]
+dat.out$ypos <- ypos[dat.out$location]
+
+checks <- adply(dat.out, .margins=1, function(x) {
+	is.SO3(unlist(x[3:11]))
+})
+dat.out$check <- checks$V1
+
+dat.ests <- dlply(dat.out, .(location), function(x) {
+	res <- na.omit(x)
+	res <- subset(res, check==TRUE)
+	
+	n <- nrow(res) 
+	SE2 <- SR2 <- SE1 <- SR1 <- NULL
+	if (n == 1) {
+		R <- as.SO3(matrix(unlist(res[1,3:11]), 3, 3))
+		SE2 <- SR2 <- SE1 <- SR1 <- R
+	} else if (n > 0) {
+		rots <- as.SO3(as.matrix(res[,3:11]))
+		SE2 <- mean(rots)
+		SR2 <- mean(rots, type='intrinsic')
+		SE1 <- median(rots)
+		SR1 <- median(rots, type='intrinsic')
+	}
+	location <- as.numeric(as.character(unique(x$location)))
+	return(list(location=location, n=n, SE2=SE2, SR2=SR2, SE1=SE1, SR1=SR1))
+})
+
+## find distances between estimators and angles to identity for each
+loc.stats <- ldply(dat.ests, function(x) {  
+	location <- as.numeric(as.character(unique(x$location)))
+	if (x$n > 0)
+		data.frame(location=x$location, n=x$n, 
+							 dE1=angle(x$SE1), dE2=angle(x$SE2),
+							 dR1=angle(x$SR1), dR2=angle(x$SR2),
+							 dE=dist(x$SE1, x$SE2, method="intrinsic", p=1),
+							 dR=dist(x$SR1, x$SR2, method="intrinsic", p=1),
+							 d1=dist(x$SE1, x$SR1, method="intrinsic", p=1),
+							 d2=dist(x$SE2, x$SR2, method="intrinsic", p=1)
+		)
+})
+
+loc.stats$xpos <- xpos[loc.stats$location]
+loc.stats$ypos <- ypos[loc.stats$location]
+loc.stats <- adply(loc.stats, .margin=1, transform, sd=sd(c(dE1, dE2, dR1, dR2)))
+idx <- which.max(loc.stats$dEdegree)
+
+require(ggplot2)
+#This will make Figure 8(a)
+d <- ggplot(loc.stats, aes(xpos, ypos, color=dE1))
+d2 <- d + geom_point(size=2.25) + scale_colour_gradient(expression(d[R](tilde(S)[E], I["3x3"])), low="grey99", high="grey10", limits=c(0, pi), 
+					breaks=c( pi/4, pi/2, 3*pi/4), labels=expression( pi/4, pi/2, 3*pi/4)) + theme_bw() + xlab("") + ylab("") + coord_equal() + 
+					scale_x_continuous(limits=c(0, 12.5), breaks=seq(0, 12.5, by=2.5), 
+					labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m, 12.5*mu*m)) + 
+					scale_y_continuous(limits=c(0, 10), breaks=seq(0, 10, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m)) + 
+					geom_point(shape="o", colour="yellow", size=5, data=loc.stats[idx,])  + theme(plot.margin=unit(rep(0,4), "lines"))
+d2
+
+label <- "in degrees"
+mains <- bquote(.(parse(text=paste("d[R](tilde(S)[E], hat(S)[E]", quote("in degrees"), sep="\n"))) )
+mains <- expression(paste(d[R](tilde(S)[E], hat(S)[E]), "  (in ",degree,")  "))
+loc.stats$dEdegree <- loc.stats$dE*180/pi
+d <- ggplot(loc.stats, aes(xpos, ypos, color=dEdegree))
+
+#This will make Figure 8(b)
+d + geom_point(size=2.2) + scale_colour_gradient(mains, low="white", high="grey10", trans = "sqrt", breaks=c( 0, 0.5, 5, 20))+ theme_bw() + xlab("") + ylab("") + coord_equal() + scale_x_continuous(limits=c(0, 12.5), breaks=seq(0, 12.5, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m, 12.5*mu*m)) + scale_y_continuous(limits=c(0, 10), breaks=seq(0, 10, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m))  + geom_point(shape="o", colour="yellow", size=5, data=loc.stats[idx,]) + theme(plot.margin=unit(rep(0,4), "lines"))
+
+
+#Select the sample we would like to illustrate more cleanly
+idx <- which.max(loc.stats$dEdegree)
+datdf <- subset(dat.out, location %in% loc.stats[idx,]$location)
+
+#This will make Table 4
+xtable(datdf[,c(1,3:12)],digits=3)
+
+subdf <- as.matrix(subset(datdf, check)[,3:11])
+pmed <- median(as.SO3(subdf), type="projected")
+gmed <- median(as.SO3(subdf), type="intrinsic")
+pmean <- mean(as.SO3(subdf), type="projected")
+gmean <- mean(as.SO3(subdf), type="intrinsic")
+ests <- data.frame(rbind(as.vector(pmean), as.vector(pmed), as.vector(gmean), as.vector(gmed)))
+ests$ID <- 1:4
+require(reshape2)
+em <- melt(ests, id.var="ID")
+em$variable <- as.numeric(gsub("X", "", as.character(em$variable)))
+labels <- c(expression(hat(S)[E]), expression(tilde(S)[E]), expression(hat(S)[R]), expression(tilde(S)[R]))
+require(RColorBrewer)
+cols <- brewer.pal(4, "Paired")
+n <- nrow(datdf)
+cay <- rcayley(n, kappa=4000)
+jitdf <- genR(cay)
+for (i in 1:nrow(datdf)) {
+	R <- matrix(unlist(datdf[i,3:11]),3,3)
+	S <- matrix(unlist(jitdf[i,]),3,3)
+	jitdf[i,] <- unlist(R %*% S)
+}
+class(jitdf) <- "matrix"
+jitdf <- data.frame(jitdf)
+names(jitdf) <- expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])
+
+#This will create Figure 9(a)
+ggpcp(jitdf) + geom_line() + ylim(c(-1,1)) + 
+	scale_x_discrete("", labels = expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])) +
+	geom_line(aes(x=variable, y=value, colour=factor(ID), group=ID), data=subset(em, ID %in% c(1,2)), size=1, inherit.aes=F) + scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2]) + theme_bw()
+
+#This will create Figure 9(b) and the other axes 
+mid <- median(as.SO3(subdf), type="projected") 
+plot.SO3(subdf, center=mid, col=1, show_estimates=c("proj.mean", "proj.median")) + theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])
+plot.SO3(as.matrix(jitdf), center=mid, col=2, show_estimates=c("proj.mean", "proj.median")) + theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])
+plot.SO3(subdf, center=mid, col=3, show_estimates=c("proj.mean", "proj.median"))+ theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])
+
