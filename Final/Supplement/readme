@@ -1,0 +1,31 @@
+Code and data for 'Point Estimation of Random Rotations in SO(3)' by Bryan Stanfill, Ulrike Genschel and Heike Hofmann
+
+'FullFinalResults.csv' contains the simulation results used to create some of the figures and tables in the manuscrip.  It is read into the R code also in this folder.  The columns 
+names are as follows: 
+	'Dist' represents the distribution corresponding to that sample
+	'nu' is the sample's circular variance
+	'n' is the sample size
+	'HL1Error' is the arc-distance between the geometric median and the true centeral orientation
+	'HL1Iter' is he number of iterations required for convergence
+	'ML2Error' is the arc-distance between the geometric mean and the true centeral orientation
+	'ML2Iter' is he number of iterations required for convergence	
+	'ArithError' is the arc-distance between the projected mean and the true centeral orientation
+	'MedError' is the arc-distance between the projected median and the true centeral orientation
+	'MedIter' is he number of iterations required for convergence
+	'Sample' is the sample number
+
+'Nu75TailBehavior.csv' contains the results necessary to create Figure 6 in the manuscript
+	'Dist' represents the distribution corresponding to that sample
+	'Prop' is the proportion of observations in the tail as defined in Section 5
+	'PMean' is the arc-distance between the projected mean and the true centeral orientation
+	'PMedian' is the arc-distance between the projected median and the true centeral orientation
+	'Pdiff' is the difference between the errors (PMean-PMedian)
+	'GMean' is the arc-distance between the geometric mean and the true centeral orientation
+	'GMedian' is the arc-distance between the geometric median and the true centeral orientation
+	'Gdiff' is the difference between the errors (GMean-GMedian)
+	'n' is the sample size
+	
+'RotationsFiguresCode.R' contains all the code necessary to reproduce the simulation results, figures and tables in the manuscript.  The R code used to create the tables and figures
+in the Data Application are also included, but the data file needs to be obtained from its owner, Dr. Melissa Bingham currently at the University of Wisconsin - La Crosse.
+
+
