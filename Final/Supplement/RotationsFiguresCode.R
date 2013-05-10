@@ -52,9 +52,9 @@ cayKap<-c(10,4,2,.065)
 fishKap<-c(3.165,1.711,1.1564,.175)
 misesKap<-c(2.40, 1.159, 0.5164)
 
-denData<-data.frame(r=r,Fisher=dfisher(r,fishKap[1],T),Mises=dvmises(r,misesKap[1],T),Cayley=dcayley(r,cayKap[1],T),nu=0.25)
-denData<-rbind(denData,data.frame(r=r,Fisher=dfisher(r,fishKap[2],T),Mises=dvmises(r,misesKap[2],T),Cayley=dcayley(r,cayKap[2],T),nu=0.5))
-denData<-rbind(denData,data.frame(r=r,Fisher=dfisher(r,fishKap[3],T),Mises=dvmises(r,misesKap[3],T),Cayley=dcayley(r,cayKap[3],T),nu=0.75))
+denData<-data.frame(r=r,Fisher=dfisher(r,fishKap[1]),Mises=dvmises(r,misesKap[1]),Cayley=dcayley(r,cayKap[1]),nu=0.25)
+denData<-rbind(denData,data.frame(r=r,Fisher=dfisher(r,fishKap[2]),Mises=dvmises(r,misesKap[2]),Cayley=dcayley(r,cayKap[2]),nu=0.5))
+denData<-rbind(denData,data.frame(r=r,Fisher=dfisher(r,fishKap[3]),Mises=dvmises(r,misesKap[3]),Cayley=dcayley(r,cayKap[3]),nu=0.75))
 
 denData<-melt(denData,id=c("r","nu"))
 colnames(denData)<-c("r","Variance","Density","Value")
