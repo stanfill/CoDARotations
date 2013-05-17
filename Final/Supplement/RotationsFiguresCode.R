@@ -1,6 +1,13 @@
+#To install the 'rotations' package, which is not currently available on CRAN, use the following code.
+#In the near future, this package will include the dataset used in the 
+#Data Applications section of this paper
+
+library(devtools)
+install_github("rotations","heike")
+library(rotations)
+
 #Load the necessary libraries and create the 'tests' function used to create 
 #Table 2 of the Supplementary Materials
-library(rotations)
 library(reshape2)
 library(plyr)
 library(splines)

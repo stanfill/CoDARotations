@@ -62,7 +62,7 @@
 \spacingset{1.45} % DON'T change the spacing!
 \begin{center}
 \Large \textbf{Online Supplementary Material for ``Point Estimation of the Central Orientation of Random Rotations"}
-\large{Bryan Stanfill, Ulrike Genschel and Heike Hofmann}
+%\large{Bryan Stanfill, Ulrike Genschel and Heike Hofmann}
 \end{center}
 \section{Proofs of Claims}
 \subsection{Relationship Between Riemannian and Euclidean Distance in $SO(3)$}
@@ -73,7 +73,9 @@
 \Edist(\bm R_1,\bm R_2)=2^{3/2}\sin\left(\frac{\Rdist(\bm{R}_1,\bm{R}_2)}{2}\right).
 \end{equation}
 
-\noindent \textit{Proof:} For two rotations $\bm{R}_1,\bm{R}_2\in SO(3)$ recall that if $\tr(\bm R_1^\top\bm R_2)=1+2\cos(r)$ then $|r|=\Rdist(\bm R_1,\bm R_2)$.  When $|r|=0$, the statement in \eqref{EvR} follows directly.  Consider the case $|r|>0$.  By definition we know
+\noindent \textit{Proof:} 
+
+\noindent For two rotations $\bm{R}_1,\bm{R}_2\in SO(3)$ recall that if $\tr(\bm R_1^\top\bm R_2)=1+2\cos(r)$ then $|r|=\Rdist(\bm R_1,\bm R_2)$.  When $|r|=0$, the statement in \eqref{EvR} follows directly.  Consider the case $|r|>0$.  By definition we know
 \begin{align*}
 \Edist (\bm R_1,\bm R_2)^2
 &=||\bm R_1-\bm R_2||_F^2\\
@@ -87,8 +89,6 @@
 &=4-4\cos(|r|)\\ 
 &=8\left(\frac{1-\cos(|r|)}{2}\right)\\
 &=8\sin^2\left(\frac{|r|}{2}\right)\\
-\end{align*}
-\begin{align*}
 &=\left[2^{3/2}\sin\left(\frac{|r|}{2}\right)\right]^2\\
 &=\left[2^{3/2}\sin\left(\frac{\Rdist(\bm R_1,\bm R_2)}{2}\right)\right]^2.
 \end{align*}
