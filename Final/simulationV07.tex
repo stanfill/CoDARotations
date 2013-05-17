@@ -1,7 +1,7 @@
  % !TEX root = Stanfill_CoDA.tex
 \section{Simulation Study}\label{ch:simulation}
 
-Section~\ref{subsec:simdesign} gives an outline of the simulation design.  Section~\ref{subsec:genRR} briefly describes the parametric distributional models for describing symmetric rotation errors (cf.~eqn. \ref{eqn:1}) of differing variability used in the study. 
+Section~\ref{subsec:simdesign} gives an outline of the simulation design.  Section~\ref{subsec:genRR} briefly describes the parametric distributional models for describing symmetric rotation errors \eqref{eqn:1} of differing variability used in the study. 
 \subsection{Design of Simulation Study}
 \label{subsec:simdesign}
 To compare the performance of the proposed location estimators for determining the central direction $\bm{S}$ given a sample of size $n$, we generated random rotation error samples  $\bm E_1, \ldots, \bm E_n$  in model \eqref{eqn:1} with sizes $n=10, 50, 100$ and 300. Without loss of generality, we set the location parameter $\bm S=\bm I_{3\times 3}$ (the identity matrix). To compare the performance of the estimators for different probability models for random rotations exhibiting the same spread, % we choose the circular variance defined as $\nu=1-\mathrm{E}[\cos(r)]$ as a measure %of spread for the circular densities of the angle $r$. Note that $\mathrm{E}[\cos(r)]$ is %commonly referred to as the mean resultant length. 

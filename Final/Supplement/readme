@@ -1,4 +1,4 @@
-Code and data for 'Point Estimation of Random Rotations in SO(3)' by Bryan Stanfill, Ulrike Genschel and Heike Hofmann
+Code and data for 'Point Estimation of the Central Orientation of Random Rotations' by Bryan Stanfill, Ulrike Genschel and Heike Hofmann
 
 'FullFinalResults.csv' contains the simulation results used to create some of the figures and tables in the manuscrip.  It is read into the R code also in this folder.  The columns 
 names are as follows: 
