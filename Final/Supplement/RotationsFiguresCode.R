@@ -1,6 +1,4 @@
 #To install the 'rotations' package, which is not currently available on CRAN, use the following code.
-#In the near future, this package will include the dataset used in the 
-#Data Applications section of this paper
 
 library(devtools)
 install_github("rotations","heike")
@@ -291,13 +289,12 @@ xtable(SumL2,digits=4)
 
 ######################
 ##In this section we demonstrate how to reproduce the results in the Data
-##Application section of the paper.  To gain access to the data, please email
-##Dr. Melissa Bingham, based in University of Wisconsin - La Crosse as of this
-##writing.  In the near future this data will be included in the rotations
-##package.
+##Application section of the paper.  The dataset has been included in the
+##rotations pacakge.  To attach the dataset to your workspace use the 
+##command "data(nickel)" as shown below.
 ######################
 
-load("datasetnickel.RData")
+data(nickel)
 require(plyr)
 dat.out <- adply(data, .margins= c(1,3), function(x) {
 	as.vector(x)

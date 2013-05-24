@@ -8,3 +8,7 @@
 *.gz
 
 *.pdf
+
+*.bbl
+
+*.blg
