@@ -1,7 +1,7 @@
 % !TEX root = Stanfill_CoDA.tex
 \section{Data Application}\label{sec:data}
 
-We consider electron backscatter diffraction (EBSD) data obtained by scanning a fixed  12.5 $\mu$m $\times$ 10 $\mu$m nickel surface at individual locations spaced 0.2 $\mu$m apart. This scan was repeated 14 times for each location yielding a total of 3,449 observations \citep{bingham09, bingham10b}. Every observation corresponds to the orientation, expressed as a rotation matrix, of a cubic crystal on the metal surface at a particular location. One goal of processing ESBD data is to identify the main orientation of cubic crystals in the metal, where graphs of cubic crystals with similar orientations constitute ``grains'' on the metal surface, thus making the estimation of the main direction $\bm S$ for a sample of rotations relevant here.
+We consider electron backscatter diffraction (EBSD) data obtained by scanning a fixed  12.5 $\mu$m $\times$ 10 $\mu$m nickel surface at individual locations spaced 0.2 $\mu$m apart. This scan was repeated 14 times for each location yielding a total of 3,449 observations \citep{bingham09, bingham10b}. Every observation corresponds to the orientation, expressed as a rotation matrix, of a cubic crystal on the metal surface at a particular location. One goal of processing ESBD data is to identify the main orientation of cubic crystals in the metal, where \hh{regions} of cubic crystals with similar orientations constitute ``grains'' on the metal surface, thus making the estimation of the main direction $\bm S$ for a sample of rotations relevant here.
 
 At every location, using the 14 repeat scans  we computed the misorientation angle $|r|=\Rdist(\widehat{\bm{S}}, \bm I_{3\times 3})$ of the four estimators ($\widehat{\bm{S}}= \ProjMean$, $\ProjMedian$, $\GeomMean$, and $\GeomMedian$) to compare resulting differences in the corresponding estimates.  In the following we will focus particularly on the differences between $\ProjMean$ and $\ProjMedian$ as the Riemannian estimators  $\GeomMedian$ and $\GeomMean$ largely agree with their Euclidean counterparts. 
 
@@ -10,10 +10,12 @@ Figure~\ref{fig:grain-map}a illustrates the implementation of $\ProjMedian$: eac
 \begin{figure}[h!] %  figure placement: here, top, bottom, or page
    \centering
 %   \vspace{-.45in}
-   \subfloat[{Shading reflects angle between  $\ProjMedian$ and $\bm I_{3\times 3}$}]{\includegraphics[width=.4\textwidth]{images/grain-map-wo.pdf}\includegraphics[width=.06\textwidth]{images/grain-map-legend.pdf}} \hfill
-   \subfloat[{Location shaded by angle (in degrees) between  $\ProjMedian$ and $\ProjMean$. Distances of 0.5$^\circ$ or more are generally considered to suggest different main orientations. Note that the mapping of distance to color shading is on a square-root scale.}]{\includegraphics[width=.4\textwidth]{images/grain-diff-wo.pdf}\includegraphics[width=.08\textwidth]{images/grain-diff-legend.pdf}}
+   %\subfloat[{Shading reflects angle between  $\ProjMedian$ and $\bm I_{3\times 3}$}]
+   {\includegraphics[width=.4\textwidth]{images/grain-map-wo.pdf}\includegraphics[width=.06\textwidth]{images/grain-map-legend.pdf}} \hfill
+%   \subfloat[{Location shaded by angle (in degrees) between  $\ProjMedian$ and $\ProjMean$. Distances of 0.5$^\circ$ or more are generally considered to suggest different main orientations. Note that the mapping of distance to color shading is on a square-root scale.}]
+{\includegraphics[width=.4\textwidth]{images/grain-diff-wo.pdf}\includegraphics[width=.08\textwidth]{images/grain-diff-legend.pdf}}
 %    \vspace{-.175in} 
-   \caption{ \label{fig:grain-map}  Display of all locations of the investigated nickel surface. Each dot corresponds to one location and shading reflects  angles. The location of the the largest difference between estimators $\ProjMedian$ and $\ProjMean$ is circled.}
+   \caption{ \label{fig:grain-map}  Display of all locations of the investigated nickel surface. Each dot corresponds to one location and shading reflects  angles. The location of the the largest difference between estimators $\ProjMedian$ and $\ProjMean$ is circled. Panel (a) on the left shows angles of $\ProjMedian$ with respect to identify. Panel (b) on the right shows locations shaded by the difference (in degrees) between $\ProjMedian$ and $\ProjMean$. Distances of 0.5$^\circ$ or more are generally considered to suggest different main orientations. Note that the mapping of distance to color shading is on a square-root scale.}
 \end{figure}
 %
 Note that the literature, e.g. \cite{bingham10b}, suggests that distances of $0.5^\circ$ are indicative of different grains. In our example, about 10\% of the locations result in a difference between $\ProjMean$ and $\ProjMedian$ estimates of at least that size. Differences tend to be largest along boundaries between the spatial structures in Figure~\ref{fig:grain-map}b resulting in a different allocation of a location to  grain depending on the choice of estimation method.
@@ -52,7 +54,9 @@ scan& & $x_{11}$ & $x_{12}$& $x_{13}$& $x_{21}$& $x_{22}$& $x_{23}$& $x_{31}$& $
 \end{center}
 \end{table}
 
-We visualize Table~\ref{tab:rotations} and the estimates resulting from applying $\ProjMedian$ and $\ProjMean$ at this location in Figure \ref{fig:pcp}a using a parallel coordinate plot: for every scan each of the nine coefficients $x_{ij}$ ($1 \le i,j \le 3$) is plotted separately. Coefficients that correspond to the same scan are connected by a line.   Note that the coefficient values are jittered using a small perturbation in form of a rotation matrix to avoid over-plotting and to illustrate cluster sizes. The light- and dark- green colored lines represent the $\ProjMedian$ and $\ProjMean$ estimates of the main direction based on the 14 scans.   This example  illustrates that the median estimator, $\ProjMedian$,  can more reliably estimate the main direction in the presence of potential anomalies on the spatial boundaries of grains, as this estimate is located within the largest cluster of rotations, while the projected mean pulled into a location between the clusters.
+We visualize Table~\ref{tab:rotations} and the estimates resulting from applying $\ProjMedian$ and $\ProjMean$ at this location in Figure \ref{fig:pcp}a using a parallel coordinate plot: for every scan each of the nine coefficients $x_{ij}$ ($1 \le i,j \le 3$) is plotted separately. Coefficients that correspond to the same scan are connected by a line.   Note that the coefficient values are jittered using a small perturbation in form of a rotation matrix to avoid over-plotting and to illustrate cluster sizes. The light- and dark- green colored lines represent the $\ProjMedian$ and $\ProjMean$ estimates of the main direction based on the 14 scans.   This example  illustrates that the median estimator, $\ProjMedian$,  %can more reliably 
+\hh{is the more robust}
+estimate \hh{of} the main direction in the presence of potential anomalies on the spatial boundaries of grains, as this estimate is located within the largest cluster of rotations, while the projected mean \hh{is} pulled into a location between the clusters.
 
 
 %\begin{figure}[htbp] %  figure placement: here, top, bottom, or page
@@ -66,10 +70,12 @@ We visualize Table~\ref{tab:rotations} and the estimates resulting from applying
 
 \begin{figure}[htbp] %  figure placement: here, top, bottom, or page
    \centering
-   \subfloat[Parallel coordinate plot. ]{\includegraphics[height=.325\textwidth]{images/pcp.pdf}}
-   \subfloat[Sphere plot of $y$-axis. ]{\includegraphics[height=.325\textwidth]{images/eye-698-2.png}}
+%   \subfloat[Parallel coordinate plot. ]
+   {\includegraphics[height=.325\textwidth]{images/pcp.pdf}}
+%   \subfloat[Sphere plot of $y$-axis. ] 
+   {\includegraphics[height=.325\textwidth]{images/eye-698-2.png}}
    
-   \caption{ \label{fig:pcp} Two views of all fourteen rotation matrices of table \ref{tab:rotations}, the location with the largest angle difference between projected mean and median estimator.}
+   \caption{ \label{fig:pcp} Parallel coordinated plot (a) on the left, and a sphere plot of the $y$ axis (b) on the right show all fourteen rotation matrices of table \ref{tab:rotations}, the location with the largest angle difference between projected mean and median estimator. }
 \end{figure}
 
 %=======
