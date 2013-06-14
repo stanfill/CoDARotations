@@ -290,7 +290,7 @@ xtable(SumL2,digits=4)
 ######################
 ##In this section we demonstrate how to reproduce the results in the Data
 ##Application section of the paper.  The dataset has been included in zip file
-##and should be loaded into your current R session for this code to work.
+##and should be loaded into your current R session before running this code.
 ######################
 
 
