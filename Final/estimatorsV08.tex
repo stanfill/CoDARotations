@@ -71,7 +71,7 @@ center of mass.  \citet{moakher02} applied Karcher's ideas to
 rotation matrices and defined
 \begin{equation}\label{est:ltwo}
 \GeomMean=\argmin_{\bm{S}\in
-SO(3)}\sum_{i=1}^n d^2_{R}(\bm{R}_i,\bm{S}).
+SO(3)}\sum_{i=1}^n d^2_{R}(\bm{R}_i,\bm{S}),
 \end{equation}
 which was termed as the \textit{geometric mean}.  Note that the solution to  \eqref{est:ltwo} may not be
 unique. Uniqueness is tied to the property of geodesic convexity of the objective function in \eqref{est:ltwo}. For more information, we refer to \citet{moakher02}.  Additionally, \eqref{est:ltwo} generally does not have a closed-form solution making this estimator much more computationally intensive than its Euclidean counterpart (the projected arithmetic mean of Section~\ref{subsec:pam}).  We used the algorithm proposed by \citet{manton04} for implementation in our simulation study.
