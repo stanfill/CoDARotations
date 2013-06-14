@@ -26,6 +26,6 @@ names are as follows:
 	'n' is the sample size
 	
 'RotationsFiguresCode.R' contains all the code necessary to reproduce the simulation results, figures and tables in the manuscript.  The R code used to create the tables and figures
-in the Data Application are also included, but the data file needs to be obtained from its owner, Dr. Melissa Bingham currently at the University of Wisconsin - La Crosse.
+in the Data Application are also included.  Load the RData file 'datasetnickel.RData' into your current R session to run this portion of the code.
 
 

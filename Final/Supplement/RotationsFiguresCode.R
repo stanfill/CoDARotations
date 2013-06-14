@@ -36,15 +36,15 @@ Rs<-ruars(n,rcayley,S=id.SO3,nu=nu)   	 #Cayley-UARS distribution
 #Rs<-ruars(n,rvmises,S=id.SO3,nu=nu)		 #circular von Mises-UARS distribution
 
 ShatE<-mean(Rs,type='projected')     	#Projected Mean
-ShatR<-mean(Rs,type='intrinsic')			#Intrinsic Mean
+ShatR<-mean(Rs,type='geometric')			#geometric Mean
 StildeE<-median(Rs,type='projected')	#Projected Median
-StildeR<-median(Rs,type='intrinsic')	#Intrinsic Median
+StildeR<-median(Rs,type='geometric')	#geometric Median
 
 #Find the geodesic distance between the true mean (id.SO3) and each estimate
-errorShatE<-dist(ShatE,id.SO3,method='intrinsic')
-errorShatR<-dist(ShatR,id.SO3,method='intrinsic')
-errorStildeE<-dist(StildeE,id.SO3,method='intrinsic')
-errorStildeR<-dist(StildeR,id.SO3,method='intrinsic')
+errorShatE<-dist(ShatE,id.SO3,method='geometric')
+errorShatR<-dist(ShatR,id.SO3,method='geometric')
+errorStildeE<-dist(StildeE,id.SO3,method='geometric')
+errorStildeR<-dist(StildeR,id.SO3,method='geometric')
 
 ######################
 ##In this section the plots in the Section 4 (Simulation Study) 
@@ -289,12 +289,11 @@ xtable(SumL2,digits=4)
 
 ######################
 ##In this section we demonstrate how to reproduce the results in the Data
-##Application section of the paper.  The dataset has been included in the
-##rotations pacakge.  To attach the dataset to your workspace use the 
-##command "data(nickel)" as shown below.
+##Application section of the paper.  The dataset has been included in zip file
+##and should be loaded into your current R session for this code to work.
 ######################
 
-data(nickel)
+
 require(plyr)
 dat.out <- adply(data, .margins= c(1,3), function(x) {
 	as.vector(x)
@@ -320,9 +319,9 @@ dat.ests <- dlply(dat.out, .(location), function(x) {
 	} else if (n > 0) {
 		rots <- as.SO3(as.matrix(res[,3:11]))
 		SE2 <- mean(rots)
-		SR2 <- mean(rots, type='intrinsic')
+		SR2 <- mean(rots, type='geometric')
 		SE1 <- median(rots)
-		SR1 <- median(rots, type='intrinsic')
+		SR1 <- median(rots, type='geometric')
 	}
 	location <- as.numeric(as.character(unique(x$location)))
 	return(list(location=location, n=n, SE2=SE2, SR2=SR2, SE1=SE1, SR1=SR1))
@@ -377,9 +376,9 @@ xtable(datdf[,c(1,3:12)],digits=3)
 
 subdf <- as.matrix(subset(datdf, check)[,3:11])
 pmed <- median(as.SO3(subdf), type="projected")
-gmed <- median(as.SO3(subdf), type="intrinsic")
+gmed <- median(as.SO3(subdf), type="geometric")
 pmean <- mean(as.SO3(subdf), type="projected")
-gmean <- mean(as.SO3(subdf), type="intrinsic")
+gmean <- mean(as.SO3(subdf), type="geometric")
 ests <- data.frame(rbind(as.vector(pmean), as.vector(pmed), as.vector(gmean), as.vector(gmed)))
 ests$ID <- 1:4
 require(reshape2)
