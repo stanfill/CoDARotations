@@ -292,8 +292,8 @@ xtable(SumL2,digits=4)
 ##Application section of the paper.  The dataset has been included in zip file
 ##and should be loaded into your current R session before running this code.
 ######################
-
-
+library(xtable)
+library(rotations)
 require(plyr)
 dat.out <- adply(data, .margins= c(1,3), function(x) {
 	as.vector(x)
@@ -348,30 +348,34 @@ idx <- which.max(loc.stats$dEdegree)
 
 require(ggplot2)
 #This will make Figure 8(a)
-d <- ggplot(loc.stats, aes(xpos, ypos, color=dE1))
-d2 <- d + geom_point(size=2.25) + scale_colour_gradient(expression(d[R](tilde(S)[E], I["3x3"])), low="grey99", high="grey10", limits=c(0, pi), 
+d <- ggplot(loc.stats, aes(xpos, ypos, colour=dE1))
+d + geom_point(size=2.25) + scale_colour_gradient(expression(d[R](tilde(S)[E], I["3x3"])), low="grey99", high="grey10", limits=c(0, pi), 
 					breaks=c( pi/4, pi/2, 3*pi/4), labels=expression( pi/4, pi/2, 3*pi/4)) + theme_bw() + xlab("") + ylab("") + coord_equal() + 
 					scale_x_continuous(limits=c(0, 12.5), breaks=seq(0, 12.5, by=2.5), 
 					labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m, 12.5*mu*m)) + 
 					scale_y_continuous(limits=c(0, 10), breaks=seq(0, 10, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m)) + 
-					geom_point(shape="o", colour="yellow", size=5, data=loc.stats[idx,])  + theme(plot.margin=unit(rep(0,4), "lines"))
-d2
+          theme(plot.margin=unit(rep(0,4), "lines"))+geom_point(shape="o", colour="white", size=5, data=loc.stats[idx,])+
+          geom_point(shape="o", colour="white", size=9, data=loc.stats[idx,]) 
 
 label <- "in degrees"
 mains <- bquote(.(parse(text=paste("d[R](tilde(S)[E], hat(S)[E]", quote("in degrees"), sep="\n"))) )
 mains <- expression(paste(d[R](tilde(S)[E], hat(S)[E]), "  (in ",degree,")  "))
 loc.stats$dEdegree <- loc.stats$dE*180/pi
-d <- ggplot(loc.stats, aes(xpos, ypos, color=dEdegree))
+d <- ggplot(loc.stats, aes(xpos, ypos, colour=dEdegree))
 
 #This will make Figure 8(b)
-d + geom_point(size=2.2) + scale_colour_gradient(mains, low="white", high="grey10", trans = "sqrt", breaks=c( 0, 0.5, 5, 20))+ theme_bw() + xlab("") + ylab("") + coord_equal() + scale_x_continuous(limits=c(0, 12.5), breaks=seq(0, 12.5, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m, 12.5*mu*m)) + scale_y_continuous(limits=c(0, 10), breaks=seq(0, 10, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m))  + geom_point(shape="o", colour="yellow", size=5, data=loc.stats[idx,]) + theme(plot.margin=unit(rep(0,4), "lines"))
+d + geom_point(size=2.2) + scale_colour_gradient(mains, low="white", high="grey10", trans = "sqrt", breaks=c( 0, 0.5, 5, 20))+ theme_bw() + xlab("") + ylab("") + 
+  coord_equal() + scale_x_continuous(limits=c(0, 12.5), breaks=seq(0, 12.5, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m, 12.5*mu*m)) + 
+  scale_y_continuous(limits=c(0, 10), breaks=seq(0, 10, by=2.5), labels=expression(0*mu*m, 2.5*mu*m, 5*mu*m, 7.5*mu*m, 10*mu*m))  + 
+  theme(plot.margin=unit(rep(0,4), "lines"))+geom_point(shape="o", colour="black", size=5, data=loc.stats[idx,])+
+  geom_point(shape="o", colour="black", size=9, data=loc.stats[idx,]) 
 
 
 #Select the sample we would like to illustrate more cleanly
 idx <- which.max(loc.stats$dEdegree)
 datdf <- subset(dat.out, location %in% loc.stats[idx,]$location)
 
-#This will make Table 4
+#This will make a table similar to Table 4
 xtable(datdf[,c(1,3:12)],digits=3)
 
 subdf <- as.matrix(subset(datdf, check)[,3:11])
@@ -401,12 +405,11 @@ names(jitdf) <- expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33]
 
 #This will create Figure 9(a)
 ggpcp(jitdf) + geom_line() + ylim(c(-1,1)) + 
-	scale_x_discrete("", labels = expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])) +
-	geom_line(aes(x=variable, y=value, colour=factor(ID), group=ID), data=subset(em, ID %in% c(1,2)), size=1, inherit.aes=F) + scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2]) + theme_bw()
+  scale_x_discrete("", labels = expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])) +
+  geom_line(aes(x=variable, y=value, colour=factor(ID), group=ID), data=subset(em, ID %in% c(1,2)), size=1, inherit.aes=F) + scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2]) + 
+  theme_bw() + geom_text(aes(x=0.8, y=1.5*jitdf[,1], label=c(rep(NA, 8), 9:14)), size=3, data=jitdf, inherit.aes=FALSE) + geom_text(aes(x=0.8, y=jitdf[,1], label=c(rep(NA, 13), 14)), size=3, data=jitdf, inherit.aes=FALSE)
 
 #This will create Figure 9(b) and the other axes 
 mid <- median(as.SO3(subdf), type="projected") 
-plot.SO3(subdf, center=mid, col=1, show_estimates=c("proj.mean", "proj.median")) + theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])
-plot.SO3(as.matrix(jitdf), center=mid, col=2, show_estimates=c("proj.mean", "proj.median")) + theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])
-plot.SO3(subdf, center=mid, col=3, show_estimates=c("proj.mean", "proj.median"))+ theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])
+plot.SO3(as.matrix(jitdf), center=mid, col=2, show_estimates=c("proj.mean", "proj.median"), label_points=c(rep(NA,8), 9:14)) + theme(legend.position="none")+ scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2])
 
