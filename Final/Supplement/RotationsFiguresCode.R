@@ -402,12 +402,15 @@ for (i in 1:nrow(datdf)) {
 class(jitdf) <- "matrix"
 jitdf <- data.frame(jitdf)
 names(jitdf) <- expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])
+jitdf <- jitdf[order(datdf$V1),]
+jitdf <- jitdf[c(2:14, 1),]
 
 #This will create Figure 9(a)
 ggpcp(jitdf) + geom_line() + ylim(c(-1,1)) + 
   scale_x_discrete("", labels = expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])) +
   geom_line(aes(x=variable, y=value, colour=factor(ID), group=ID), data=subset(em, ID %in% c(1,2)), size=1, inherit.aes=F) + scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2]) + 
-  theme_bw() + geom_text(aes(x=0.8, y=1.5*jitdf[,1], label=c(rep(NA, 8), 9:14)), size=3, data=jitdf, inherit.aes=FALSE) + geom_text(aes(x=0.8, y=jitdf[,1], label=c(rep(NA, 13), 14)), size=3, data=jitdf, inherit.aes=FALSE)
+  theme_bw() + geom_text(aes(x=0.8, y=1.5*jitdf[,1], label=c(rep(NA, 8), '9-13',rep(NA,5))), size=3, data=jitdf, inherit.aes=FALSE) + geom_text(aes(x=0.8, y=jitdf[,1], label=c(rep(NA, 13), 14)), size=3, data=jitdf, inherit.aes=FALSE)+
+  geom_text(aes(x=0.8, y=jitdf[,1], label=c('1-8',rep(NA, 13))), size=3, data=jitdf, inherit.aes=FALSE)
 
 #This will create Figure 9(b) and the other axes 
 mid <- median(as.SO3(subdf), type="projected") 
