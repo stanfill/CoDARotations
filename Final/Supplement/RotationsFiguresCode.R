@@ -344,6 +344,7 @@ loc.stats <- ldply(dat.ests, function(x) {
 loc.stats$xpos <- xpos[loc.stats$location]
 loc.stats$ypos <- ypos[loc.stats$location]
 loc.stats <- adply(loc.stats, .margin=1, transform, sd=sd(c(dE1, dE2, dR1, dR2)))
+loc.stats$dEdegree <- loc.stats$dE*180/pi
 idx <- which.max(loc.stats$dEdegree)
 
 require(ggplot2)
@@ -360,7 +361,6 @@ d + geom_point(size=2.25) + scale_colour_gradient(expression(d[R](tilde(S)[E], I
 label <- "in degrees"
 mains <- bquote(.(parse(text=paste("d[R](tilde(S)[E], hat(S)[E]", quote("in degrees"), sep="\n"))) )
 mains <- expression(paste(d[R](tilde(S)[E], hat(S)[E]), "  (in ",degree,")  "))
-loc.stats$dEdegree <- loc.stats$dE*180/pi
 d <- ggplot(loc.stats, aes(xpos, ypos, colour=dEdegree))
 
 #This will make Figure 8(b)
@@ -372,7 +372,6 @@ d + geom_point(size=2.2) + scale_colour_gradient(mains, low="white", high="grey1
 
 
 #Select the sample we would like to illustrate more cleanly
-idx <- which.max(loc.stats$dEdegree)
 datdf <- subset(dat.out, location %in% loc.stats[idx,]$location)
 
 #This will make a table similar to Table 4
@@ -409,8 +408,10 @@ jitdf <- jitdf[c(2:14, 1),]
 ggpcp(jitdf) + geom_line() + ylim(c(-1,1)) + 
   scale_x_discrete("", labels = expression(x[11],x[12],x[13],x[21],x[22],x[23],x[31],x[32],x[33])) +
   geom_line(aes(x=variable, y=value, colour=factor(ID), group=ID), data=subset(em, ID %in% c(1,2)), size=1, inherit.aes=F) + scale_colour_manual("Estimates", values=cols[4:3], labels=labels[1:2]) + 
-  theme_bw() + geom_text(aes(x=0.8, y=1.5*jitdf[,1], label=c(rep(NA, 8), '9-13',rep(NA,5))), size=3, data=jitdf, inherit.aes=FALSE) + geom_text(aes(x=0.8, y=jitdf[,1], label=c(rep(NA, 13), 14)), size=3, data=jitdf, inherit.aes=FALSE)+
-  geom_text(aes(x=0.8, y=jitdf[,1], label=c('1-8',rep(NA, 13))), size=3, data=jitdf, inherit.aes=FALSE)
+  theme_bw() + 
+	geom_text(aes(x=0.8, y=jitdf[,1], label=c('1-8',rep(NA, 7), '9-13',rep(NA,4),'14')), size=3, data=jitdf, inherit.aes=FALSE)+
+	geom_text(aes(x=9.2, y=jitdf[,9], label=c('1-8',rep(NA,7), '9','10','11-13',rep(NA,2),'14')), size=3, data=jitdf, inherit.aes=FALSE)
+	
 
 #This will create Figure 9(b) and the other axes 
 mid <- median(as.SO3(subdf), type="projected") 

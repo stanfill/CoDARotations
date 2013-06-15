@@ -83,46 +83,5 @@ In Figures~\ref{fig:Haar}a and \ref{fig:Haar}b, we see that the circular-von Mis
 \subfloat[circular-von Mises]{\includegraphics[width=.3\linewidth]{eye-vmises}}
 \caption{\label{eyeballs}Sphere plots of the first column ($x$-axis) for randomly generated rotations with different distributions having  $\nu = 0.25$.}
 \end{figure}
-In the simulation study to follow, for generating random rotation errors based on the construction above, we used different samplers to randomly generate angles $r\in(-\pi,\pi]$ from a given circular density, recalling that the form of $C(r|\kappa)$ depends on the intended symmetric distribution for the rotation errors $\bm{E}$, see also the supplemental material online.
-
-%\subsection{Estimator Algorithms}
-%\label{subsec:algorithms}
-
-%Two of the estimators of interest require a projection from the space of all $3\times 3$ matrices, $\mathcal{M}(3)$, into $SO(3)$.  We perform this projection according to the following method.  For a matrix $\bm M\in\mathcal{M}(3)$ let $\lambda_1 \geq \lambda_2 \geq \lambda_3$ denote the ordered eigenvalues of $\bm M^\top\bm M$ with corresponding eigenvectors $ \bm u_1, \bm u_2, \bm u_3$.  Defining $\bm U=[\bm u_1, \bm u_2, \bm u_3]$ and provided that $\det(\bm M)\neq 0$, the unique projection of $\bm M$ into $SO(3)$ is given by
-%\[
-%\bm M\bm{U} \text{diag}\left(\frac{1}{\sqrt{\lambda_1}},\frac{1}{\sqrt{\lambda_2}},\frac{\text{sign}\left[\det(\bm M)\right]}{\sqrt{\lambda_3}}\right) \bm{U}^\top.
-%\]
-%We will refer to this as the $\mathcal{M}(3)$ projection algorithm. To calculate $\widehat{\bm{S}}_P$ given a sample $\{\bm{R}_1,\dots,\bm{R}_n\}\subset SO(3)$ we compute the $\mathcal{M}(3)$ projection of $\bar{\bm R}=\frac{1}{n}\sum_{i=1}^n\bm{R}_i$.  See \citet{arun87,horn88} and \citet{umeyama91} for an introduction and refinements of this solution including special cases such as $\det(\bar{\bm R})=0$.
-
-%To compute the projected median $\widetilde{\bm S}_P$ we use a Weiszfeld-type algorithm originally given by \cite{weiszfeld37}.  The algorithm requires an initial value that does not equal any sample point. For the purpose of speeding up computing time we use $\widehat{\bm S}_P$ as the starting point. Note that the solution is generally not sensitive to the choice of starting points unless the data exhibit extreme spread.
-%\begin{enumerate}
-%\item Set $\widehat{\bm S}=\widehat{\bm S}_{P}$ and choose an arbitrarily small stopping rule $\varepsilon$.
-%\item For $i=1,\ldots,n$ compute $\bm s_i=\bm R_i-\widehat{\bm S}$.
-%\item Calculate
-%\[
-%\bar{\bm R}_W=\frac{\sum_{i=1}^n\bm R_i/||\bm s_i||_F}{\sum_{i=1}^n1/||\bm s_i||_F}
-%\]
-%which we call the weighted mean with respect to $\widehat{\bm S}$.
-%\item Define $\widehat{\bm S}_{\text{new}}$ to be the $\mathcal{M}(3)$ projection of $\bar{\bm R}_W$.
-%\item If $\varepsilon>||\widehat{\bm S}-\widehat{\bm S}_{\text{new}}||_F$ return $\widetilde{\bm{S}}_P=\widehat{\bm S}_{\text{new}}$; otherwise set $\widehat{\bm S}=\widehat{\bm S}_{\text{new}}$ and return to step 2.
-%\end{enumerate}
-
-%The second set of algorithms is based on the relationship between $SO(3)$ and its tangent space $\mathfrak{so}(3)$ through the principal logarithm of a rotation $\bm R$, see Sections~\ref{subsec:geometry} and \ref{subsec:metrics}. The rotation that minimizes the sum of the squared geodesic distances, $\widehat{\bm S}_G$, for a given tolerance level $\varepsilon$ can be found as follows \citep[see][]{manton04}.
-%\begin{enumerate}
-%\item Initiate a value for $\widehat{\bm S}$, e.g. $\widehat{\bm S}= \widehat{\bm S}_P$ .
-%\item Calculate $\bm s=\frac{1}{n}\sum_{i=1}^n\Log(\widehat{\bm{S}}^\top\bm R_i)$.
-%\item If $||\bm s||_F<\varepsilon$ return $\widehat{\bm S}_{G}=\widehat{\bm S}$; otherwise set $\widehat{\bm S}=\widehat{\bm S}\exp(\bm s)$ (see Section~\ref{subsec:geometry}), repeat step 2 and re-evaluate.
-%\end{enumerate}
-
-
-%Finally, to find the minimizer of the first order geodesic distances we use an algorithm developed by \citet{hartley11}.  Similar to $\widetilde{\bm S}_{P}$, this algorithm requires a starting point not in the sample, so we use $\widehat{\bm S}_{G}$ to save computational time.
-%\begin{enumerate}
-%\item Set $\widehat{\bm S}=\widehat{\bm S}_{G}$.
-%\item For each sample point compute $\bm s_i=\Log(\widehat{\bm S}^\top\bm R_i)$.
-%\item Set 
-%\[
-%\bm\delta=\frac{\sum_{i=1}^n \bm s_i/||\bm s_i||_F}{\sum_{i=1}^n 1/||\bm s_i||_F}.
-%\]
-%\item If $||\bm\delta||_F<\varepsilon$ then return $\widetilde{\bm S}_{G}=\widehat{\bm S}$; otherwise update $\widehat{\bm S}=\exp(\bm\delta)\widehat{\bm S}$ and return to step 2.
-%\end{enumerate}
+In the simulation study to follow, for generating random rotation errors based on the construction above, we randomly generate angles $r\in(-\pi,\pi]$ from a given circular density, recalling that the form of $C(r|\kappa)$ depends on the intended symmetric distribution for the rotation errors $\bm{E}$, see also the supplemental material online.
 

@@ -29,3 +29,9 @@ names are as follows:
 in the Data Application are also included.  Load the RData file 'datasetnickel.RData' into your current R session to run this portion of the code.
 
 
+'datasetnickel.RData' is an R-data file consisting of the dataset used in the Data example section of the paper
+	'xpos' are the x-axis positions of each data point
+	'ypos' are the y-axis positions of each data point
+	'data' is a 14-by-9-by-3449 maxtrix.  The first index denotes each of the fourteen scans.  
+										  The second index denotes each element of the 3-by-3 rotations matrices.  
+										  The third index corresponds to the x-y position at the corresponding position in 'xpos' and 'ypos'.
