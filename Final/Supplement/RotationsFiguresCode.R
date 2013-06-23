@@ -1,7 +1,6 @@
-#To install the 'rotations' package, which is not currently available on CRAN, use the following code.
+#To install the 'rotations' package from CRAN use the following code.
 
-library(devtools)
-install_github("rotations","heike")
+install_packages("rotations")
 library(rotations)
 
 #Load the necessary libraries and create the 'tests' function used to create 

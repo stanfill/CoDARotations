@@ -58,7 +58,7 @@ which we call the weighted mean with respect to $\widetilde{\bm S}$. Note that i
 SO(3)}\tr(\bm{S}^{\top}\bar{\bm{R}}_W)$ as the $\mathcal{M}(3)$ projection of $\bar{\bm R}_W$; see (\ref{est:pam}).
 \item If $\varepsilon>||\widetilde{\bm S}-\widetilde{\bm S}_{\text{new}}||_F$ return $\ProjMedian=\widetilde{\bm S}_{\text{new}}$; otherwise set $\widetilde{\bm S}=\widetilde{\bm S}_{\text{new}}$ and return to step 2.
 \end{enumerate}
-For $\R^d$ data steps 2 and 3 of the algorithm agree with the Weiszfeld algorithm, which has been shown to converge to the $d$-dimensional median for convex cost functions such as the Frobenius norm (c.f. \cite{weiszfeld37} for details).  Because $\bar{\bm R}_W$ does not lie in  $SO(3)$ but its ambient space $\mathcal{M}(3)$, $\bar{\bm R}_W$ must be projected into $SO(3)$ (step 4).  Step 5 evaluates the convergence of the algorithm in $SO(3)$.  A short argument that this algorithm indeed converges to $\ProjMedian$ as defined in (\ref{est:med}) is provided in the online supplemental material.
+For $\R^d$ data steps 2 and 3 of the algorithm agree with the Weiszfeld algorithm, which has been shown to converge to the $d$-dimensional median for convex cost functions such as the Frobenius norm (c.f. \cite{weiszfeld37} for details).  Because $\bar{\bm R}_W$ does not lie in  $SO(3)$ but its ambient space $\mathcal{M}(3)$, $\bar{\bm R}_W$ must be projected into $SO(3)$ (step 4).  Step 5 evaluates the convergence of the algorithm in $SO(3)$.  A short argument that this algorithm indeed converges to $\ProjMedian$ as defined in (\ref{est:med}) is provided in the online supplementary material.
 
 \subsection{The geometric mean}
 \label{section:ltwo}
